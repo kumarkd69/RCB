@@ -51,7 +51,7 @@ export default function GloryReel({ items }: { items: GloryMoment[] }) {
 
   const heading = (
     <div className="shrink-0 pr-[6vw] md:w-[34vw]">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">Glory moments</p>
+      <p className="mb-3 text-sm font-semibold text-red">Glory moments</p>
       <h2 id="glory" className="display text-[clamp(3rem,7vw,6rem)] leading-[0.92]">Nights we <span className="text-red">never</span> <span className="text-gradient-gold">forget</span></h2>
       <p className="mt-4 max-w-sm text-muted">Scroll through the wins that made a city cry happy tears.</p>
     </div>

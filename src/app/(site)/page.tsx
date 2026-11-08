@@ -1,7 +1,6 @@
 import Hero from "@/components/home/Hero";
 import MatchDayStrip from "@/components/home/MatchDayStrip";
 import Stats from "@/components/home/Stats";
-import ScrollStory from "@/components/home/ScrollStory";
 import Recognition from "@/components/home/Recognition";
 import Pillars from "@/components/home/Pillars";
 import UpcomingCarousel from "@/components/home/UpcomingCarousel";
@@ -40,7 +39,7 @@ export default async function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
-      <Hero tagline={settings.tagline} nextEvent={upcoming[0] ?? null} />
+      <Hero nextEvent={upcoming[0] ?? null} />
       <MatchDayStrip screening={nextScreening} chapters={chapters} />
 
       {/* Who we are */}
@@ -54,8 +53,6 @@ export default async function HomePage() {
         </div>
         <div className="mt-12"><Stats stats={settings.stats} /></div>
       </section>
-
-      <ScrollStory />
 
       <TrophyCabinet trophies={settings.trophies} />
 
@@ -101,7 +98,7 @@ export default async function HomePage() {
       <section aria-labelledby="vision" className="relative py-32">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,162,39,.12),transparent_60%)]" />
         <div className="container-x relative text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-gold">Our vision</p>
+          <p className="mb-4 text-sm font-semibold text-red">Our vision</p>
           <Reveal><h2 id="vision" className="display mx-auto max-w-5xl text-[clamp(2.2rem,6vw,5rem)] leading-[1.02]">&ldquo;{settings.vision}&rdquo;</h2></Reveal>
           <Reveal delay={0.15}><p className="mx-auto mt-6 max-w-2xl text-lg text-muted">{settings.mission}</p></Reveal>
         </div>

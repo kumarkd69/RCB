@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
 /** 3D tilt + moving glare on pointer. Disabled for touch & reduced motion. */
-export default function TiltCard({ children, className, max = 10 }: { children: React.ReactNode; className?: string; max?: number }) {
+export default function TiltCard({ children, className, max = 5 }: { children: React.ReactNode; className?: string; max?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const move = (e: React.PointerEvent) => {
     if (e.pointerType !== "mouse" || document.documentElement.classList.contains("reduce-motion")) return;
@@ -24,7 +24,6 @@ export default function TiltCard({ children, className, max = 10 }: { children: 
       className={cn("group/tilt relative transition-transform duration-300 ease-[var(--ease-out)] [transform-style:preserve-3d]", className)}
     >
       {children}
-      <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/tilt:opacity-100" style={{ background: "radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,.14), transparent 50%)" }} />
     </div>
   );
 }

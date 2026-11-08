@@ -94,18 +94,20 @@ scripts/build-seed.ts    seed.ts → NDJSON for Sanity import
 
 - **Intro loader** — the crest rises in with a gold flare, a 0→100 counter runs, then red curtains split open. Once per browser session.
 - **Page transitions** — red and gold curtains sweep away on every navigation (`src/app/(site)/template.tsx`).
-- **Trophy cabinet** — pinned section; a 3D gold trophy spins through each title (giant outlined year, confetti that builds up), ending on an IPL/WPL summary table. Titles are edited in Studio → Site settings → RCB trophy cabinet.
+- **Hero** — full-screen fan video (`public/media/fans-hero*.mp4`, poster `fans-hero.jpg`), separate square crop for phones.
+- **Trophy cabinet** — pinned section; the rotating trophy video (`public/media/trophy.mp4`) is blended with `mix-blend-mode: lighten` so its studio-black background disappears into the page. Steps through each title with a giant outlined year, ending on an IPL/WPL summary table. Titles are edited in Studio → Site settings → RCB trophy cabinet.
+- To replace a video, overwrite the file in `public/media/` with the same name (H.264 MP4, no audio, `-movflags +faststart`).
 - **Glory moments** — horizontal pinned reel of winning photos/videos with clip-path reveals and parallax. Upload in Studio → Site settings → Glory moments.
 - **3D jersey** — the club's own fan jersey turns from front (crest) to back (#12, "the 12th man") as you scroll.
 - Headings slide up from behind a mask as they enter the screen.
 
-All of these switch to static versions for reduced-motion users; low-end phones get a static trophy and crest instead of 3D.
+All of these switch to static versions for reduced-motion users.
 
 > Only upload RCB match photos/videos the club owns or has permission to use. The jersey is the club's own design, not RCB's official kit.
 
 ## Performance & accessibility notes
 
-- The 3D hero (Three.js) is code-split and loads only after the page is idle, and **never** on reduced-motion, low-memory/low-CPU, data-saver or no-WebGL devices. Those get a CSS floodlight scene instead.
+- The hero shows a poster image first (fast LCP); the video fades in over it. Reduced-motion users get the still poster. The 3D jersey is code-split and skipped on low-end devices.
 - The Karnataka map is 2.5D (SVG + CSS 3D), so it is light and keyboard/screen-reader friendly.
 - `prefers-reduced-motion` disables Lenis smooth scroll, parallax, pinned scroll, 3D, marquee and tilt.
 - Lightbox: arrow keys, Escape, swipe; focus returns to the opened photo.

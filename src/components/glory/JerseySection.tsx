@@ -57,7 +57,7 @@ export default function JerseySection() {
 
         <div className="container-x pointer-events-none relative flex h-full items-end pb-16 md:items-center md:pb-0">
           <div className="max-w-md">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">The jersey</p>
+            <p className="mb-3 text-sm font-semibold text-red">The jersey</p>
             <h2 id="jersey" className="sr-only">Wear the red. Bleed gold. Be the 12th man.</h2>
             <AnimatePresence mode="wait">
               <motion.div key={i} aria-hidden initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>

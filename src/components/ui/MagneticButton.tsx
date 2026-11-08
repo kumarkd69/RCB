@@ -16,9 +16,9 @@ type Props = {
 };
 
 const styles = {
-  red: "bg-gradient-to-b from-red to-red-deep text-white shadow-[0_10px_30px_-8px_rgba(215,25,32,.8)] hover:shadow-[0_14px_40px_-6px_rgba(215,25,32,1)]",
-  gold: "bg-gradient-to-b from-gold-soft to-gold text-black shadow-[0_10px_30px_-10px_rgba(201,162,39,.8)]",
-  ghost: "glass text-text hover:bg-white/10",
+  red: "bg-red text-white hover:bg-[#b5141a]",
+  gold: "bg-gold text-black hover:bg-gold-soft",
+  ghost: "border border-white/25 text-text hover:border-white hover:bg-white/5",
 };
 const sizes = { sm: "px-5 py-2 text-sm", md: "px-7 py-3 text-base", lg: "px-9 py-4 text-lg" };
 
@@ -31,10 +31,10 @@ export default function MagneticButton({ href, children, variant = "red", size =
     const r = el.getBoundingClientRect();
     const x = e.clientX - (r.left + r.width / 2);
     const y = e.clientY - (r.top + r.height / 2);
-    el.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+    el.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
   };
   const leave = () => { if (ref.current) ref.current.style.transform = ""; };
-  const cls = cn("sweep inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-wide transition-[transform,box-shadow,background] duration-300 ease-[var(--ease-out)] disabled:opacity-50", styles[variant], sizes[size], className);
+  const cls = cn("inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-300 ease-[var(--ease-out)] disabled:opacity-50", styles[variant], sizes[size], className);
 
   const inner = href ? (
     external ? (

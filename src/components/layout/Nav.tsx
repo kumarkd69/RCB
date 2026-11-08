@@ -31,7 +31,7 @@ export default function Nav({ logo }: { logo: Img }) {
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", solid || open ? "glass !border-x-0 !border-t-0 py-2" : "bg-transparent py-4")}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", solid || open ? "border-b border-line bg-black/85 py-2 backdrop-blur-md" : "bg-transparent py-4")}>
       <nav aria-label="Main" className="container-x flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
           <Logo logo={logo} size={48} priority />
@@ -54,7 +54,7 @@ export default function Nav({ logo }: { logo: Img }) {
             </li>
           ))}
           <li className="ml-4">
-            <MagneticButton href="/join" variant="red" size="sm">Join Us</MagneticButton>
+            <MagneticButton href="/join" variant="red" size="sm">Join Community</MagneticButton>
           </li>
         </ul>
 

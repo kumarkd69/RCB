@@ -8,8 +8,7 @@ import { Icon } from "../ui/Icon";
 export default function Footer({ settings, chapters }: { settings: SiteSettings; chapters: Chapter[] }) {
   const badge = settings.recognition.badge;
   return (
-    <footer className="relative mt-24 overflow-hidden border-t border-line bg-gradient-to-b from-black to-[#140405]">
-      <div aria-hidden className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-red/20 blur-3xl" />
+    <footer className="relative mt-24 overflow-hidden border-t border-line bg-black">
       <div className="container-x relative grid gap-12 py-16 md:grid-cols-4">
         <div className="space-y-4 md:col-span-1">
           <div className="flex items-center gap-3">
