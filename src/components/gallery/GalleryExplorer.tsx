@@ -15,7 +15,7 @@ export default function GalleryExplorer({ albums, chapters }: { albums: Album[];
     (f.kind === "all" || i.kind === f.kind));
 
   const sel = (label: string, key: keyof typeof f, opts: [string, string][]) => (
-    <label className="flex flex-col gap-1 text-xs uppercase tracking-widest text-muted">
+    <label className="flex flex-col gap-1 text-xs text-muted">
       {label}
       <select value={f[key]} onChange={(e) => setF({ ...f, [key]: e.target.value })} className="glass max-w-56 rounded-full px-4 py-2 text-sm normal-case tracking-normal text-text">
         <option value="all">All</option>

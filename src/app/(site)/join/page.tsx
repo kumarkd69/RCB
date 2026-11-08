@@ -15,7 +15,7 @@ export default async function JoinPage() {
   const [chapters, faqs, settings] = await Promise.all([getChapters(), getFaqs(), getSettings()]);
   return (
     <>
-      <PageHero eyebrow="Join us" title={<>Join the <span className="text-red">Army</span></>} kicker="Free membership. Screenings, fan meets, away trips and a WhatsApp family in your city." />
+      <PageHero eyebrow="Join us" title={<>Join the community</>} kicker="Free membership. Screenings, fan meets, away trips and a WhatsApp group in your city" />
 
       <div className="container-x grid gap-10 lg:grid-cols-[1.4fr_1fr]">
         <section aria-labelledby="member" className="glass rounded-[2rem] p-6 md:p-10">
@@ -29,7 +29,7 @@ export default async function JoinPage() {
             <h2 className="display mt-3 text-3xl">WhatsApp community</h2>
             <p className="mt-2 text-muted">Match-day plans, ticket alerts and screening venues, straight to your phone.</p>
             <div className="mt-5">
-              {settings.whatsappLink ? <MagneticButton href={settings.whatsappLink} external variant="ghost">Join on WhatsApp</MagneticButton> : <p className="text-sm italic text-muted">[PLACEHOLDER] WhatsApp link coming soon.</p>}
+              {settings.whatsappLink ? <MagneticButton href={settings.whatsappLink} external variant="ghost">Join on WhatsApp</MagneticButton> : <p className="text-sm text-muted">[PLACEHOLDER] WhatsApp link coming soon.</p>}
             </div>
           </div>
           <div className="glass rounded-[2rem] p-8">
@@ -51,12 +51,12 @@ export default async function JoinPage() {
       </div>
 
       <section id="contact" aria-labelledby="contact-h" className="container-x scroll-mt-28 pt-24">
-        <SectionHeading eyebrow="Contact" title={<span id="contact-h">Let&apos;s <span className="text-gradient-gold">talk</span></span>} kicker="Sponsorships, media, collaborations or just a hello." />
+        <SectionHeading eyebrow="Contact" title={<span id="contact-h">Contact us</span>} kicker="Sponsorships, media, collaborations or just a hello." />
         <div className="glass rounded-[2rem] p-6 md:p-10"><ContactForm /></div>
       </section>
 
       <section aria-labelledby="faq" className="container-x pt-24">
-        <SectionHeading eyebrow="FAQ" title={<span id="faq">Got <span className="text-red">questions?</span></span>} />
+        <SectionHeading eyebrow="FAQ" title={<span id="faq">Questions</span>} />
         <Faq items={faqs} />
       </section>
     </>

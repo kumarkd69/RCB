@@ -11,9 +11,9 @@ import MagneticButton from "../ui/MagneticButton";
 const JerseyScene = dynamic(() => import("./JerseyScene"), { ssr: false });
 
 const lines = [
-  { k: "Wear", w: "the red.", b: "Every match day, every city. Our colours, our pride." },
-  { k: "Bleed", w: "gold.", b: "From the first ball to the last chant, we never sit down." },
-  { k: "Be the", w: "12th man.", b: "The team plays with eleven. We are number twelve." },
+  { k: "Wear", w: "the red", b: "Every match day, every city. Our colours, our pride." },
+  { k: "Bleed", w: "gold", b: "From the first ball to the last chant, we never sit down." },
+  { k: "Be the", w: "12th man", b: "The team plays with eleven. We are number twelve." },
 ];
 
 /** Pinned 3D fan-jersey turn: front → back (#12) → front as you scroll. */
@@ -38,9 +38,9 @@ export default function JerseySection() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/logo-600.webp" alt="Namma RCB HQ crest" className="mx-auto w-56" loading="lazy" />
         <div>
-          <h2 id="jersey" className="display text-6xl">Wear the red. <span className="text-gradient-gold">Be the 12th man.</span></h2>
+          <h2 id="jersey" className="display text-6xl">Wear the red, be the 12th man</h2>
           <p className="mt-4 text-lg text-muted">{lines[2].b}</p>
-          <div className="mt-6"><MagneticButton href="/join">Join the Army</MagneticButton></div>
+          <div className="mt-6"><MagneticButton href="/join">Join the community</MagneticButton></div>
         </div>
       </section>
     );
@@ -57,8 +57,8 @@ export default function JerseySection() {
 
         <div className="container-x pointer-events-none relative flex h-full items-end pb-16 md:items-center md:pb-0">
           <div className="max-w-md">
-            <p className="mb-3 text-sm font-semibold text-red">The jersey</p>
-            <h2 id="jersey" className="sr-only">Wear the red. Bleed gold. Be the 12th man.</h2>
+            <p className="eyebrow mb-3">The jersey</p>
+            <h2 id="jersey" className="sr-only">Wear the red, bleed gold, be the 12th man</h2>
             <AnimatePresence mode="wait">
               <motion.div key={i} aria-hidden initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                 <p className="display text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.9]">
@@ -71,7 +71,7 @@ export default function JerseySection() {
                 <p className="mt-4 text-lg text-muted">{lines[i].b}</p>
               </motion.div>
             </AnimatePresence>
-            <div className="pointer-events-auto mt-6"><MagneticButton href="/join" variant="gold">Join the Army</MagneticButton></div>
+            <div className="pointer-events-auto mt-6"><MagneticButton href="/join" variant="gold">Join the community</MagneticButton></div>
           </div>
         </div>
       </div>

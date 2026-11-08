@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import Lenis from "lenis";
+import { MotionConfig } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -36,5 +37,9 @@ export default function MotionProvider({ children }: { children: React.ReactNode
     return () => { gsap.ticker.remove(tick); lenis.destroy(); };
   }, [state.reduced]);
 
-  return <MotionCtx.Provider value={state}>{children}</MotionCtx.Provider>;
+  return (
+    <MotionCtx.Provider value={state}>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </MotionCtx.Provider>
+  );
 }

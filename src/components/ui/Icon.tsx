@@ -24,7 +24,7 @@ const paths: Record<string, React.ReactNode> = {
 
 export function Icon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
       {paths[name] ?? paths.star}
     </svg>
   );

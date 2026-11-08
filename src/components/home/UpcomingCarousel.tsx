@@ -8,7 +8,7 @@ import { Icon } from "../ui/Icon";
 export default function UpcomingCarousel({ events }: { events: ClubEvent[] }) {
   const track = useRef<HTMLUListElement>(null);
   const go = (dir: 1 | -1) => track.current?.scrollBy({ left: dir * track.current.clientWidth * 0.8, behavior: "smooth" });
-  if (!events.length) return <p className="text-muted">No upcoming events right now. Check back soon!</p>;
+  if (!events.length) return <p className="text-muted">No upcoming events yet</p>;
   return (
     <div className="relative">
       <ul ref={track} tabIndex={0} aria-label="Upcoming events" className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:-mx-0 md:px-0">

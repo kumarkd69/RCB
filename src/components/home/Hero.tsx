@@ -85,7 +85,7 @@ export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
       {nextEvent && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }} className="absolute bottom-6 right-4 hidden items-center gap-5 border-l-2 border-red bg-black/55 py-3 pl-4 pr-5 backdrop-blur-md md:right-8 md:flex">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-white/60">Next up · {fmtDate(nextEvent.date, { day: "numeric", month: "short" })}</p>
+            <p className="text-xs font-semibold text-white/60">Next up · {fmtDate(nextEvent.date, { day: "numeric", month: "short" })}</p>
             <Link href={`/events/${nextEvent.slug}`} className="font-semibold hover:text-gold">{nextEvent.title}</Link>
           </div>
           <Countdown to={nextEvent.date} compact />

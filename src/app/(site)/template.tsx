@@ -1,10 +1,12 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
-/** Page-enter transition: red + gold curtains sweep up off the screen on every navigation. */
+/**
+ * Page-enter transition: red + gold curtains sweep up off the screen on every navigation.
+ * Same markup on server and client; reduced motion is handled by CSS (curtains hidden)
+ * and MotionConfig (transforms skipped), so hydration always matches.
+ */
 export default function Template({ children }: { children: React.ReactNode }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <>{children}</>;
   const ease = [0.76, 0, 0.24, 1] as const;
   return (
     <>

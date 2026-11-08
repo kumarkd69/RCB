@@ -45,9 +45,9 @@ export default async function HomePage() {
       {/* Who we are */}
       <section aria-labelledby="who" className="container-x py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-end">
-          <SectionHeading eyebrow="Who we are" title={<span id="who">One city.<br />One <span className="text-red">heartbeat.</span></span>} className="mb-0" />
+          <SectionHeading eyebrow="Who we are" title={<span id="who">One city<br />One heartbeat</span>} className="mb-0" />
           <Reveal delay={0.1}>
-            <p className={isPlaceholder(settings.intro) ? "text-lg italic text-muted" : "text-lg text-muted"}>{settings.intro}</p>
+            <p className="text-lg text-muted">{settings.intro}</p>
             <div className="mt-6"><MagneticButton href="/about" variant="ghost">Our story</MagneticButton></div>
           </Reveal>
         </div>
@@ -63,13 +63,13 @@ export default async function HomePage() {
       <Recognition r={settings.recognition} />
 
       <section aria-labelledby="pillars" className="container-x py-16">
-        <SectionHeading eyebrow="What we do" title={<span id="pillars">More than <span className="text-gradient-gold">fandom</span></span>} />
+        <SectionHeading eyebrow="What we do" title={<span id="pillars">Six things we do every season</span>} />
         <Pillars pillars={settings.pillars} />
       </section>
 
       <section aria-labelledby="upcoming" className="container-x py-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Upcoming" title={<span id="upcoming">Next on the <span className="text-red">calendar</span></span>} />
+          <SectionHeading eyebrow="Upcoming" title={<span id="upcoming">Coming up</span>} />
           <div className="mb-10"><MagneticButton href="/events" variant="ghost" size="sm">All events</MagneticButton></div>
         </div>
         <UpcomingCarousel events={upcoming.slice(0, 3)} />
@@ -77,19 +77,19 @@ export default async function HomePage() {
 
       <section aria-labelledby="chapters" className="relative overflow-hidden py-24">
         <div className="container-x">
-          <SectionHeading eyebrow="Chapters" title={<span id="chapters">Red across <span className="text-gradient-gold">Karnataka</span></span>} kicker="Tap a pin to meet a chapter." />
+          <SectionHeading eyebrow="Chapters" title={<span id="chapters">Chapters across Karnataka</span>} kicker="Tap a pin to see a chapter" />
           <ChapterMap chapters={chapters} />
         </div>
       </section>
 
       <section aria-labelledby="highlights" className="py-24">
-        <div className="container-x"><SectionHeading eyebrow="Highlights" title={<span id="highlights">Moments we <span className="text-red">live for</span></span>} /></div>
+        <div className="container-x"><SectionHeading eyebrow="Highlights" title={<span id="highlights">From our screenings and drives</span>} /></div>
         <Highlights items={settings.highlights} />
       </section>
 
       <section aria-labelledby="insta" className="container-x py-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Live from Instagram" title={<span id="insta">Fresh from the <span className="text-gradient-gold">stands</span></span>} />
+          <SectionHeading eyebrow="Live from Instagram" title={<span id="insta">Fresh from the stands</span>} />
           <div className="mb-10"><MagneticButton href="/gallery#instagram" variant="ghost" size="sm">Full gallery</MagneticButton></div>
         </div>
         <InstagramGrid posts={insta.posts} connected={insta.connected} limit={8} />
@@ -98,7 +98,7 @@ export default async function HomePage() {
       <section aria-labelledby="vision" className="relative py-32">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,162,39,.12),transparent_60%)]" />
         <div className="container-x relative text-center">
-          <p className="mb-4 text-sm font-semibold text-red">Our vision</p>
+          <p className="eyebrow mb-4">Our vision</p>
           <Reveal><h2 id="vision" className="display mx-auto max-w-5xl text-[clamp(2.2rem,6vw,5rem)] leading-[1.02]">&ldquo;{settings.vision}&rdquo;</h2></Reveal>
           <Reveal delay={0.15}><p className="mx-auto mt-6 max-w-2xl text-lg text-muted">{settings.mission}</p></Reveal>
         </div>

@@ -20,7 +20,7 @@ export default function MatchDayStrip({ screening, chapters }: { screening: Club
               <p className="text-sm text-white/85">{fmtDate(screening.date)} · {fmtTime(screening.date)} IST</p>
             </div>
           ) : (
-            <h2 id="matchday" className="display text-2xl">Fixtures announced soon. Stay loud.</h2>
+            <h2 id="matchday" className="display text-2xl">Fixtures not announced yet</h2>
           )}
         </div>
         <ul className="flex flex-wrap gap-2 text-sm" aria-label="Screening venues by chapter">

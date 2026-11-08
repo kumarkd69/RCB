@@ -8,7 +8,7 @@ import type { Chapter } from "@/lib/types";
 import { Icon } from "../ui/Icon";
 
 /**
- * 2.5D Karnataka map: extruded SVG outline on a tilted plane with glowing chapter pins.
+ * 2.5D Karnataka map: extruded SVG outline on a tilted plane with chapter pins.
  * Pins are real links/buttons, so the map works with keyboard and screen readers.
  */
 export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
@@ -29,7 +29,6 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
   return (
     <div className="grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
       <div onPointerMove={move} onPointerLeave={leave} className="relative mx-auto aspect-[4/5] w-full max-w-xl [perspective:1400px]">
-        <div aria-hidden className="absolute inset-[10%] rounded-full bg-red/20 blur-[80px]" />
         <div ref={plane} className="relative h-full w-full transition-transform duration-700 ease-[var(--ease-out)] [transform-style:preserve-3d] [transform:rotateX(32deg)_rotateZ(-8deg)]">
           <svg viewBox={`0 0 ${KA_VIEWBOX.w} ${KA_VIEWBOX.h}`} className="absolute inset-0 h-full w-full overflow-visible" role="img" aria-label="Map of Karnataka with Namma RCB HQ chapters">
             <defs>
@@ -40,19 +39,16 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
               <pattern id="ka-grid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <path d="M40 0H0V40" fill="none" stroke="rgba(201,162,39,.12)" strokeWidth="1" />
               </pattern>
-              <filter id="ka-glow"><feGaussianBlur stdDeviation="6" /></filter>
             </defs>
             {/* extrusion: stacked offset copies */}
             {layers.map((o, i) => (
               <path key={o} d={KA_PATH} transform={`translate(0 ${o})`} fill={i === 0 ? "#050101" : "#1a0405"} stroke="#3d0a0d" strokeWidth="2" />
             ))}
-            <path d={KA_PATH} fill="url(#ka-top)" stroke="#d71920" strokeWidth="3" />
+            <path d={KA_PATH} fill="url(#ka-top)" stroke="#d71920" strokeWidth="2.5" />
             <path d={KA_PATH} fill="url(#ka-grid)" />
-            <path d={KA_PATH} fill="none" stroke="#d71920" strokeWidth="10" opacity=".5" filter="url(#ka-glow)" />
 
             {/* HQ pin */}
             <g transform={`translate(${hq.x} ${hq.y})`}>
-              <circle r="38" fill="#c9a227" opacity=".25" className="origin-center animate-[pulse-ring_2.4s_ease-out_infinite]" style={{ transformBox: "fill-box" }} />
               <circle r="14" fill="#c9a227" />
               <text x="24" y="8" fill="#e5c96a" fontSize="38" fontFamily="var(--font-anton)">HQ</text>
             </g>
@@ -75,11 +71,10 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
                 className={`group absolute -translate-x-1/2 -translate-y-full [transform-style:preserve-3d] ${on ? "z-20" : "z-10"}`}
               >
                 <span className="relative block origin-bottom [transform:rotateX(-32deg)]">
-                  <span className={`absolute left-1/2 top-full h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red ${on ? "opacity-80" : "opacity-40"} animate-[pulse-ring_2s_ease-out_infinite]`} />
                   <span className={`relative flex flex-col items-center transition-transform duration-300 ${on ? "-translate-y-2 scale-110" : "group-hover:-translate-y-1"}`}>
-                    <span className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-lg transition-opacity ${on ? "bg-gold text-black opacity-100" : "bg-red text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"}`}>{c.name}</span>
+                    <span className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold shadow-lg transition-opacity ${on ? "bg-gold text-black opacity-100" : "bg-red text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"}`}>{c.name}</span>
                     <span className={`h-6 w-0.5 ${on ? "bg-gold" : "bg-red"}`} />
-                    <span className={`h-3 w-3 rounded-full ${on ? "bg-gold shadow-[0_0_20px_#c9a227]" : "bg-red shadow-[0_0_20px_#d71920]"}`} />
+                    <span className={`h-3 w-3 rounded-full ${on ? "bg-gold" : "bg-red"}`} />
                   </span>
                 </span>
               </button>
@@ -92,7 +87,7 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
         <AnimatePresence mode="wait">
           {current && (
             <motion.div key={current.slug} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.4 }} className="glass rounded-[var(--radius)] p-6 md:p-8">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold">{current.city}</p>
+              <p className="text-xs text-muted">{current.city}</p>
               <h3 className="display mt-1 text-5xl">{current.name}</h3>
               <p className="mt-3 text-muted">{current.about}</p>
               <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">

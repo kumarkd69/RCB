@@ -13,7 +13,7 @@ const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: IST, year:
 
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
-    <label className="flex flex-col gap-1 text-xs uppercase tracking-widest text-muted">
+    <label className="flex flex-col gap-1 text-xs text-muted">
       {label}
       <select value={value} onChange={(e) => onChange(e.target.value)} className="glass rounded-full px-4 py-2 text-sm normal-case tracking-normal text-text">
         <option value="all">All</option>
@@ -46,7 +46,7 @@ function Calendar({ events }: { events: ClubEvent[] }) {
         <button onClick={() => shift(1)} aria-label="Next month" className="grid h-10 w-10 place-items-center rounded-full hover:bg-white/10"><Icon name="chevR" /></button>
       </div>
       <div role="grid" aria-label="Event calendar" className="grid grid-cols-7 gap-1 text-sm">
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => <div key={d} role="columnheader" className="pb-2 text-center text-[10px] uppercase tracking-widest text-muted">{d}</div>)}
+        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => <div key={d} role="columnheader" className="pb-2 text-center text-xs text-muted">{d}</div>)}
         {days.map((d) => {
           const k = ymd(d), list = byDay.get(k) ?? [], inMonth = d.getMonth() === cursor.getMonth();
           return (

@@ -17,7 +17,7 @@ export default async function ChaptersPage() {
   const chapters = await getChapters();
   return (
     <>
-      <PageHero eyebrow="Chapters" title={<>Every city. <span className="text-red">One roar.</span></>} kicker="Find your local chapter, meet the lead and join the next screening." />
+      <PageHero eyebrow="Chapters" title={<>Every city, one roar</>} kicker="Find your local chapter, meet the lead and join the next screening." />
       <div className="container-x">
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {chapters.map((c, i) => (
@@ -25,7 +25,7 @@ export default async function ChaptersPage() {
               <TiltCard className="rounded-[var(--radius)]">
                 <article className="glass group relative overflow-hidden rounded-[var(--radius)]">
                   <div className="relative aspect-[4/3]">
-                    <Media img={c.cover} label={c.name} seed={i} className="transition-transform duration-700 group-hover:scale-105" />
+                    <Media img={c.cover} label={c.name} seed={i} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
                     <h2 className="display absolute bottom-4 left-5 text-5xl"><Link href={`/chapters/${c.slug}`} className="after:absolute after:inset-0">{c.name}</Link></h2>
                   </div>
@@ -40,12 +40,12 @@ export default async function ChaptersPage() {
         </ul>
 
         <section aria-labelledby="map" className="py-24">
-          <SectionHeading eyebrow="Map" title={<span id="map">Find us on the <span className="text-gradient-gold">map</span></span>} />
+          <SectionHeading eyebrow="Map" title={<span id="map">Find your chapter</span>} />
           <ChapterMap chapters={chapters} />
         </section>
 
         <section id="start" aria-labelledby="start-h" className="scroll-mt-28">
-          <SectionHeading eyebrow="Grow the family" title={<span id="start-h">Start a chapter in <span className="text-red">your city</span></span>} kicker="Got a group of RCB fans? We'll help with branding, screenings and your first event." />
+          <SectionHeading eyebrow="Grow the family" title={<span id="start-h">Start a chapter in your city</span>} kicker="Got a group of RCB fans? We'll help with branding, screenings and your first event." />
           <div className="glass rounded-[2rem] p-6 md:p-10"><ChapterForm /></div>
         </section>
       </div>

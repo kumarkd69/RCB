@@ -31,7 +31,7 @@ export default function Nav({ logo }: { logo: Img }) {
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", solid || open ? "border-b border-line bg-black/85 py-2 backdrop-blur-md" : "bg-transparent py-4")}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,padding] duration-300", solid || open ? "border-b border-line bg-black/85 py-2 backdrop-blur-md" : "bg-transparent py-4")}>
       <nav aria-label="Main" className="container-x flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
           <Logo logo={logo} size={48} priority />
@@ -48,7 +48,7 @@ export default function Nav({ logo }: { logo: Img }) {
                 aria-current={active(n.href) ? "page" : undefined}
                 className={cn("relative rounded-full px-4 py-2 text-sm font-medium text-text/80 transition hover:text-text", active(n.href) && "text-text")}
               >
-                {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-full bg-white/10" transition={{ type: "spring", bounce: 0.2 }} />}
+                {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-full bg-white/10" transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} />}
                 {n.label}
               </Link>
             </li>

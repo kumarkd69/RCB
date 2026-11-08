@@ -21,7 +21,7 @@ function Card({ m, i }: { m: GloryMoment; i: number }) {
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
       <figcaption className="absolute inset-x-0 bottom-0 p-6">
-        {m.year && <p className="text-xs uppercase tracking-[0.3em] text-gold">{m.league} · {m.year}</p>}
+        {m.year && <p className="text-xs text-muted">{m.league} · {m.year}</p>}
         <p className="display mt-1 text-4xl md:text-5xl">{m.title}</p>
       </figcaption>
     </figure>
@@ -51,9 +51,9 @@ export default function GloryReel({ items }: { items: GloryMoment[] }) {
 
   const heading = (
     <div className="shrink-0 pr-[6vw] md:w-[34vw]">
-      <p className="mb-3 text-sm font-semibold text-red">Glory moments</p>
-      <h2 id="glory" className="display text-[clamp(3rem,7vw,6rem)] leading-[0.92]">Nights we <span className="text-red">never</span> <span className="text-gradient-gold">forget</span></h2>
-      <p className="mt-4 max-w-sm text-muted">Scroll through the wins that made a city cry happy tears.</p>
+      <p className="eyebrow mb-3">Glory moments</p>
+      <h2 id="glory" className="display text-[clamp(3rem,7vw,6rem)] leading-[0.92]">Nights we never forget</h2>
+      <p className="mt-4 max-w-sm text-muted">The wins that made a city cry happy tears</p>
     </div>
   );
 

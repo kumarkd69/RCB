@@ -11,7 +11,7 @@ export default async function EventsPage() {
   const { upcoming, past } = splitEvents(events);
   return (
     <>
-      <PageHero eyebrow="Events" title={<>Where the <span className="text-red">noise</span> happens</>} kicker="Screenings, fan meets, away trips and social drives across every chapter." />
+      <PageHero eyebrow="Events" title={<>Every screening, meet and drive</>} kicker="Screenings, fan meets, away trips and social drives across every chapter." />
       <div className="container-x"><EventsExplorer upcoming={upcoming} past={past} chapters={chapters} /></div>
     </>
   );

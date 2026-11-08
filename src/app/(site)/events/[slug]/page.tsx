@@ -66,9 +66,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <div className="container-x">
           <Link href="/events" className="mb-6 inline-flex items-center gap-2 text-sm text-muted hover:text-gold"><Icon name="chevL" className="h-4 w-4" />All events</Link>
           <div className="mb-4 flex flex-wrap gap-2">
-            <span className="rounded-full bg-red px-3 py-1 text-xs font-bold uppercase tracking-wider">{EVENT_TYPE_LABEL[e.type]}</span>
-            <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">{LEAGUE_LABEL[e.league]}</span>
-            {isPast && <span className="rounded-full border border-line px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted">Past event</span>}
+            <span className="rounded-full bg-red px-3 py-1 text-xs font-bold">{EVENT_TYPE_LABEL[e.type]}</span>
+            <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-bold text-gold">{LEAGUE_LABEL[e.league]}</span>
+            {isPast && <span className="rounded-full border border-line px-3 py-1 text-xs font-bold text-muted">Past event</span>}
           </div>
           <h1 className="display max-w-4xl text-[clamp(3rem,9vw,7rem)]">{e.title}</h1>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-text/90">
@@ -94,7 +94,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               {e.recap && <p className="mt-3 text-lg text-muted">{e.recap}</p>}
               {e.impactStats?.length ? (
                 <dl className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
-                  {e.impactStats.map((s) => <div key={s.label} className="rounded-xl bg-white/5 p-4"><dd className="display text-4xl text-gradient-gold">{s.value}</dd><dt className="text-xs uppercase tracking-widest text-muted">{s.label}</dt></div>)}
+                  {e.impactStats.map((s) => <div key={s.label} className="rounded-xl bg-white/5 p-4"><dd className="display text-4xl text-gradient-gold">{s.value}</dd><dt className="text-xs text-muted">{s.label}</dt></div>)}
                 </dl>
               ) : null}
             </section>
@@ -104,7 +104,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               <h2 id="schedule" className="display mb-4 text-4xl">Schedule</h2>
               <ol className="relative space-y-4 border-l border-red/50 pl-6">
                 {e.schedule.map((s, i) => (
-                  <li key={i} className="relative"><span className="absolute -left-[1.95rem] top-1.5 h-3 w-3 rounded-full bg-red shadow-[var(--glow-red)]" /><span className="display text-xl text-gold">{s.time}</span><p className="text-muted">{s.item}</p></li>
+                  <li key={i} className="relative"><span className="absolute -left-[1.95rem] top-1.5 h-3 w-3 rounded-full bg-red" /><span className="display text-xl text-gold">{s.time}</span><p className="text-muted">{s.item}</p></li>
                 ))}
               </ol>
             </section>

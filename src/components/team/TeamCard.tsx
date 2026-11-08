@@ -25,7 +25,7 @@ export default function TeamCard({ m, i = 0 }: { m: Pick<TeamMember, "name" | "r
         {/* back */}
         <div className="absolute inset-0 flex flex-col justify-between rounded-[var(--radius)] border border-gold/40 bg-gradient-to-br from-red-deep to-black p-5 [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flip}>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gold">{m.chapter?.name ?? "Core team"}</p>
+            <p className="text-xs text-muted">{m.chapter?.name ?? "Core team"}</p>
             <h3 className="display mt-2 text-3xl">{m.name}</h3>
             <p className="mt-1 text-lg">{m.role}</p>
           </div>

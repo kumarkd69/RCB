@@ -23,12 +23,12 @@ export default function Footer({ settings, chapters }: { settings: SiteSettings;
             ) : (
               <span title="[PLACEHOLDER] Recognition badge" className="grid h-10 w-10 place-items-center rounded-full border border-dashed border-gold text-gold"><Icon name="star" className="h-5 w-5" /></span>
             )}
-            <span className="text-xs leading-tight"><span className="block font-semibold text-gold">Recognized by RCB</span>Official fan club</span>
+            <span className="text-xs leading-tight"><span className="block font-medium text-text">Recognised by RCB</span>Official fan club</span>
           </div>
         </div>
 
         <div>
-          <h2 className="display mb-4 text-lg text-gold">Explore</h2>
+          <h2 className="mb-4 text-sm font-medium text-text">Explore</h2>
           <ul className="space-y-2 text-sm">
             {[...nav, { href: "/join", label: "Join Us" }].map((n) => (
               <li key={n.href}><Link className="text-muted hover:text-text" href={n.href}>{n.label}</Link></li>
@@ -38,11 +38,11 @@ export default function Footer({ settings, chapters }: { settings: SiteSettings;
         </div>
 
         <div>
-          <h2 className="display mb-4 text-lg text-gold">Chapters</h2>
+          <h2 className="mb-4 text-sm font-medium text-text">Chapters</h2>
           <ul className="space-y-2 text-sm">
             {instagramAccounts.map((a) => (
               <li key={a.key} className="flex items-center gap-2">
-                <Icon name="instagram" className="h-4 w-4 text-red" />
+                <Icon name="instagram" className="h-4 w-4 text-faint" />
                 {a.handle ? (
                   <a className="text-muted hover:text-text" href={`https://www.instagram.com/${a.handle}/`} target="_blank" rel="noopener noreferrer">
                     {a.label} · @{a.handle}
@@ -57,14 +57,14 @@ export default function Footer({ settings, chapters }: { settings: SiteSettings;
         </div>
 
         <div>
-          <h2 className="display mb-4 text-lg text-gold">Contact</h2>
+          <h2 className="mb-4 text-sm font-medium text-text">Contact</h2>
           <ul className="space-y-2 text-sm text-muted">
             {settings.contactEmail && <li><a className="hover:text-text" href={`mailto:${settings.contactEmail}`}>{settings.contactEmail}</a></li>}
             {settings.contactPhone && <li><a className="hover:text-text" href={`tel:${settings.contactPhone}`}>{settings.contactPhone}</a></li>}
             {settings.whatsappLink && <li><a className="hover:text-text" href={settings.whatsappLink} target="_blank" rel="noopener noreferrer">WhatsApp community</a></li>}
             <li><Link className="hover:text-text" href="/join#contact">Send us a message</Link></li>
           </ul>
-          <h2 className="display mb-3 mt-6 text-lg text-gold">Official RCB</h2>
+          <h2 className="mb-3 mt-8 text-sm font-medium text-text">Official RCB</h2>
           <ul className="space-y-2 text-sm">
             <li><a className="text-muted hover:text-text" href={site.rcbLinks.website} target="_blank" rel="noopener noreferrer">royalchallengers.com ↗</a></li>
             <li><a className="text-muted hover:text-text" href={site.rcbLinks.app} target="_blank" rel="noopener noreferrer">RCB app ↗</a></li>

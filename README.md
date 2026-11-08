@@ -105,6 +105,16 @@ All of these switch to static versions for reduced-motion users.
 
 > Only upload RCB match photos/videos the club owns or has permission to use. The jersey is the club's own design, not RCB's official kit.
 
+## Design system
+
+Design pass guided by [unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky ([@heydamir](https://x.com/heydamir)), CC BY 4.0.
+
+- **Character:** loud, loyal, local. **World:** a night match at Chinnaswamy.
+- Warm dark neutral ramp (`--c-black`, `--c-ink`, `--c-raised`), three text roles (`text`, `muted`, `faint`), RCB red as the one accent. Gold appears only in the trophy cabinet.
+- Rich colour lives in two moments only: the fan video hero and the trophy video.
+- Signature: the slanted red stroke from the hero, used before every section label (`.eyebrow`).
+- No glows, gradient text, glass, grain, pulsing or hover tilt. Sentence-case labels, no trailing periods in headings.
+
 ## Performance & accessibility notes
 
 - The hero shows a poster image first (fast LCP); the video fades in over it. Reduced-motion users get the still poster. The 3D jersey is code-split and skipped on low-end devices.

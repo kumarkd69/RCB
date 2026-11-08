@@ -21,7 +21,7 @@ export function MembershipForm({ chapters }: { chapters: Opt }) {
       <Field name="instagram" label="Instagram handle" placeholder="@yourhandle" />
       <div className="md:col-span-2 flex flex-col gap-3">
         <FormStatus state={state} />
-        <MagneticButton type="submit" size="lg" disabled={pending}>{pending ? "Sending…" : "Join the Army"}</MagneticButton>
+        <MagneticButton type="submit" size="lg" disabled={pending}>{pending ? "Sending…" : "Join the community"}</MagneticButton>
       </div>
     </form>
   );

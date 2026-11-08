@@ -44,7 +44,7 @@ export default function IntroLoader() {
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
         <div data-crest className="relative h-[38vh] max-h-80" style={{ aspectRatio: "0.68" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-600.webp" alt="" className="h-full w-full object-contain drop-shadow-[0_0_40px_rgba(201,162,39,.5)]" />
+          <img src="/brand/logo-600.webp" alt="" className="h-full w-full object-contain" />
           <div className="absolute inset-0 overflow-hidden [mask-image:url(/brand/logo-600.webp)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]"><div data-flare className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent" /></div>
         </div>
         <div data-meta className="flex items-end gap-6">

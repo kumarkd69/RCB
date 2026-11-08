@@ -39,7 +39,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
         <div className="absolute inset-0 -z-10"><Media img={c.cover} label={c.name} priority sizes="100vw" /><div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" /></div>
         <div className="container-x">
           <Link href="/chapters" className="mb-6 inline-flex items-center gap-2 text-sm text-muted hover:text-gold"><Icon name="chevL" className="h-4 w-4" />All chapters</Link>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold">{c.city}</p>
+          <p className="text-xs text-muted">{c.city}</p>
           <h1 className="display text-[clamp(4rem,14vw,11rem)]">{c.name}</h1>
           <p className="max-w-2xl text-lg text-muted">{c.about}</p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -53,13 +53,13 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
       <div className="container-x">
         <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {[["Members", c.memberCount ? c.memberCount.toLocaleString("en-IN") : "Growing"], ["Upcoming", String(upcoming.length)], ["Past events", String(past.length)], ["Screens at", c.screeningVenue?.replace("[PLACEHOLDER] ", "") || "TBA"]].map(([k, v]) => (
-            <div key={k} className="glass rounded-[var(--radius)] p-5"><dd className="display text-3xl text-gradient-gold">{v}</dd><dt className="text-xs uppercase tracking-widest text-muted">{k}</dt></div>
+            <div key={k} className="glass rounded-[var(--radius)] p-5"><dd className="display text-3xl text-gradient-gold">{v}</dd><dt className="text-xs text-muted">{k}</dt></div>
           ))}
         </dl>
 
         {c.lead && (
           <section aria-labelledby="lead" className="pt-20">
-            <SectionHeading eyebrow="Chapter lead" title={<span id="lead">Meet the <span className="text-red">captain</span></span>} />
+            <SectionHeading eyebrow="Chapter lead" title={<span id="lead">Chapter lead</span>} />
             <div className="max-w-xs"><TeamCard m={c.lead} /></div>
           </section>
         )}
@@ -71,12 +71,12 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
               {upcoming.map((e, i) => <li key={e._id}><EventCard e={e} seed={i} /></li>)}
               {past.slice(0, 6).map((e, i) => <li key={e._id}><EventCard e={e} past seed={i + 3} /></li>)}
             </ul>
-          ) : <p className="text-muted">No events yet. Watch this space!</p>}
+          ) : <p className="text-muted">No events here yet</p>}
         </section>
 
         {gallery.length > 0 && (
           <section aria-labelledby="cg" className="pt-20">
-            <SectionHeading eyebrow="Gallery" title={<span id="cg">Local <span className="text-gradient-gold">moments</span></span>} />
+            <SectionHeading eyebrow="Gallery" title={<span id="cg">Photos from this chapter</span>} />
             <MasonryLightbox items={gallery} />
           </section>
         )}

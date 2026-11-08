@@ -33,7 +33,7 @@ export default function InstagramGrid({ posts, connected, limit = 12, filters = 
                 {/* Instagram CDN URLs expire, so use a plain img instead of next/image optimisation */}
                 {src ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={src} alt={p.caption.slice(0, 120) || `Post by @${p.handle}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img src={src} alt={p.caption.slice(0, 120) || `Post by @${p.handle}`} loading="lazy" className="h-full w-full object-cover" />
                 ) : (
                   <Media img={null} seed={i} label={`@${p.handle}`} />
                 )}

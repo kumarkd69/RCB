@@ -12,19 +12,17 @@ export default function EventCard({ e, past, seed = 0 }: { e: ClubEvent; past?: 
     <TiltCard className="h-full rounded-[var(--radius)]">
       <article className="glass group relative flex h-full flex-col overflow-hidden rounded-[var(--radius)]">
         <div className="relative aspect-[16/10] overflow-hidden">
-          <Media img={e.cover} label={e.title} seed={seed} className="transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-          <div className="absolute left-4 top-4 rounded-xl bg-black/60 px-3 py-2 text-center backdrop-blur" aria-hidden>
+          <Media img={e.cover} label={e.title} seed={seed} />
+          
+          <div className="absolute left-4 top-4 rounded-lg bg-black/70 px-3 py-2 text-center" aria-hidden>
             <div className="display text-3xl leading-none">{fmtDate(e.date, { day: "2-digit" })}</div>
-            <div className="text-[10px] uppercase tracking-widest text-gold">{fmtDate(e.date, { month: "short" })} {d.getFullYear()}</div>
+            <div className="text-xs text-muted">{fmtDate(e.date, { month: "short" })} {d.getFullYear()}</div>
           </div>
-          <div className="absolute right-4 top-4 flex gap-1.5">
-            <span className="rounded-full bg-red px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider">{EVENT_TYPE_LABEL[e.type]}</span>
-            <span className="rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gold">{LEAGUE_LABEL[e.league]}</span>
-          </div>
+
         </div>
         <div className="flex flex-1 flex-col gap-3 p-5">
-          <h3 className="display text-2xl leading-tight">
+          <p className="text-xs text-faint">{EVENT_TYPE_LABEL[e.type]} · {LEAGUE_LABEL[e.league]}</p>
+          <h3 className="display -mt-1 text-2xl leading-tight">
             <Link href={`/events/${e.slug}`} className="after:absolute after:inset-0 hover:text-gold">{e.title}</Link>
           </h3>
           <p className="text-sm text-muted">{e.summary}</p>
@@ -35,14 +33,14 @@ export default function EventCard({ e, past, seed = 0 }: { e: ClubEvent; past?: 
           </ul>
           {!past && (
             <div className="relative z-10 flex flex-wrap gap-2 pt-2">
-              {e.rsvpUrl && <a href={e.rsvpUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-red px-4 py-1.5 text-xs font-bold uppercase tracking-wider hover:bg-red-deep">RSVP</a>}
-              <a href={`/events/${e.slug}/calendar.ics`} className="rounded-full border border-line px-4 py-1.5 text-xs font-bold uppercase tracking-wider hover:border-gold hover:text-gold">Add to calendar</a>
+              {e.rsvpUrl && <a href={e.rsvpUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-red px-4 py-1.5 text-xs font-bold hover:bg-red-deep">RSVP</a>}
+              <a href={`/events/${e.slug}/calendar.ics`} className="rounded-full border border-line px-4 py-1.5 text-xs font-bold hover:border-gold hover:text-gold">Add to calendar</a>
             </div>
           )}
           {past && e.impactStats?.length ? (
             <dl className="flex gap-4 border-t border-line pt-3">
               {e.impactStats.slice(0, 3).map((s) => (
-                <div key={s.label}><dd className="display text-xl text-gold">{s.value}</dd><dt className="text-[10px] uppercase tracking-widest text-muted">{s.label}</dt></div>
+                <div key={s.label}><dd className="display text-xl text-gold">{s.value}</dd><dt className="text-xs text-muted">{s.label}</dt></div>
               ))}
             </dl>
           ) : null}

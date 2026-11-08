@@ -25,9 +25,9 @@ export default function Recognition({ r }: { r: SiteSettings["recognition"] }) {
           </div>
         </Reveal>
         <Reveal delay={0.15} className="relative">
-          <p className="mb-4 text-sm font-semibold text-red">Official recognition</p>
+          <p className="eyebrow mb-4">Official recognition</p>
           <h2 id="recognition" className="display text-5xl md:text-6xl">{r.title}</h2>
-          <p className={isPlaceholder(r.note) ? "mt-5 text-lg text-muted italic" : "mt-5 text-lg text-muted"}>{r.note}</p>
+          <p className="mt-5 text-lg text-muted">{r.note}</p>
           {r.proofFileUrl && (
             <a href={r.proofFileUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-gold underline-offset-4 hover:underline">
               View the letter (PDF) <Icon name="arrow" className="h-4 w-4" />
