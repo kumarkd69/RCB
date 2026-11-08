@@ -25,7 +25,12 @@ export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
   useEffect(() => {
     const v = video.current;
     if (!v) return;
+    const slow = () => { v.playbackRate = 0.6; }; // slower, more cinematic
+    slow();
+    v.addEventListener("loadedmetadata", slow);
+    v.addEventListener("play", slow);
     if (reduced) v.pause(); else v.play().catch(() => {});
+    return () => { v.removeEventListener("loadedmetadata", slow); v.removeEventListener("play", slow); };
   }, [reduced, mobile]);
 
   const playVideo = mobile !== null && !reduced;

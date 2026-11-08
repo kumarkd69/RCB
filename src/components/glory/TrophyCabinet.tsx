@@ -76,29 +76,15 @@ export default function TrophyCabinet({ trophies }: { trophies: Trophy[] }) {
   const cur = list[i];
   return (
     <section ref={section} aria-labelledby="trophies" className="relative" style={{ height: `${steps * 100}vh` }}>
-      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden bg-black">
         {/* backdrop */}
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(215,25,32,.22),transparent_60%)]" />
 
         {/* giant outlined year behind the trophy */}
-        <AnimatePresence mode="popLayout">
-          <motion.p
-            key={cur ? cur.year + cur.league : "all"}
-            aria-hidden
-            initial={{ y: "40%", opacity: 0, filter: "blur(10px)" }}
-            animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-            exit={{ y: "-40%", opacity: 0, filter: "blur(10px)" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="display text-outline pointer-events-none absolute opacity-70 inset-x-0 top-1/2 -translate-y-1/2 select-none text-center text-[clamp(8rem,32vw,30rem)] leading-none"
-          >
-            {cur ? cur.year : list.length}
-          </motion.p>
-        </AnimatePresence>
-
-        {/* 3D trophy */}
+        {/* Trophy video */}
         <div className="absolute inset-0">
           {/* Studio-black video blended with "lighten" so only the trophy shows over the page */}
-          <div className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 mix-blend-lighten md:top-1/2">
+          <div className="absolute left-1/2 top-[56%] -translate-x-1/2 -translate-y-1/2 mix-blend-lighten md:top-1/2">
             <video
               ref={vid}
               src={near ? "/media/trophy.mp4" : undefined}
@@ -108,9 +94,29 @@ export default function TrophyCabinet({ trophies }: { trophies: Trophy[] }) {
               playsInline
               preload="none"
               aria-hidden
-              className="h-[56svh] w-auto max-w-none object-contain [transform:scale(calc(0.92_+_var(--p,0)_*_0.16))] sm:h-[70svh] md:h-[92svh]"
+              className="h-[46svh] w-auto max-w-none object-contain [transform:scale(calc(0.92_+_var(--p,0)_*_0.16))] sm:h-[70svh] md:h-[92svh]"
             />
           </div>
+        </div>
+
+        {/* Year split either side of the trophy: "20 | 25". Summary step shows IPL 2 | WPL 2. */}
+        <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-[23%] justify-center md:inset-0 md:flex md:items-center md:justify-between md:px-[3vw] ${cur ? "flex" : "hidden"}`}>
+          {(cur ? [String(cur.year).slice(0, 2), String(cur.year).slice(2)] : ["2", "2"]).map((txt, side) => (
+            <div key={side} className={`overflow-hidden ${side ? "md:text-right" : ""}`}>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${i}-${side}`}
+                  initial={{ y: side ? "-100%" : "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: side ? "100%" : "-100%" }}
+                  transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+                >
+                  <span className={`display block text-[clamp(4.5rem,17vw,17rem)] leading-[0.85] ${side ? "text-gold" : "text-text"} [text-shadow:0_10px_40px_rgba(0,0,0,.7)]`}>{txt}</span>
+                  {!cur && <span className="mt-2 block text-sm font-semibold uppercase tracking-wider text-muted">{side ? "WPL titles" : "IPL titles"}</span>}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
 
         {/* copy */}
