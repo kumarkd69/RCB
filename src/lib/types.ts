@@ -117,7 +117,12 @@ export type SiteSettings = {
   contactEmail?: string;
   contactPhone?: string;
   highlights: { image: Img; videoUrl?: string; caption?: string }[];
+  trophies: Trophy[];
+  glory: GloryMoment[];
 };
+
+export type Trophy = { league: "IPL" | "WPL"; year: number; title?: string; note?: string };
+export type GloryMoment = { title: string; year?: number; league?: string; image: Img; videoUrl?: string };
 
 export type InstaPost = {
   id: string;

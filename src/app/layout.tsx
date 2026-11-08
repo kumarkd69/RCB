@@ -20,7 +20,12 @@ export const viewport: Viewport = { themeColor: "#0A0A0A", colorScheme: "dark" }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${anton.variable} ${inter.variable} ${kannada.variable}`}>
+    <html lang="en-IN" suppressHydrationWarning className={`${anton.variable} ${inter.variable} ${kannada.variable}`}>
+      <head>
+        {/* Hide the intro loader before first paint on repeat visits */}
+        <script dangerouslySetInnerHTML={{ __html: `try{if(sessionStorage.getItem("nrh-intro"))document.documentElement.classList.add("intro-seen")}catch(e){}` }} />
+        <noscript><style>{`.intro-loader,.page-curtain{display:none!important}`}</style></noscript>
+      </head>
       <body>
         {children}
         <Analytics />

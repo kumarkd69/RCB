@@ -22,11 +22,6 @@ function Floodlight({ position, color = "#fff4d6" }: { position: [number, number
         <boxGeometry args={[0.15, position[1], 0.15]} />
         <meshStandardMaterial color="#1a1a1a" metalness={0.6} roughness={0.5} />
       </mesh>
-      {/* light panel */}
-      <mesh position={position}>
-        <boxGeometry args={[1.4, 0.8, 0.1]} />
-        <meshBasicMaterial color={color} toneMapped={false} />
-      </mesh>
       {/* volumetric cone */}
       <mesh ref={cone} position={mid} quaternion={quat}>
         <coneGeometry args={[3.2, len, 32, 1, true]} />

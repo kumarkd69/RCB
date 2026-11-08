@@ -13,9 +13,9 @@ const clean = (o: Record<string, unknown>) => Object.fromEntries(Object.entries(
 let k = 0;
 const key = () => `k${(k++).toString(36)}`;
 
-const { logo, recognition, highlights, ...settings } = seed.settings;
-void logo; void highlights;
-docs.push(clean({ _id: "siteSettings", _type: "siteSettings", ...settings, recognition: { title: recognition.title, note: recognition.note }, pillars: settings.pillars.map((p) => ({ _key: key(), ...p })) }));
+const { logo, recognition, highlights, glory, ...settings } = seed.settings;
+void logo; void highlights; void glory;
+docs.push(clean({ _id: "siteSettings", _type: "siteSettings", ...settings, recognition: { title: recognition.title, note: recognition.note }, pillars: settings.pillars.map((p) => ({ _key: key(), ...p })), trophies: settings.trophies.map((t) => ({ _key: key(), ...t })) }));
 
 for (const m of seed.team) {
   docs.push(clean({ _id: `member-${m._id}`, _type: "teamMember", name: m.name, role: m.role, isCore: m.isCore, order: m.order, socials: m.socials, chapter: m.chapter ? ref(chapterId(m.chapter.slug)!) : undefined }));

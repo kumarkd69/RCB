@@ -1,7 +1,8 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useMotion } from "../layout/MotionProvider";
 import MagneticButton from "../ui/MagneticButton";
 import Countdown from "../ui/Countdown";
@@ -33,6 +34,9 @@ const words = (s: string) => s.split(" ");
 export default function Hero({ tagline, nextEvent }: { tagline: string; nextEvent: ClubEvent | null }) {
   const { reduced, lowEnd } = useMotion();
   const [use3D, setUse3D] = useState(false);
+  const { scrollY } = useScroll();
+  const crestY = useTransform(scrollY, [0, 800], [0, reduced ? 0 : 160]);
+  const crestR = useTransform(scrollY, [0, 800], [0, reduced ? 0 : -12]);
 
   useEffect(() => {
     if (reduced || lowEnd || window.innerWidth < 380 || !hasWebGL()) return setUse3D(false);
@@ -58,13 +62,14 @@ export default function Hero({ tagline, nextEvent }: { tagline: string; nextEven
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10" />
       </div>
 
-      <div className="container-x">
+      <div className="container-x grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
+        <div className="order-2 md:order-1">
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-black/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-gold backdrop-blur">
           <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-red" /></span>
           Official RCB-recognised fan club
         </motion.p>
 
-        <h1 id="hero-title" className="display max-w-5xl text-[clamp(3.5rem,13vw,10rem)]">
+        <h1 id="hero-title" className="display max-w-5xl text-[clamp(3.5rem,9vw,7.5rem)]">
           {["Namma", "RCB", "HQ"].map((w, i) => (
             <span key={w} className="mr-[0.2em] inline-block overflow-hidden pb-2 align-bottom">
               <motion.span className={i === 1 ? "inline-block text-red drop-shadow-[0_0_30px_rgba(215,25,32,.6)]" : "inline-block"} initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ delay: 0.3 + i * 0.12, duration: 1, ease: [0.16, 1, 0.3, 1] }}>
@@ -97,6 +102,21 @@ export default function Hero({ tagline, nextEvent }: { tagline: string; nextEven
             <Countdown to={nextEvent.date} compact />
           </motion.div>
         )}
+        </div>
+
+        {/* Club crest: rises in, floats, drifts with scroll */}
+        <motion.div style={{ y: crestY, rotate: crestR }} className="relative order-1 mx-auto w-32 [perspective:800px] sm:w-40 md:order-2 md:w-full md:max-w-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7, rotateY: -40 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 1.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative animate-[float-y_6s_ease-in-out_infinite]"
+          >
+            <div aria-hidden className="absolute inset-[15%] rounded-full bg-red/50 blur-[60px]" />
+            <div aria-hidden className="absolute inset-[25%] rounded-full bg-gold/30 blur-[50px]" />
+            <Image src="/brand/logo-600.png" alt="Namma RCB HQ crest" width={600} height={883} priority sizes="(max-width:768px) 160px, 384px" className="relative h-auto w-full drop-shadow-[0_20px_40px_rgba(0,0,0,.8)]" />
+          </motion.div>
+        </motion.div>
       </div>
 
       <div aria-hidden className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted md:flex">

@@ -55,6 +55,21 @@ export const settings: SiteSettings = {
     { image: null, caption: "Away trip" },
     { image: null, caption: "Victory lap" },
   ],
+  trophies: [
+    { league: "WPL", year: 2024, title: "Women's Premier League Champions" },
+    { league: "IPL", year: 2025, title: "Indian Premier League Champions" },
+    { league: "IPL", year: 2026, title: "Indian Premier League Champions" },
+    { league: "WPL", year: 2026, title: "Women's Premier League Champions" },
+  ],
+  // [PLACEHOLDER] Upload winning photos/videos in Studio → Site settings → Glory moments
+  // (only images the club has rights/permission to use).
+  glory: [
+    { title: "The first one", year: 2024, league: "WPL", image: null },
+    { title: "18 years. Finally.", year: 2025, league: "IPL", image: null },
+    { title: "Back to back", year: 2026, league: "IPL", image: null },
+    { title: "Queens again", year: 2026, league: "WPL", image: null },
+    { title: "The streets of Bengaluru", year: 2025, league: "IPL", image: null },
+  ],
 };
 
 export const team: TeamMember[] = [

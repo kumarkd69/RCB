@@ -73,6 +73,43 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      name: "trophies",
+      title: "RCB trophy cabinet",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "league", type: "string", options: { list: ["IPL", "WPL"] }, validation: (r) => r.required() }),
+            defineField({ name: "year", type: "number", validation: (r) => r.required() }),
+            defineField({ name: "title", type: "string" }),
+            defineField({ name: "note", type: "string" }),
+          ],
+          preview: { select: { title: "league", subtitle: "year" } },
+        },
+      ],
+    }),
+    defineField({
+      name: "glory",
+      title: "Glory moments (winning photos / videos)",
+      description: "Only upload media the club owns or has permission to use.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "title", type: "string", validation: (r) => r.required() }),
+            defineField({ name: "year", type: "number" }),
+            defineField({ name: "league", type: "string", options: { list: ["IPL", "WPL"] } }),
+            imageWithAlt("image", "Photo / video poster", true),
+            defineField({ name: "video", title: "Video file (mp4, optional)", type: "file", options: { accept: "video/mp4" } }),
+            defineField({ name: "videoUrl", title: "…or video URL (mp4)", type: "url" }),
+          ],
+          preview: { select: { title: "title", subtitle: "year", media: "image" } },
+        },
+      ],
+    }),
   ],
   preview: { prepare: () => ({ title: "Site settings" }) },
 });

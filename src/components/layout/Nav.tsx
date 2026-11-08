@@ -34,7 +34,7 @@ export default function Nav({ logo }: { logo: Img }) {
     <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", solid || open ? "glass !border-x-0 !border-t-0 py-2" : "bg-transparent py-4")}>
       <nav aria-label="Main" className="container-x flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
-          <Logo logo={logo} />
+          <Logo logo={logo} size={48} priority />
           <span className="display text-xl leading-none tracking-wide">
             Namma <span className="text-red">RCB</span> HQ
           </span>

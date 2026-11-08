@@ -63,6 +63,8 @@ To make someone a chapter's lead: open **📍 Chapters** → the chapter → **L
 
 - **Photo album:** 🖼️ Photo albums → Create → title, chapter, event → drag photos into **Items** (fill Alt text for each) → Publish. Appears in Gallery.
 - **Change stats / tagline / WhatsApp link / logo / recognition letter:** ⚙️ Site settings → edit → Publish.
+- **Trophy cabinet:** ⚙️ Site settings → RCB trophy cabinet → **Add item** → league (IPL/WPL) + year → Publish.
+- **Glory moments (winning photos/videos):** ⚙️ Site settings → Glory moments → Add item → title, year, league, photo (+ alt text), optional mp4 video → Publish. Only use media we have permission for.
 - **FAQ:** ❓ FAQ → Create → question + answer → Publish.
 - **Milestone on the About timeline:** 🏆 Milestones → Create → year, title → Publish.
 

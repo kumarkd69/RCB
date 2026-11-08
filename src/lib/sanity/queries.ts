@@ -8,7 +8,9 @@ export const settingsQuery = groq`*[_id == "siteSettings"][0]{
   tagline, intro, ${img("logo")}, stats,
   recognition{ title, note, ${img("badge")}, ${img("proof")}, "proofFileUrl": proofFile.asset->url },
   pillars[]{ title, description, icon }, mission, vision, values, story, whatsappLink, contactEmail, contactPhone,
-  highlights[]{ ${img("image")}, videoUrl, caption }
+  highlights[]{ ${img("image")}, videoUrl, caption },
+  trophies[]{ league, year, title, note },
+  glory[]{ title, year, league, ${img("image")}, "videoUrl": coalesce(video.asset->url, videoUrl) }
 }`;
 
 const eventFields = `_id, title, "slug": slug.current, date, endDate, venue, mapUrl, ${chapterRef}, type, league, opponent,

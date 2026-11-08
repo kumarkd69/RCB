@@ -107,3 +107,11 @@ html.lenis, html.lenis body { height: auto; }
   .grain::after { display: none; }
 }
 html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation: none !important; transition-duration: .001ms !important; }
+
+/* Intro + page curtains: hidden on repeat visits / reduced motion */
+html.intro-seen .intro-loader { display: none; }
+html:not(.intro-seen) .page-curtain { display: none; }
+@media (prefers-reduced-motion: reduce) { .intro-loader, .page-curtain { display: none; } }
+
+/* Outlined display text */
+.text-outline { color: transparent; -webkit-text-stroke: 1.5px rgb(201 162 39 / .55); }

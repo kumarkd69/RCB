@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Reveal from "./Reveal";
+import MaskLine from "./MaskLine";
 
 export default function SectionHeading({ eyebrow, title, kicker, className, align = "left", as: H = "h2" }: { eyebrow?: string; title: React.ReactNode; kicker?: React.ReactNode; className?: string; align?: "left" | "center"; as?: "h1" | "h2" }) {
   return (
@@ -9,7 +10,7 @@ export default function SectionHeading({ eyebrow, title, kicker, className, alig
           <span className="h-px w-8 bg-gold" />{eyebrow}
         </p>
       )}
-      <H className="display text-5xl md:text-7xl">{title}</H>
+      <H className="display text-5xl md:text-7xl"><MaskLine>{title}</MaskLine></H>
       {kicker && <p className="mt-4 text-lg text-muted">{kicker}</p>}
     </Reveal>
   );

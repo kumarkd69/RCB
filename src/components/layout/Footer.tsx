@@ -13,7 +13,7 @@ export default function Footer({ settings, chapters }: { settings: SiteSettings;
       <div className="container-x relative grid gap-12 py-16 md:grid-cols-4">
         <div className="space-y-4 md:col-span-1">
           <div className="flex items-center gap-3">
-            <Logo logo={settings.logo} size={48} />
+            <Logo logo={settings.logo} size={80} />
             <span className="display text-2xl">Namma <span className="text-red">RCB</span> HQ</span>
           </div>
           <p className="text-sm text-muted">{settings.tagline}</p>

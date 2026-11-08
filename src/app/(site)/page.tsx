@@ -9,6 +9,9 @@ import ChapterMap from "@/components/home/ChapterMap";
 import Highlights from "@/components/home/Highlights";
 import InstagramGrid from "@/components/gallery/InstagramGrid";
 import JoinBanner from "@/components/home/JoinBanner";
+import TrophyCabinet from "@/components/glory/TrophyCabinet";
+import GloryReel from "@/components/glory/GloryReel";
+import JerseySection from "@/components/glory/JerseySection";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -53,6 +56,12 @@ export default async function HomePage() {
       </section>
 
       <ScrollStory />
+
+      <TrophyCabinet trophies={settings.trophies} />
+
+      <GloryReel items={settings.glory} />
+
+      <JerseySection />
 
       <Recognition r={settings.recognition} />
 
