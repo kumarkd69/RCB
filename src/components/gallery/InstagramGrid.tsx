@@ -19,11 +19,6 @@ export default function InstagramGrid({ posts, connected, limit = 12, filters = 
           </button>
         ))}
       </div>}
-      {!connected && (
-        <p className="mb-4 rounded-xl border border-dashed border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold-soft">
-          Instagram isn&apos;t connected yet, so these are placeholders linking to each profile. See README → Instagram.
-        </p>
-      )}
       <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
         {shown.map((p, i) => {
           const src = p.mediaType === "VIDEO" ? p.thumbnailUrl : p.mediaUrl;

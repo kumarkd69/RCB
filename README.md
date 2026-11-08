@@ -124,10 +124,12 @@ Design pass guided by [unslop](https://github.com/heydamir/unslop) by Damir Soko
 - Alt text is required on every image field in the CMS.
 - Event pages include `Event` JSON-LD, Open Graph metadata and `.ics` + Google Calendar links. Events move from Upcoming to Past automatically (pages revalidate hourly).
 
-## Placeholders still to replace
+## Sample content (replace before launch)
 
-Search the code/CMS for `[PLACEHOLDER]`. Needed from the club:
-- Club logo · team photos and names · recognition letter/badge
-- Belagavi Instagram handle · WhatsApp community link · contact email/phone
-- Real stats, founding story, milestones, chapter venues and member counts
-- Real event photos and covers (sample events are marked `[SAMPLE]`)
+The site ships fully filled with **dummy content** in `src/content/seed.ts` so every page looks finished: 16 events (6 upcoming, 10 past with recaps, impact numbers and photo albums), 8 team members, 3 chapters, initiatives, milestones, FAQ, highlights and glory moments. Photos in `public/media/dummy/` are stills cut from the club's own videos. The recognition certificate is a clearly marked sample.
+
+Everything there is invented and must be replaced with real club information, either by editing `seed.ts` or, once Sanity is connected, in Studio (which then overrides the sample data). Things to replace:
+- Team names and photos, stats, founding story and milestones
+- Event names, dates, venues, recaps and photos
+- Recognition letter, WhatsApp link, contact email and phone
+- Belagavi Instagram handle

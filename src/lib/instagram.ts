@@ -3,6 +3,7 @@ import { instagramAccounts, type InstaAccount } from "./config";
 import { sanityEnabled } from "./sanity/env";
 import { serverClient } from "./sanity/client";
 import type { InstaPost } from "./types";
+import { instaPlaceholderPhotos } from "@/content/seed";
 
 /**
  * Instagram feed, merged from all club handles.
@@ -55,12 +56,26 @@ async function fromBehold(acc: InstaAccount, url: string, limit: number): Promis
   }));
 }
 
+const SAMPLE_CAPTIONS = [
+  "Full house tonight. Thank you for the noise",
+  "Flags ready for match day",
+  "Blood drive done. 74 units, 80 heroes",
+  "Who's coming to the next screening?",
+  "Away block, all red",
+  "Sunday fan meet, see you there",
+  "Kids clinic this weekend, bring your bat",
+  "Ee sala, every sala",
+];
+
+/** Sample posts (club photos) shown until a real feed is connected. */
 function placeholders(acc: InstaAccount, n: number): InstaPost[] {
+  const offset = instagramAccounts.indexOf(acc) * 3;
   return Array.from({ length: n }, (_, i) => ({
     id: `${acc.key}-ph-${i}`, account: acc.key, handle: acc.handle!, chapterSlug: acc.chapterSlug,
-    caption: `Latest from @${acc.handle} will appear here once Instagram is connected.`,
-    mediaType: "IMAGE" as const, mediaUrl: null, permalink: `https://www.instagram.com/${acc.handle}/`,
-    timestamp: new Date(Date.now() - (i + 1) * 86_400_000 * (2 + acc.key.length)).toISOString(), placeholder: true,
+    caption: SAMPLE_CAPTIONS[(offset + i) % SAMPLE_CAPTIONS.length],
+    mediaType: "IMAGE" as const, mediaUrl: instaPlaceholderPhotos[(offset + i) % instaPlaceholderPhotos.length],
+    permalink: `https://www.instagram.com/${acc.handle}/`,
+    timestamp: new Date(Date.now() - (offset + i + 1) * 86_400_000).toISOString(), placeholder: true,
   }));
 }
 
@@ -77,7 +92,7 @@ export async function getInstagramFeed(limitPerAccount = 8): Promise<{ posts: In
       } catch (e) {
         console.error("[instagram]", e);
       }
-      return placeholders(acc, 3);
+      return placeholders(acc, 4);
     }),
   );
   const posts = results.flat().sort((a, b) => +new Date(b.timestamp) - +new Date(a.timestamp));

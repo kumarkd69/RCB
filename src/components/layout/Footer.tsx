@@ -19,7 +19,7 @@ export default function Footer({ settings, chapters }: { settings: SiteSettings;
           {/* Recognised-by-RCB badge slot */}
           <div className="glass inline-flex items-center gap-3 rounded-2xl px-4 py-3">
             {badge?.src ? (
-              <Image src={badge.src} alt={badge.alt} width={40} height={40} />
+              <Image src={badge.src} alt={badge.alt} width={40} height={40} className="h-10 w-10 object-contain" />
             ) : (
               <span title="[PLACEHOLDER] Recognition badge" className="grid h-10 w-10 place-items-center rounded-full border border-dashed border-gold text-gold"><Icon name="star" className="h-5 w-5" /></span>
             )}

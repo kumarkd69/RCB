@@ -1,12 +1,14 @@
 /**
- * SAMPLE DATA — used when Sanity is not connected, and exported to
+ * SAMPLE DATA — shown while Sanity is not connected, and exported to
  * sanity/seed/seed.ndjson by `npm run seed`.
  *
- * Everything marked [PLACEHOLDER] must be replaced with real club info.
+ * Everything here is dummy content so the site looks complete. Names, numbers,
+ * venues, dates and photos must be replaced with real club information.
+ * Photos are stills cut from the club's own videos (public/media/dummy).
  * Event dates are relative to "today" so the demo always has upcoming events.
  */
 import type {
-  Album, Chapter, ClubEvent, Faq, GalleryItem, Initiative, Milestone, SiteSettings, TeamMember,
+  Album, Chapter, ClubEvent, Faq, GalleryItem, GloryMoment, Img, Initiative, Milestone, SiteSettings, TeamMember,
 } from "@/lib/types";
 
 const DAY = 86_400_000;
@@ -15,45 +17,79 @@ const at = (days: number, hour = 19, min = 30) => {
   d.setUTCHours(hour - 5, min - 30, 0, 0); // IST → UTC
   return d.toISOString();
 };
+let k = 0;
 const block = (text: string) => ({
-  _type: "block", _key: Math.random().toString(36).slice(2, 10), style: "normal", markDefs: [],
-  children: [{ _type: "span", _key: "s" + Math.random().toString(36).slice(2, 8), text, marks: [] }],
+  _type: "block", _key: `b${k++}`, style: "normal", markDefs: [],
+  children: [{ _type: "span", _key: `s${k++}`, text, marks: [] }],
 });
+const maps = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
+/* ── Dummy photos (width × height of each file) ───────────────────────── */
+const SIZES: Record<string, [number, number]> = {
+  "crowd-scarves": [1100, 780], "flag-night": [770, 520], "fans-celebrate": [1020, 730], "floodlights-flag": [1200, 700],
+  "crowd-right": [540, 660], "smoke-fans": [960, 630], "flag-wave": [920, 620], "flag-tall": [760, 1080],
+  "floodlight-tall": [740, 900], "crowd-flags": [820, 800], "stadium-wide": [1600, 900], "scarf-fans": [960, 780],
+  "match-night": [1600, 900], roar: [1020, 630], stands: [1600, 900],
+  "p-1": [600, 800], "p-2": [500, 667], "p-3": [480, 639], "p-4": [480, 639], "p-5": [480, 639], "p-6": [500, 667],
+  "trophy-1": [800, 720], "trophy-2": [800, 720], "trophy-3": [800, 720], "trophy-4": [800, 720],
+  "recognition-sample": [1200, 1600],
+};
+const photo = (name: string, alt: string): Img => ({ src: `/media/dummy/${name}.jpg`, alt, width: SIZES[name][0], height: SIZES[name][1] });
+
+const FAN_PHOTOS: [string, string][] = [
+  ["stadium-wide", "Fans waving red flags under the floodlights"],
+  ["fans-celebrate", "Two fans in RCB jerseys celebrating a boundary"],
+  ["flag-tall", "A big red flag waved high in the stands"],
+  ["crowd-scarves", "Fans holding RCB scarves above their heads"],
+  ["floodlight-tall", "Floodlights and smoke over the crowd"],
+  ["smoke-fans", "Red smoke drifting over cheering fans"],
+  ["crowd-right", "A fan shouting with his fist in the air"],
+  ["flag-wave", "A red flag mid-wave against the night sky"],
+  ["crowd-flags", "Rows of fans with flags in the upper stand"],
+  ["scarf-fans", "A group of fans singing with scarves raised"],
+  ["roar", "Fans roaring after a wicket"],
+  ["flag-night", "A black and red flag lit by the floodlights"],
+  ["match-night", "The stands full on match night"],
+  ["floodlights-flag", "A flag in front of the stadium floodlights"],
+  ["stands", "The packed stands before the first ball"],
+];
+
+/* ── Site settings ────────────────────────────────────────────────────── */
 export const settings: SiteSettings = {
-  tagline: "Ee Sala Namde. Every Season.",
+  tagline: "For the fans. By the fans. From Bengaluru. For RCB",
   intro:
-    "[PLACEHOLDER] Namma RCB HQ Official is a fan-run community of Royal Challengers Bengaluru supporters. We bring fans together for match-day screenings, fan meets, away trips and social drives across Karnataka.",
+    "Namma RCB HQ Official is a fan-run community of Royal Challengers Bengaluru supporters. We bring fans together for match-day screenings, fan meets, away trips and social drives in Bengaluru, Hubballi, Kolar and Belagavi.",
   logo: null,
-  stats: { members: 5000, events: 120, cities: 4, years: 5 }, // [PLACEHOLDER] real numbers needed
+  stats: { members: 5200, events: 140, cities: 4, years: 5 },
   recognition: {
     title: "Officially recognised by RCB",
-    note: "[PLACEHOLDER] Add the recognition note and upload the proof letter in Studio → Site settings.",
-    badge: null,
-    proof: null,
+    note: "In 2024 Royal Challengers Bengaluru recognised Namma RCB HQ as an official fan club. That means early news on fan events, a seat at fan club meet-ups and a direct line to the team's fan engagement desk.",
+    badge: { src: "/brand/logo-600.png", alt: "Namma RCB HQ crest", width: 600, height: 883 },
+    proof: photo("recognition-sample", "Sample recognition certificate for Namma RCB HQ Official"),
   },
   pillars: [
-    { title: "Match-Day Screenings", description: "Big screens, loud chants and a full house for every RCB game.", icon: "screen" },
-    { title: "Fan Meets", description: "Meet the family. Quizzes, jersey swaps and stories from the stands.", icon: "users" },
-    { title: "Away Trips", description: "We travel together to back the team in other cities.", icon: "bus" },
-    { title: "Blood Donation", description: "Regular drives with partner blood banks in every chapter city.", icon: "drop" },
-    { title: "Social Drives", description: "Tree planting, clean-ups and school kit donations.", icon: "leaf" },
-    { title: "Grassroots Cricket", description: "Clinics and tournaments for young cricketers.", icon: "star" },
+    { title: "Match-day screenings", description: "Big screens, loud chants and a full house for every RCB game, IPL and WPL.", icon: "screen" },
+    { title: "Fan meets", description: "Quizzes, jersey swaps and stories from the stands, once a month in every chapter.", icon: "users" },
+    { title: "Away trips", description: "We book the buses and the blocks of seats so fans can back the team in other cities.", icon: "bus" },
+    { title: "Blood donation", description: "Four drives a year with partner blood banks in every chapter city.", icon: "drop" },
+    { title: "Social drives", description: "Tree planting, lake clean-ups and school kit donations through the off-season.", icon: "leaf" },
+    { title: "Grassroots cricket", description: "Free weekend clinics and a tape-ball tournament for under-14s.", icon: "star" },
   ],
   mission: "To unite RCB fans across Karnataka into one loud, kind and organised family that shows up for the team and for our cities.",
   vision: "A Namma RCB HQ chapter in every district of Karnataka, known as much for its service as for its chants.",
   values: ["Loyalty, win or lose", "Respect for every fan", "Give back to our cities", "Celebrate together"],
   story:
-    "[PLACEHOLDER] Tell the founding story here: when, where and how the club started.",
-  whatsappLink: undefined, // [PLACEHOLDER] WhatsApp community link
-  contactEmail: undefined, // [PLACEHOLDER]
-  contactPhone: undefined,
+    "It started in 2021 with 40 friends, one projector and a rented hall in Jayanagar. Five seasons later we are more than five thousand members across four cities, still screening every game together.",
+  whatsappLink: "https://chat.whatsapp.com/",
+  contactEmail: "hello@nammarcbhq.in",
+  contactPhone: "+91 98450 12345",
   highlights: [
-    { image: null, caption: "Screening night" },
-    { image: null, caption: "Fan meet" },
-    { image: null, caption: "Blood drive" },
-    { image: null, caption: "Away trip" },
-    { image: null, caption: "Victory lap" },
+    { image: photo("stadium-wide", "Fans waving flags at a screening"), caption: "Screening night" },
+    { image: photo("flag-tall", "A red flag raised at a fan meet"), caption: "Fan meet" },
+    { image: photo("fans-celebrate", "Volunteers celebrating after the blood drive"), caption: "Blood drive" },
+    { image: photo("floodlight-tall", "Fans under the floodlights on an away trip"), caption: "Away trip" },
+    { image: photo("crowd-scarves", "Fans with scarves at the victory screening"), caption: "Victory night" },
+    { image: photo("crowd-right", "A fan cheering at the season finale"), caption: "Season finale" },
   ],
   trophies: [
     { league: "WPL", year: 2024, title: "Women's Premier League Champions" },
@@ -61,24 +97,29 @@ export const settings: SiteSettings = {
     { league: "IPL", year: 2026, title: "Indian Premier League Champions" },
     { league: "WPL", year: 2026, title: "Women's Premier League Champions" },
   ],
-  // [PLACEHOLDER] Upload winning photos/videos in Studio → Site settings → Glory moments
-  // (only images the club has rights/permission to use).
   glory: [
-    { title: "The first one", year: 2024, league: "WPL", image: null },
-    { title: "18 years. Finally.", year: 2025, league: "IPL", image: null },
-    { title: "Back to back", year: 2026, league: "IPL", image: null },
-    { title: "Queens again", year: 2026, league: "WPL", image: null },
-    { title: "The streets of Bengaluru", year: 2025, league: "IPL", image: null },
-  ],
+    { title: "The first one", year: 2024, league: "WPL", image: photo("trophy-1", "Gold trophy with red Champions ribbons") },
+    { title: "18 years. Finally", year: 2025, league: "IPL", image: photo("fans-celebrate", "Fans celebrating the 2025 title") },
+    { title: "The streets of Bengaluru", year: 2025, league: "IPL", image: photo("stadium-wide", "Flags everywhere on title night") },
+    { title: "Back to back", year: 2026, league: "IPL", image: photo("trophy-3", "The trophy turning under studio light") },
+    { title: "Queens again", year: 2026, league: "WPL", image: photo("crowd-scarves", "Fans with scarves after the WPL final") },
+  ] satisfies GloryMoment[],
 };
 
+/* ── Team ─────────────────────────────────────────────────────────────── */
+const hub = { name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad" };
+const kol = { name: "Kolar", slug: "kolar", city: "Kolar" };
+const bel = { name: "Belagavi", slug: "belagavi", city: "Belagavi" };
+
 export const team: TeamMember[] = [
-  { _id: "tm-1", name: "[PLACEHOLDER] Founder", role: "Founder & President", photo: null, chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
-  { _id: "tm-2", name: "[PLACEHOLDER] Member 2", role: "General Secretary", photo: null, chapter: null, isCore: true, order: 2, socials: {} },
-  { _id: "tm-3", name: "[PLACEHOLDER] Member 3", role: "Events Head", photo: null, chapter: null, isCore: true, order: 3, socials: {} },
-  { _id: "tm-4", name: "[PLACEHOLDER] Member 4", role: "Hubballi Chapter Lead", photo: null, chapter: { name: "Hubballi", slug: "hubballi" }, isCore: false, order: 4, socials: { instagram: "nammarcbhq_hubballi" } },
-  { _id: "tm-5", name: "[PLACEHOLDER] Member 5", role: "Kolar Chapter Lead", photo: null, chapter: { name: "Kolar", slug: "kolar" }, isCore: false, order: 5, socials: { instagram: "nammarcbhq_kolar" } },
-  { _id: "tm-6", name: "[PLACEHOLDER] Member 6", role: "Belagavi Chapter Lead", photo: null, chapter: { name: "Belagavi", slug: "belagavi" }, isCore: false, order: 6, socials: {} },
+  { _id: "tm-1", name: "Rakesh Gowda", role: "Founder & President", photo: photo("p-1", "Rakesh Gowda"), chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
+  { _id: "tm-2", name: "Ananya Rao", role: "General Secretary", photo: photo("p-2", "Ananya Rao"), chapter: null, isCore: true, order: 2, socials: { instagram: "nammarcbhqofficial" } },
+  { _id: "tm-3", name: "Kiran Kumar", role: "Events Head", photo: photo("p-4", "Kiran Kumar"), chapter: null, isCore: true, order: 3, socials: {} },
+  { _id: "tm-4", name: "Sneha Hegde", role: "Social Initiatives Lead", photo: photo("p-6", "Sneha Hegde"), chapter: null, isCore: true, order: 4, socials: {} },
+  { _id: "tm-5", name: "Manjunath S", role: "Media & Content", photo: photo("p-3", "Manjunath S"), chapter: null, isCore: true, order: 5, socials: {} },
+  { _id: "tm-6", name: "Prashanth Patil", role: "Hubballi Chapter Lead", photo: photo("p-5", "Prashanth Patil"), chapter: hub, isCore: false, order: 6, socials: { instagram: "nammarcbhq_hubballi" } },
+  { _id: "tm-7", name: "Deepa Reddy", role: "Kolar Chapter Lead", photo: photo("p-2", "Deepa Reddy"), chapter: kol, isCore: false, order: 7, socials: { instagram: "nammarcbhq_kolar" } },
+  { _id: "tm-8", name: "Santosh Kulkarni", role: "Belagavi Chapter Lead", photo: photo("p-1", "Santosh Kulkarni"), chapter: bel, isCore: false, order: 8, socials: {} },
 ];
 
 const leadOf = (id: string) => {
@@ -86,105 +127,178 @@ const leadOf = (id: string) => {
   return { name: m.name, role: m.role, photo: m.photo, socials: m.socials };
 };
 
+/* ── Chapters ─────────────────────────────────────────────────────────── */
 export const chapters: Chapter[] = [
-  { _id: "ch-hubballi", name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad", lat: 15.3647, lng: 75.124, lead: leadOf("tm-4"), instagram: "nammarcbhq_hubballi", memberCount: 0, about: "[PLACEHOLDER] North Karnataka's loudest RCB corner.", screeningVenue: "[PLACEHOLDER] Venue", cover: null },
-  { _id: "ch-kolar", name: "Kolar", slug: "kolar", city: "Kolar", lat: 13.1367, lng: 78.1292, lead: leadOf("tm-5"), instagram: "nammarcbhq_kolar", memberCount: 0, about: "[PLACEHOLDER] Gold-field city, red-and-gold hearts.", screeningVenue: "[PLACEHOLDER] Venue", cover: null },
-  { _id: "ch-belagavi", name: "Belagavi", slug: "belagavi", city: "Belagavi", lat: 15.8497, lng: 74.4977, lead: leadOf("tm-6"), instagram: undefined, memberCount: 0, about: "[PLACEHOLDER] Our newest chapter on the border.", screeningVenue: "[PLACEHOLDER] Venue", cover: null },
+  { _id: "ch-hubballi", name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad", lat: 15.3647, lng: 75.124, lead: leadOf("tm-6"), instagram: "nammarcbhq_hubballi", memberCount: 1400, about: "North Karnataka's loudest RCB corner. Screenings every match day and a blood drive every quarter.", screeningVenue: "Vidyanagar community hall", cover: photo("crowd-flags", "Hubballi chapter fans with flags") },
+  { _id: "ch-kolar", name: "Kolar", slug: "kolar", city: "Kolar", lat: 13.1367, lng: 78.1292, lead: leadOf("tm-7"), instagram: "nammarcbhq_kolar", memberCount: 850, about: "Gold-field city, red-and-gold hearts. Known for the kids' cricket clinic and the lake clean-up.", screeningVenue: "Town hall grounds", cover: photo("smoke-fans", "Kolar chapter fans in red smoke") },
+  { _id: "ch-belagavi", name: "Belagavi", slug: "belagavi", city: "Belagavi", lat: 15.8497, lng: 74.4977, lead: leadOf("tm-8"), instagram: undefined, memberCount: 600, about: "Our newest chapter, on the border, growing every season.", screeningVenue: "Tilakwadi club house", cover: photo("roar", "Belagavi chapter fans roaring") },
 ];
 
-const ref = (slug: string) => {
-  const c = chapters.find((x) => x.slug === slug)!;
-  return { name: c.name, slug: c.slug, city: c.city };
+/* ── Events ───────────────────────────────────────────────────────────── */
+const ev = (e: Omit<ClubEvent, "chapter" | "cover"> & { ch?: typeof hub; cover: string }): ClubEvent => {
+  const { ch, cover, ...rest } = e;
+  const alt = FAN_PHOTOS.find(([n]) => n === cover)?.[1] ?? e.title;
+  return { ...rest, chapter: ch ?? null, cover: photo(cover, alt) };
 };
 
 export const events: ClubEvent[] = [
-  {
-    _id: "ev-1", title: "Off-Season Fan Meet", slug: "off-season-fan-meet", date: at(9, 17, 0), venue: "[SAMPLE] Bengaluru", chapter: null,
-    type: "fanmeet", league: "offseason", cover: null, summary: "Quiz, jersey swap and auction-season predictions.",
-    description: [block("Sample event. Join fans from every chapter for an evening of quizzes, stories and season predictions.")],
-    schedule: [{ time: "5:00 PM", item: "Check-in" }, { time: "5:30 PM", item: "Fan quiz" }, { time: "7:00 PM", item: "Jersey swap" }],
-    rsvpUrl: undefined,
-  },
-  {
-    _id: "ev-2", title: "Blood Donation Drive", slug: "blood-donation-drive-hubballi", date: at(18, 9, 0), venue: "[SAMPLE] Hubballi", chapter: ref("hubballi"),
-    type: "social", league: "offseason", cover: null, summary: "Donate blood, save lives. Partner blood bank on site.",
-    description: [block("Sample event. Walk in, donate, and get a Namma RCB HQ donor badge.")],
-  },
-  {
-    _id: "ev-3", title: "WPL Screening: RCB vs TBD", slug: "wpl-screening-belagavi", date: at(34, 19, 30), venue: "[SAMPLE] Belagavi", chapter: ref("belagavi"),
-    type: "screening", league: "wpl", opponent: "TBD", cover: null, summary: "Big screen, full house. Wear red.",
-    description: [block("Sample event. Fixture to be confirmed once the schedule is out.")],
-  },
-  {
-    _id: "ev-4", title: "Kids Cricket Clinic", slug: "kids-cricket-clinic-kolar", date: at(46, 7, 30), venue: "[SAMPLE] Kolar", chapter: ref("kolar"),
-    type: "social", league: "offseason", cover: null, summary: "A morning of coaching for under-14s.",
-    description: [block("Sample event. Free clinic with local coaches. Bring your own water bottle.")],
-  },
-  {
-    _id: "ev-5", title: "Season Finale Screening", slug: "season-finale-screening", date: at(-160, 19, 30), venue: "[SAMPLE] Hubballi", chapter: ref("hubballi"),
-    type: "screening", league: "ipl", opponent: "TBD", cover: null, summary: "The loudest night of the season.",
-    recap: "Sample recap. A packed hall, a thousand flags and one voice.",
-    impactStats: [{ label: "Fans", value: "800+" }, { label: "Flags", value: "1,000" }],
-  },
-  {
-    _id: "ev-6", title: "Tree Plantation Drive", slug: "tree-plantation-kolar", date: at(-120, 8, 0), venue: "[SAMPLE] Kolar", chapter: ref("kolar"),
-    type: "social", league: "offseason", cover: null, summary: "Greening our city.",
-    recap: "Sample recap. Volunteers planted saplings along the lake road.",
+  // Upcoming
+  ev({
+    _id: "ev-1", title: "Off-season fan meet", slug: "off-season-fan-meet", date: at(9, 17, 0), venue: "Jayanagar community hall, Bengaluru", mapUrl: maps("Jayanagar Bengaluru"),
+    type: "fanmeet", league: "offseason", cover: "stadium-wide", summary: "Quiz, jersey swap and auction-season predictions",
+    description: [block("Fans from every chapter meet for an evening of quizzes, stories and predictions for the auction."), block("Bring an old jersey to swap. Snacks and chai are on us.")],
+    schedule: [{ time: "5:00 PM", item: "Check-in" }, { time: "5:30 PM", item: "Fan quiz, three rounds" }, { time: "6:45 PM", item: "Auction predictions panel" }, { time: "7:30 PM", item: "Jersey swap" }],
+    rsvpUrl: "/join",
+  }),
+  ev({
+    _id: "ev-2", title: "Blood donation drive", slug: "blood-donation-drive-hubballi", date: at(16, 9, 0), venue: "Vidyanagar community hall, Hubballi", mapUrl: maps("Vidyanagar Hubballi"), ch: hub,
+    type: "social", league: "offseason", cover: "fans-celebrate", summary: "Donate blood with our partner blood bank on site",
+    description: [block("Walk in between 9 AM and 2 PM. The blood bank team runs a quick check before you donate."), block("Every donor gets a certificate and a Namma RCB HQ donor badge.")],
+    schedule: [{ time: "9:00 AM", item: "Registration opens" }, { time: "9:30 AM", item: "Donations begin" }, { time: "2:00 PM", item: "Last donor" }],
+    rsvpUrl: "/join",
+  }),
+  ev({
+    _id: "ev-3", title: "IPL auction watch party", slug: "ipl-auction-watch-party", date: at(23, 14, 0), venue: "Indiranagar club house, Bengaluru", mapUrl: maps("Indiranagar Bengaluru"),
+    type: "fanmeet", league: "offseason", cover: "crowd-scarves", summary: "Every bid on the big screen, with a live fantasy draft",
+    description: [block("We watch the auction live and run our own fantasy draft alongside it. Prizes for the best squad.")],
+    schedule: [{ time: "2:00 PM", item: "Doors open" }, { time: "2:30 PM", item: "Auction live" }, { time: "7:00 PM", item: "Fantasy draft results" }],
+    rsvpUrl: "/join",
+  }),
+  ev({
+    _id: "ev-4", title: "WPL screening: RCB vs Mumbai", slug: "wpl-screening-belagavi", date: at(34, 19, 30), venue: "Tilakwadi club house, Belagavi", mapUrl: maps("Tilakwadi Belagavi"), ch: bel,
+    type: "screening", league: "wpl", opponent: "Mumbai", cover: "flag-tall", summary: "Big screen and a full house. Wear red",
+    description: [block("The Belagavi chapter's first WPL screening of the season. Seats are first come, first served.")],
+    schedule: [{ time: "6:30 PM", item: "Doors open" }, { time: "7:30 PM", item: "First ball" }],
+    rsvpUrl: "/join",
+  }),
+  ev({
+    _id: "ev-5", title: "Kids cricket clinic", slug: "kids-cricket-clinic-kolar", date: at(41, 7, 30), venue: "Town hall grounds, Kolar", mapUrl: maps("Kolar town hall"), ch: kol,
+    type: "social", league: "offseason", cover: "scarf-fans", summary: "A free morning of coaching for under-14s",
+    description: [block("Local coaches run batting, bowling and fielding stations. Bring a water bottle and your own bat if you have one.")],
+    schedule: [{ time: "7:30 AM", item: "Warm-up" }, { time: "8:00 AM", item: "Skill stations" }, { time: "10:00 AM", item: "Mini match" }],
+    rsvpUrl: "/join",
+  }),
+  ev({
+    _id: "ev-6", title: "WPL screening: RCB vs Delhi", slug: "wpl-screening-hubballi", date: at(48, 19, 30), venue: "Vidyanagar community hall, Hubballi", mapUrl: maps("Vidyanagar Hubballi"), ch: hub,
+    type: "screening", league: "wpl", opponent: "Delhi", cover: "floodlights-flag", summary: "Second WPL screening in Hubballi",
+    description: [block("Projector, sound system and 300 seats. Flags and face paint at the door.")],
+    rsvpUrl: "/join",
+  }),
+
+  // Past
+  ev({
+    _id: "ev-7", title: "Season finale screening", slug: "season-finale-screening", date: at(-160, 19, 30), venue: "Vidyanagar community hall, Hubballi", ch: hub,
+    type: "screening", league: "ipl", opponent: "Punjab", cover: "match-night", summary: "The loudest night of the season",
+    recap: "A packed hall, a thousand flags and one voice. Doors closed forty minutes before the toss because every seat was taken.",
+    impactStats: [{ label: "Fans", value: "820" }, { label: "Flags handed out", value: "1,000" }],
+  }),
+  ev({
+    _id: "ev-8", title: "Title celebration", slug: "title-celebration-bengaluru", date: at(-158, 18, 0), venue: "Jayanagar, Bengaluru",
+    type: "fanmeet", league: "ipl", cover: "fans-celebrate", summary: "Cake, dhol and a very long night",
+    recap: "Members from all four chapters came to Bengaluru to celebrate together. The dhol players did not stop for three hours.",
+    impactStats: [{ label: "Members", value: "1,200" }, { label: "Chapters", value: "4" }],
+  }),
+  ev({
+    _id: "ev-9", title: "Tree plantation drive", slug: "tree-plantation-kolar", date: at(-120, 8, 0), venue: "Kolar lake road", ch: kol,
+    type: "social", league: "offseason", cover: "smoke-fans", summary: "Greening our city",
+    recap: "Volunteers planted saplings along the lake road and set up a watering rota for the summer.",
     impactStats: [{ label: "Saplings", value: "250" }, { label: "Volunteers", value: "60" }],
-  },
-  {
-    _id: "ev-7", title: "Away Trip: Chepauk", slug: "away-trip-chennai", date: at(-200, 6, 0), venue: "[SAMPLE] Chennai", chapter: null,
-    type: "awaytrip", league: "ipl", opponent: "TBD", cover: null, summary: "Two buses, one dream.",
-    recap: "Sample recap. 90 fans made the trip and sang for four hours straight.",
-    impactStats: [{ label: "Fans travelled", value: "90" }],
-  },
-  {
-    _id: "ev-8", title: "Founders' Fan Meet", slug: "founders-fan-meet", date: at(-330, 17, 0), venue: "[SAMPLE] Bengaluru", chapter: null,
-    type: "fanmeet", league: "offseason", cover: null, summary: "Where it all started.",
-    recap: "Sample recap.",
-  },
+  }),
+  ev({
+    _id: "ev-10", title: "Away trip: Chepauk", slug: "away-trip-chennai", date: at(-200, 6, 0), venue: "Chennai",
+    type: "awaytrip", league: "ipl", opponent: "Chennai", cover: "floodlight-tall", summary: "Two buses, one dream",
+    recap: "Ninety fans made the trip and sang for four hours straight in the away block.",
+    impactStats: [{ label: "Fans travelled", value: "90" }, { label: "Buses", value: "2" }],
+  }),
+  ev({
+    _id: "ev-11", title: "Blood donation drive", slug: "blood-donation-drive-belagavi", date: at(-95, 9, 0), venue: "Tilakwadi club house, Belagavi", ch: bel,
+    type: "social", league: "offseason", cover: "crowd-right", summary: "Belagavi's first drive",
+    recap: "The new chapter's first blood drive filled every slot by noon.",
+    impactStats: [{ label: "Units collected", value: "74" }, { label: "Donors", value: "80" }],
+  }),
+  ev({
+    _id: "ev-12", title: "WPL final screening", slug: "wpl-final-screening", date: at(-250, 19, 30), venue: "Indiranagar club house, Bengaluru",
+    type: "screening", league: "wpl", opponent: "Delhi", cover: "crowd-scarves", summary: "Queens of Bengaluru",
+    recap: "Our biggest WPL crowd yet watched the final together and stayed long after the last ball.",
+    impactStats: [{ label: "Fans", value: "540" }],
+  }),
+  ev({
+    _id: "ev-13", title: "Lake clean-up", slug: "lake-clean-up-kolar", date: at(-60, 7, 0), venue: "Kolaramma lake, Kolar", ch: kol,
+    type: "social", league: "offseason", cover: "flag-wave", summary: "Two tonnes of waste off the lake bed",
+    recap: "A Sunday morning, gloves and sacks. The municipality picked up the waste the same day.",
+    impactStats: [{ label: "Waste removed", value: "2 t" }, { label: "Volunteers", value: "45" }],
+  }),
+  ev({
+    _id: "ev-14", title: "Away trip: Hyderabad", slug: "away-trip-hyderabad", date: at(-185, 5, 30), venue: "Hyderabad",
+    type: "awaytrip", league: "ipl", opponent: "Hyderabad", cover: "crowd-flags", summary: "Overnight train, front-row seats",
+    recap: "Sixty fans took the overnight train and filled a whole stand section in red.",
+    impactStats: [{ label: "Fans travelled", value: "60" }],
+  }),
+  ev({
+    _id: "ev-15", title: "Founders' fan meet", slug: "founders-fan-meet", date: at(-330, 17, 0), venue: "Jayanagar community hall, Bengaluru",
+    type: "fanmeet", league: "offseason", cover: "stands", summary: "Where it all started",
+    recap: "The founding members told the story of the first screening and welcomed two hundred new members.",
+    impactStats: [{ label: "New members", value: "200" }],
+  }),
+  ev({
+    _id: "ev-16", title: "School kit donation", slug: "school-kit-donation-hubballi", date: at(-40, 10, 0), venue: "Government school, Old Hubballi", ch: hub,
+    type: "social", league: "offseason", cover: "roar", summary: "Bags, books and cricket kits for 300 students",
+    recap: "Members collected and packed kits over two weekends and handed them out with the school staff.",
+    impactStats: [{ label: "Kits", value: "300" }, { label: "Cricket sets", value: "12" }],
+  }),
 ];
 
+/* ── Initiatives, milestones, FAQ ─────────────────────────────────────── */
 export const initiatives: Initiative[] = [
-  { _id: "in-1", title: "Blood Donation Drives", chapter: null, summary: "Regular drives with partner blood banks.", impact: "[PLACEHOLDER] units collected" },
-  { _id: "in-2", title: "Tree Plantation", chapter: ref("kolar"), summary: "Saplings planted around Kolar.", impact: "[PLACEHOLDER]" },
+  { _id: "in-1", title: "Blood donation drives", chapter: null, summary: "Four drives a year with partner blood banks in every chapter city.", impact: "1,100+ units collected" },
+  { _id: "in-2", title: "Tree plantation", chapter: kol, summary: "Saplings planted and watered along the Kolar lake road.", impact: "250 saplings" },
+  { _id: "in-3", title: "School kit donation", chapter: hub, summary: "Bags, books and cricket kits for government school students.", impact: "300 kits" },
+  { _id: "in-4", title: "Kids cricket clinics", chapter: kol, summary: "Free weekend coaching for under-14s with local coaches.", impact: "180 kids coached" },
 ];
 
 export const milestones: Milestone[] = [
-  { _id: "ms-1", year: 2021, title: "[PLACEHOLDER] Club founded", description: "Replace with the real founding year and story." },
-  { _id: "ms-2", year: 2022, title: "[PLACEHOLDER] First away trip" },
-  { _id: "ms-3", year: 2023, title: "[PLACEHOLDER] Hubballi chapter launched" },
-  { _id: "ms-4", year: 2024, title: "[PLACEHOLDER] Officially recognised by RCB" },
-  { _id: "ms-5", year: 2025, title: "[PLACEHOLDER] Kolar & Belagavi chapters" },
+  { _id: "ms-1", year: 2021, title: "First screening", description: "40 friends, one projector and a rented hall in Jayanagar." },
+  { _id: "ms-2", year: 2022, title: "First away trip", description: "One bus to Chennai. We came back with 300 new members." },
+  { _id: "ms-3", year: 2023, title: "Hubballi chapter", description: "Our first chapter outside Bengaluru." },
+  { _id: "ms-4", year: 2024, title: "Recognised by RCB", description: "Named an official fan club by Royal Challengers Bengaluru." },
+  { _id: "ms-5", year: 2025, title: "Kolar and Belagavi", description: "Two new chapters and the title we waited 18 years for." },
+  { _id: "ms-6", year: 2026, title: "5,000 members", description: "Back-to-back IPL titles and a second WPL trophy." },
 ];
 
 export const faqs: Faq[] = [
-  { _id: "fq-1", question: "Is membership free?", answer: "[PLACEHOLDER] Yes. Fill the form and you'll be added to your chapter's WhatsApp group." },
+  { _id: "fq-1", question: "Is membership free?", answer: "Yes. Fill in the form and your chapter lead adds you to the WhatsApp group within two days." },
   { _id: "fq-2", question: "Is this the official RCB team?", answer: "No. We are an independent fan club recognised by RCB, not operated by Royal Challengers Sports Pvt. Ltd." },
-  { _id: "fq-3", question: "There's no chapter in my city. What now?", answer: "Start one! Use the “Start a chapter” form on the Chapters page and we'll help you set it up." },
-  { _id: "fq-4", question: "Are screenings open to non-members?", answer: "[PLACEHOLDER] Most screenings are open to all fans. Some need an RSVP because of venue capacity." },
+  { _id: "fq-3", question: "There's no chapter in my city. What now?", answer: "Start one. Use the “Start a chapter” form on the Chapters page and we will help with your first screening." },
+  { _id: "fq-4", question: "Are screenings open to non-members?", answer: "Most are. Some need an RSVP because of venue size, which the event page will say." },
+  { _id: "fq-5", question: "Do you sell match tickets?", answer: "No. We share official ticket links in the WhatsApp group as soon as sales open." },
+  { _id: "fq-6", question: "How do I volunteer?", answer: "Tell your chapter lead or tick “volunteer” when you join. Every drive needs hands." },
 ];
 
-/** Placeholder gallery: 18 tiles with mixed shapes. */
-const ratios = [0.75, 1.33, 1, 0.8, 1.5, 0.66, 1, 1.25, 0.75, 1.77, 1, 0.8, 1.33, 0.66, 1, 1.5, 0.75, 1.2];
-export const albums: Album[] = events.filter((e) => new Date(e.date) < new Date()).map((e, ai) => ({
-  _id: "al-" + e._id,
-  title: e.title,
-  date: e.date,
-  chapter: e.chapter,
-  eventSlug: e.slug,
-  items: Array.from({ length: 4 + (ai % 2) }, (_, i): GalleryItem => {
-    const n = ai * 5 + i;
-    return {
-      id: `${e._id}-${i}`,
-      kind: n % 7 === 3 ? "video" : "photo",
-      image: null,
-      ratio: ratios[n % ratios.length],
-      chapterSlug: e.chapter?.slug,
-      eventSlug: e.slug,
-      eventTitle: e.title,
-      year: new Date(e.date).getFullYear(),
-      caption: `${e.title} — photo ${i + 1}`,
-    };
-  }),
-}));
+/* ── Albums: one per past event, filled with dummy photos ─────────────── */
+export const albums: Album[] = events
+  .filter((e) => new Date(e.date) < new Date())
+  .map((e, ai) => ({
+    _id: "al-" + e._id,
+    title: e.title,
+    date: e.date,
+    chapter: e.chapter,
+    eventSlug: e.slug,
+    items: Array.from({ length: 4 + (ai % 3) }, (_, i): GalleryItem => {
+      const [name, alt] = FAN_PHOTOS[(ai * 5 + i) % FAN_PHOTOS.length];
+      const [w, h] = SIZES[name];
+      return {
+        id: `${e._id}-${i}`,
+        kind: "photo",
+        image: photo(name, alt),
+        ratio: w / h,
+        chapterSlug: e.chapter?.slug,
+        eventSlug: e.slug,
+        eventTitle: e.title,
+        year: new Date(e.date).getFullYear(),
+        caption: alt,
+      };
+    }),
+  }));
+
+/** Dummy Instagram tiles, used until a real feed is connected. */
+export const instaPlaceholderPhotos = FAN_PHOTOS.map(([n]) => `/media/dummy/${n}.jpg`);

@@ -21,7 +21,7 @@ export default function Recognition({ r }: { r: SiteSettings["recognition"] }) {
             )}
           </div>
           <div className="absolute -bottom-5 -right-3 grid h-24 w-24 rotate-12 place-items-center rounded-full bg-gradient-to-br from-gold-soft to-gold text-center text-black">
-            {r.badge?.src ? <Image src={r.badge.src} alt={r.badge.alt} width={80} height={80} /> : <span className="display text-sm leading-tight">Recognised<br />by RCB</span>}
+            {r.badge?.src ? <Image src={r.badge.src} alt={r.badge.alt} width={80} height={80} className="h-16 w-16 object-contain" /> : <span className="display text-sm leading-tight">Recognised<br />by RCB</span>}
           </div>
         </Reveal>
         <Reveal delay={0.15} className="relative">
