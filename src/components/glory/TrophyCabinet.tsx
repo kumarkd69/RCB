@@ -27,7 +27,7 @@ function Summary({ trophies }: { trophies: Trophy[] }) {
 }
 
 /**
- * Pinned "trophy cabinet": a 3D gold trophy spins as you scroll through each title,
+ * Pinned "trophy cabinet": the trophy video plays while you scroll through each title,
  * with giant outlined years and confetti that intensifies. Ends on a league summary.
  */
 export default function TrophyCabinet({ trophies }: { trophies: Trophy[] }) {
