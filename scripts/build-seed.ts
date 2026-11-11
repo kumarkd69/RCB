@@ -31,6 +31,8 @@ docs.push(clean({
   recognition: clean({ title: s.recognition.title, note: s.recognition.note, badge: image(s.recognition.badge), proof: image(s.recognition.proof) }),
   pillars: s.pillars.map((p) => clean({ _key: key(), title: p.title, description: p.description, icon: p.icon, frequency: p.frequency, image: image(p.image) })),
   trophies: s.trophies.map((t) => ({ _key: key(), ...t })),
+  bannerMessages: s.bannerMessages,
+  contests: s.contests.map((c) => ({ _key: key(), ...c })),
   highlights: s.highlights.map((h) => clean({ _key: key(), caption: h.caption, videoUrl: h.videoUrl, image: image(h.image) })),
   glory: s.glory.map((g) => clean({ _key: key(), title: g.title, year: g.year, league: g.league, image: image(g.image) })),
 }));
@@ -60,7 +62,7 @@ for (const a of seed.albums) {
     items: a.items.map((it) => ({ _key: key(), ...image(it.image)! })),
   }));
 }
-for (const i of seed.initiatives) docs.push(clean({ _id: `initiative-${i._id}`, _type: "initiative", title: i.title, summary: i.summary, impact: i.impact, chapter: i.chapter ? ref(chapterId(i.chapter.slug)!) : undefined }));
+for (const i of seed.initiatives) docs.push(clean({ _id: `initiative-${i._id}`, _type: "initiative", title: i.title, pillar: i.pillar, window: i.window, order: i.order, summary: i.summary, points: i.points, impact: i.impact, images: i.images?.map((im) => ({ _key: key(), ...image(im)! })), chapter: i.chapter ? ref(chapterId(i.chapter.slug)!) : undefined }));
 for (const m of seed.milestones) docs.push(clean({ _id: `milestone-${m._id}`, _type: "milestone", year: m.year, title: m.title, description: m.description }));
 seed.faqs.forEach((f, i) => docs.push({ _id: `faq-${f._id}`, _type: "faq", question: f.question, answer: f.answer, order: i + 1 }));
 

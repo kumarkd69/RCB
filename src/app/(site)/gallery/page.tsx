@@ -17,7 +17,7 @@ export default async function GalleryPage() {
       <div className="container-x">
         <GalleryExplorer albums={albums} chapters={chapters} />
         <section id="instagram" aria-labelledby="ig" className="scroll-mt-28 pt-24">
-          <SectionHeading eyebrow="Instagram" title={<span id="ig">From our Instagram accounts</span>} kicker="Updated every hour from all club accounts" />
+          <SectionHeading eyebrow="Instagram" title={<span id="ig">On our social media</span>} kicker="Updated every hour from all club accounts" />
           <InstagramGrid posts={insta.posts} connected={insta.connected} limit={24} />
         </section>
       </div>

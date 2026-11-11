@@ -5,6 +5,8 @@ import Media from "../ui/Media";
 import { Icon } from "../ui/Icon";
 import { cn } from "@/lib/utils";
 
+const initials = (n: string) => { const w = n.trim().split(/\s+/); return ((w[0]?.[0] ?? "") + (w[1]?.[0] ?? "")).toUpperCase(); };
+
 /** Flip card: photo + name on front; role, chapter and socials on back. Hover, focus or tap to flip. */
 export default function TeamCard({ m, i = 0 }: { m: Pick<TeamMember, "name" | "role" | "photo" | "socials"> & { chapter?: TeamMember["chapter"] }; i?: number }) {
   const [flip, setFlip] = useState(false);
@@ -14,7 +16,14 @@ export default function TeamCard({ m, i = 0 }: { m: Pick<TeamMember, "name" | "r
       <div className={cn("relative h-full w-full transition-transform duration-700 ease-[var(--ease-out)] [transform-style:preserve-3d]", flip && "[transform:rotateY(180deg)]")}>
         {/* front */}
         <div className="absolute inset-0 overflow-hidden rounded-[var(--radius)] border border-line [backface-visibility:hidden]">
-          <Media img={m.photo} label={m.name} seed={i} sizes="(max-width:768px) 50vw, 25vw" />
+          {m.photo?.src ? (
+            <Media img={m.photo} label={m.name} seed={i} sizes="(max-width:768px) 50vw, 25vw" />
+          ) : (
+            /* no photo yet: initials on RCB red/black, like the plan deck */
+            <div aria-hidden className={cn("absolute inset-0 grid place-items-center", i % 2 ? "bg-red" : "bg-raised")}>
+              <span className={cn("display text-[5.5rem] leading-none", i % 2 ? "text-black/80" : "text-gold")}>{initials(m.name)}</span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-4">
             <h3 className="display text-2xl leading-tight">{m.name}</h3>

@@ -111,7 +111,9 @@ scripts/build-seed.ts    seed.ts → NDJSON for Sanity import
 
 - **Intro loader** — the crest rises in with a gold flare, a 0→100 counter runs, then red curtains split open. Once per browser session.
 - **Page transitions** — red and gold curtains sweep away on every navigation (`src/app/(site)/template.tsx`).
-- **Hero** — full-screen fan video (`public/media/fans-hero*.mp4`, poster `fans-hero.jpg`), separate square crop for phones.
+- **Scroll-driven video hero** — the fan footage is 95 frames (`public/media/hero-frames/d` desktop, `m` phones) drawn to a canvas, so it plays forward and backward with the scroll. Three beats fade over it: Namma RCB HQ → RCB fandom is family → Connect · Give back · Play together. To replace the footage, export new frames with `ffmpeg -i video.mp4 -vf "fps=12,scale=1200:-2" -c:v libwebp -quality 45 public/media/hero-frames/d/%03d.webp` (same for `m` with a portrait crop).
+- **The Namma Banner** — the club's symbol; fans' handwritten messages appear on it as you scroll (Studio → Site settings → Namma Banner messages).
+- **Three pillars, six initiatives** — the 90-day plan from Studio → Initiatives (pillar, window, key points, photo), with a roll-out line that fills on scroll and the fan contests (Site settings → Fan contests).
 - **Trophy cabinet** — one screen; the rotating trophy video (`public/media/trophy.mp4`) is blended with `mix-blend-mode: lighten` so its studio-black background disappears into the page. The highlighted title changes every few seconds; visitors can tap a year. Titles are edited in Studio → Site settings → RCB trophy cabinet.
 - To replace a video, overwrite the file in `public/media/` with the same name (H.264 MP4, no audio, `-movflags +faststart`).
 - **Glory moments** (About page) — horizontal pinned reel of winning photos/videos with clip-path reveals and parallax. Upload in Studio → Site settings → Glory moments.

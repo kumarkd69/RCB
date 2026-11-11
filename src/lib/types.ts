@@ -64,6 +64,8 @@ export type ClubEvent = {
   impactStats?: { label: string; value: string }[];
 };
 
+export type PillarKey = "connect" | "giveback" | "play";
+
 export type Initiative = {
   _id: string;
   title: string;
@@ -72,7 +74,14 @@ export type Initiative = {
   summary?: string;
   impact?: string;
   images?: Img[];
+  /** 90-day plan fields */
+  pillar?: PillarKey;
+  window?: string;
+  points?: string[];
+  order?: number;
 };
+
+export type Contest = { title: string; description: string; where: string };
 
 export type Milestone = { _id: string; year: number; title: string; description?: string };
 export type Faq = { _id: string; question: string; answer: string };
@@ -106,7 +115,7 @@ export type SiteSettings = {
   tagline: string;
   intro: string;
   logo: Img;
-  stats: { members: number; events: number; cities: number; years: number };
+  stats: { members: number; events: number; cities: number; years: number; reach?: number };
   recognition: { title: string; note: string; badge: Img; proof: Img; proofFileUrl?: string };
   pillars: Pillar[];
   mission: string;
@@ -121,6 +130,9 @@ export type SiteSettings = {
   glory: GloryMoment[];
   /** optional CMS overrides for the two videos */
   heroVideoUrl?: string;
+  /** handwritten messages on the Namma Banner */
+  bannerMessages: string[];
+  contests: Contest[];
   trophyVideoUrl?: string;
 };
 

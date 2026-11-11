@@ -6,7 +6,6 @@ import Timeline from "@/components/about/Timeline";
 import TeamCard from "@/components/team/TeamCard";
 import Recognition from "@/components/home/Recognition";
 import Pillars from "@/components/home/Pillars";
-import GloryReel from "@/components/glory/GloryReel";
 import { getChapters, getInitiatives, getMilestones, getSettings, getTeam } from "@/lib/data";
 import { isPlaceholder } from "@/lib/utils";
 
@@ -16,6 +15,7 @@ export const metadata: Metadata = { title: "About", description: "Our story, mis
 export default async function AboutPage() {
   const [settings, team, chapters, milestones, initiatives] = await Promise.all([getSettings(), getTeam(), getChapters(), getMilestones(), getInitiatives()]);
   const core = team.filter((t) => t.isCore);
+  const emerging = team.filter((t) => !t.isCore && !t.chapter);
   const leadsByCity = chapters.map((c) => ({ c, members: team.filter((t) => !t.isCore && t.chapter?.slug === c.slug) })).filter((g) => g.members.length);
 
   return (
@@ -50,14 +50,21 @@ export default async function AboutPage() {
 
       <Recognition r={settings.recognition} />
 
-      <GloryReel items={settings.glory} />
-
       <section aria-labelledby="core" className="container-x py-16">
         <SectionHeading eyebrow="Core team" title={<span id="core">The people who run it</span>} />
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {core.map((m, i) => <li key={m._id}><TeamCard m={m} i={i} /></li>)}
         </ul>
       </section>
+      {emerging.length > 0 && (
+        <section aria-labelledby="emerging" className="container-x py-16">
+          <SectionHeading eyebrow="Emerging members" title={<span id="emerging">The next generation</span>} />
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {emerging.map((m, i) => <li key={m._id}><TeamCard m={m} i={i + core.length} /></li>)}
+          </ul>
+        </section>
+      )}
+
 
       {leadsByCity.length > 0 && (
         <section aria-labelledby="leads" className="container-x py-16">

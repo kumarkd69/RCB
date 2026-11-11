@@ -35,6 +35,9 @@ const SIZES: Record<string, [number, number]> = {
   "recognition-sample": [1200, 1600], "fan-flag": [546, 649],
 };
 const photo = (name: string, alt: string): Img => ({ src: `/media/dummy/${name}.jpg`, alt, width: SIZES[name][0], height: SIZES[name][1] });
+/** Photos from the 90-day plan deck (public/media/plan) */
+const PLAN: Record<string, [number, number]> = { podcast: [771, 900], "box-cricket": [990, 717], "hygiene-drive": [1047, 672], "school-fun-day": [1074, 672], "crowd-dark": [1600, 900] };
+const planPhoto = (name: string, alt: string): Img => ({ src: `/media/plan/${name}.jpg`, alt, width: PLAN[name][0], height: PLAN[name][1] });
 
 const FAN_PHOTOS: [string, string][] = [
   ["stadium-wide", "Fans waving red flags under the floodlights"],
@@ -59,9 +62,9 @@ const FAN_PHOTOS: [string, string][] = [
 export const settings: SiteSettings = {
   tagline: "For the fans. By the fans. From Bengaluru. For RCB",
   intro:
-    "Namma RCB HQ Official is a fan-run community of Royal Challengers Bengaluru supporters. We bring fans together for match-day screenings, fan meets, away trips and social drives in Bengaluru, Hubballi, Kolar and Belagavi.",
+    "A fan club for RCB supporters across Karnataka, built on one idea: RCB fandom is family. We bring fans together on match days and give back to the towns we come from.",
   logo: null,
-  stats: { members: 5200, events: 140, cities: 4, years: 5 },
+  stats: { members: 5200, events: 140, cities: 4, years: 5, reach: 250000 }, // sample figures
   recognition: {
     title: "Officially recognised by RCB",
     note: "In 2024 Royal Challengers Bengaluru recognised Namma RCB HQ as an official fan club. That means early news on fan events, a seat at fan club meet-ups and a direct line to the team's fan engagement desk.",
@@ -92,6 +95,25 @@ export const settings: SiteSettings = {
     { image: photo("crowd-scarves", "Fans with scarves at the victory screening"), caption: "Victory night" },
     { image: photo("crowd-right", "A fan cheering at the season finale"), caption: "Season finale" },
   ],
+  bannerMessages: [
+    "Ee sala cup namde!",
+    "Namma hemme, RCB",
+    "Since 2008, always",
+    "For every last-over finish",
+    "12th Man Army, Hubballi",
+    "Belagavi bleeds red",
+    "Kolar is with you",
+    "Play bold, always",
+    "ನಮ್ಮ RCB, ನಮ್ಮ ಹೆಮ್ಮೆ",
+  ],
+  contests: [
+    { title: "Predict & win", description: "Guess the score before each match", where: "Online · every match" },
+    { title: "RCB trivia", description: "A weekly quiz on all things RCB", where: "Online · weekly" },
+    { title: "Fan art challenge", description: "Draw or design your favourite RCB moment", where: "Online" },
+    { title: "Reel challenge", description: "Film your best RCB chant", where: "Online" },
+    { title: "Best fan look", description: "Jersey and face-paint contest", where: "At screenings" },
+    { title: "Her RCB story", description: "Women fans share what RCB means to them", where: "WPL spotlight" },
+  ],
   trophies: [
     { league: "WPL", year: 2024, title: "Women's Premier League Champions" },
     { league: "IPL", year: 2025, title: "Indian Premier League Champions" },
@@ -112,31 +134,25 @@ const hub = { name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad" };
 const kol = { name: "Kolar", slug: "kolar", city: "Kolar" };
 const bel = { name: "Belagavi", slug: "belagavi", city: "Belagavi" };
 
+/** Real team, from the 90-day plan deck. Photos to come (cards show initials until uploaded). */
 export const team: TeamMember[] = [
-  { _id: "tm-1", name: "Rakesh Gowda", role: "Founder & President", photo: photo("p-1", "Rakesh Gowda"), chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
-  { _id: "tm-2", name: "Ananya Rao", role: "General Secretary", photo: photo("p-2", "Ananya Rao"), chapter: null, isCore: true, order: 2, socials: { instagram: "nammarcbhqofficial" } },
-  { _id: "tm-3", name: "Kiran Kumar", role: "Events Head", photo: photo("p-4", "Kiran Kumar"), chapter: null, isCore: true, order: 3, socials: {} },
-  { _id: "tm-4", name: "Sneha Hegde", role: "Social Initiatives Lead", photo: photo("p-6", "Sneha Hegde"), chapter: null, isCore: true, order: 4, socials: {} },
-  { _id: "tm-5", name: "Manjunath S", role: "Media & Content", photo: photo("p-3", "Manjunath S"), chapter: null, isCore: true, order: 5, socials: {} },
-  { _id: "tm-6", name: "Prashanth Patil", role: "Hubballi Chapter Lead", photo: photo("p-5", "Prashanth Patil"), chapter: hub, isCore: false, order: 6, socials: { instagram: "nammarcbhq_hubballi" } },
-  { _id: "tm-7", name: "Deepa Reddy", role: "Kolar Chapter Lead", photo: photo("p-2", "Deepa Reddy"), chapter: kol, isCore: false, order: 7, socials: { instagram: "nammarcbhq_kolar" } },
-  { _id: "tm-8", name: "Santosh Kulkarni", role: "Belagavi Chapter Lead", photo: photo("p-1", "Santosh Kulkarni"), chapter: bel, isCore: false, order: 8, socials: {} },
-  { _id: "tm-9", name: "Vinay Shetty", role: "Treasurer", photo: photo("p-4", "Vinay Shetty"), chapter: null, isCore: true, order: 9, socials: {} },
-  { _id: "tm-10", name: "Pooja Desai", role: "Hubballi Events Coordinator", photo: photo("p-6", "Pooja Desai"), chapter: hub, isCore: false, order: 10, socials: {} },
-  { _id: "tm-11", name: "Arjun Naik", role: "Kolar Volunteer Lead", photo: photo("p-3", "Arjun Naik"), chapter: kol, isCore: false, order: 11, socials: {} },
-  { _id: "tm-12", name: "Meghana Joshi", role: "Belagavi Media Lead", photo: photo("p-2", "Meghana Joshi"), chapter: bel, isCore: false, order: 12, socials: {} },
+  { _id: "tm-1", name: "Siddeshwaraprasad M R", role: "Founder & Chapter Head · Head of Strategy", photo: null, chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
+  { _id: "tm-2", name: "Arun Aribenchi", role: "Co-founder · Event Head", photo: null, chapter: null, isCore: true, order: 2, socials: {} },
+  { _id: "tm-3", name: "Mike Tyson Dsilva", role: "Creative Head", photo: null, chapter: null, isCore: true, order: 3, socials: {} },
+  { _id: "tm-4", name: "Manasa Vashisht", role: "Strategic Marketing Head", photo: null, chapter: null, isCore: true, order: 4, socials: {} },
+  { _id: "tm-5", name: "Kumar K D", role: "IT Head", photo: null, chapter: null, isCore: true, order: 5, socials: {} },
+  { _id: "tm-6", name: "Marilyn", role: "Host · IT Admin", photo: null, chapter: null, isCore: true, order: 6, socials: {} },
+  { _id: "tm-7", name: "Athirath", role: "Media Head", photo: null, chapter: null, isCore: true, order: 7, socials: {} },
+  { _id: "tm-8", name: "Ankush", role: "Emerging Member", photo: null, chapter: null, isCore: false, order: 8, socials: {} },
+  { _id: "tm-9", name: "Prashanth", role: "Emerging Member", photo: null, chapter: null, isCore: false, order: 9, socials: {} },
 ];
 
-const leadOf = (id: string) => {
-  const m = team.find((t) => t._id === id)!;
-  return { name: m.name, role: m.role, photo: m.photo, socials: m.socials };
-};
 
 /* ── Chapters ─────────────────────────────────────────────────────────── */
 export const chapters: Chapter[] = [
-  { _id: "ch-hubballi", name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad", lat: 15.3647, lng: 75.124, lead: leadOf("tm-6"), instagram: "nammarcbhq_hubballi", memberCount: 1400, about: "North Karnataka's loudest RCB corner. Screenings every match day and a blood drive every quarter.", screeningVenue: "Vidyanagar community hall", cover: photo("crowd-flags", "Hubballi chapter fans with flags") },
-  { _id: "ch-kolar", name: "Kolar", slug: "kolar", city: "Kolar", lat: 13.1367, lng: 78.1292, lead: leadOf("tm-7"), instagram: "nammarcbhq_kolar", memberCount: 850, about: "Gold-field city, red-and-gold hearts. Known for the kids' cricket clinic and the lake clean-up.", screeningVenue: "Town hall grounds", cover: photo("smoke-fans", "Kolar chapter fans in red smoke") },
-  { _id: "ch-belagavi", name: "Belagavi", slug: "belagavi", city: "Belagavi", lat: 15.8497, lng: 74.4977, lead: leadOf("tm-8"), instagram: undefined, memberCount: 600, about: "Our newest chapter, on the border, growing every season.", screeningVenue: "Tilakwadi club house", cover: photo("roar", "Belagavi chapter fans roaring") },
+  { _id: "ch-hubballi", name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad", lat: 15.3647, lng: 75.124, lead: null, instagram: "nammarcbhq_hubballi", memberCount: 1400, about: "North Karnataka's loudest RCB corner. Screenings every match day and a blood drive every quarter.", screeningVenue: "Vidyanagar community hall", cover: photo("crowd-flags", "Hubballi chapter fans with flags") },
+  { _id: "ch-kolar", name: "Kolar", slug: "kolar", city: "Kolar", lat: 13.1367, lng: 78.1292, lead: null, instagram: "nammarcbhq_kolar", memberCount: 850, about: "Gold-field city, red-and-gold hearts. Known for the kids' cricket clinic and the lake clean-up.", screeningVenue: "Town hall grounds", cover: photo("smoke-fans", "Kolar chapter fans in red smoke") },
+  { _id: "ch-belagavi", name: "Belagavi", slug: "belagavi", city: "Belagavi", lat: 15.8497, lng: 74.4977, lead: null, instagram: undefined, memberCount: 600, about: "Our newest chapter, on the border, growing every season.", screeningVenue: "Tilakwadi club house", cover: photo("roar", "Belagavi chapter fans roaring") },
 ];
 
 /* ── Events ───────────────────────────────────────────────────────────── */
@@ -254,11 +270,14 @@ export const events: ClubEvent[] = [
 ];
 
 /* ── Initiatives, milestones, FAQ ─────────────────────────────────────── */
+/** The 90-day community plan: three pillars, six initiatives (from the plan deck). */
 export const initiatives: Initiative[] = [
-  { _id: "in-1", title: "Blood donation drives", chapter: null, summary: "Four drives a year with partner blood banks in every chapter city.", impact: "1,100+ units collected" },
-  { _id: "in-2", title: "Tree plantation", chapter: kol, summary: "Saplings planted and watered along the Kolar lake road.", impact: "250 saplings" },
-  { _id: "in-3", title: "School kit donation", chapter: hub, summary: "Bags, books and cricket kits for government school students.", impact: "300 kits" },
-  { _id: "in-4", title: "Kids cricket clinics", chapter: kol, summary: "Free weekend coaching for under-14s with local coaches.", impact: "180 kids coached" },
+  { _id: "in-1", order: 1, pillar: "connect", title: "RCB Fans Family Podcast", window: "Days 1–20", chapter: null, summary: "Fan stories, on the mic.", points: ["Conversations with fans and fan clubs", "Fan journeys and match-day memories", "Short clips as a regular series"], impact: "A stronger RCB fan family", images: [planPhoto("podcast", "A podcast microphone and an RCB mug on a desk")] },
+  { _id: "in-2", order: 2, pillar: "connect", title: "The Namma Banner", window: "Every event", chapter: null, summary: "One banner travels to every event. Fans write a message and sign it. On match day we display it for the team.", points: ["Carry it to every event", "Invite fans to join in", "Fans write a message and sign", "Display it on match day"], images: [planPhoto("crowd-dark", "A red flag over a crowd at night")] },
+  { _id: "in-3", order: 3, pillar: "giveback", title: "Menstrual hygiene drive", window: "Days 21–45", chapter: null, summary: "Sanitary pad distribution for rural girls and women, with privacy and dignity.", points: ["Tie up with NGOs and ASHA workers", "Plan quantity, material and logistics", "Distribute in rural areas"], images: [planPhoto("hygiene-drive", "A smiling schoolgirl receiving a hygiene kit")] },
+  { _id: "in-4", order: 4, pillar: "giveback", title: "Fun days at 3 government schools", window: "Days 46–65", chapter: null, summary: "Teamwork games beyond the stadium, for every child.", points: ["Relay races and tug of war", "Team puzzles and ball games", "A drawing challenge"], images: [planPhoto("school-fun-day", "Children in school uniform in a tug of war")] },
+  { _id: "in-5", order: 5, pillar: "play", title: "Namma Match Day", window: "WPL & IPL season", chapter: null, summary: "Screenings and contests for WPL and IPL, in apartment communities.", points: ["Pitch to the residents' association", "Screen, seating, banner, photo wall", "Host-led live match, then sign the banner"], images: [photo("stadium-wide", "Fans watching a match together with flags")] },
+  { _id: "in-6", order: 6, pillar: "play", title: "Off-Season Showdown", window: "Days 66–90", chapter: null, summary: "One day. Every official fan club. One Namma Cup.", points: ["Box cricket: club vs club, 6-over matches", "Challenge games: relay, penalties, fan-IQ", "Winner takes the Namma Cup"], images: [planPhoto("box-cricket", "A batter in an RCB jersey at a box cricket game")] },
 ];
 
 export const milestones: Milestone[] = [
