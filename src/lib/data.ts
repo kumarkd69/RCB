@@ -21,7 +21,7 @@ async function load<T>(query: string, fallback: T, tags: string[], params = {}):
 export const getSettings = cache(async (): Promise<SiteSettings> => {
   const s = await load<Partial<SiteSettings> | null>(q.settingsQuery, seed.settings, ["siteSettings"]);
   // merge so missing fields never crash the UI
-  return { ...seed.settings, ...(s ?? {}), stats: { ...seed.settings.stats, ...(s?.stats ?? {}) }, recognition: { ...seed.settings.recognition, ...(s?.recognition ?? {}) }, pillars: s?.pillars?.length ? s.pillars : seed.settings.pillars, highlights: s?.highlights?.length ? s.highlights : seed.settings.highlights, values: s?.values?.length ? s.values : seed.settings.values, trophies: s?.trophies?.length ? s.trophies : seed.settings.trophies, bannerMessages: s?.bannerMessages?.length ? s.bannerMessages : seed.settings.bannerMessages, contests: s?.contests?.length ? s.contests : seed.settings.contests, glory: s?.glory?.length ? s.glory : seed.settings.glory } as SiteSettings;
+  return { ...seed.settings, ...(s ?? {}), stats: { ...seed.settings.stats, ...(s?.stats ?? {}) }, recognition: { ...seed.settings.recognition, ...(s?.recognition ?? {}) }, pillars: s?.pillars?.length ? s.pillars : seed.settings.pillars, highlights: s?.highlights?.length ? s.highlights : seed.settings.highlights, values: s?.values?.length ? s.values : seed.settings.values, trophies: s?.trophies?.length ? s.trophies : seed.settings.trophies, glory: s?.glory?.length ? s.glory : seed.settings.glory } as SiteSettings;
 });
 
 export const getEvents = cache(() => load<ClubEvent[]>(q.eventsQuery, seed.events, ["event", "chapter"]));

@@ -18,7 +18,6 @@ export default defineType({
         defineField({ name: "events", type: "number" }),
         defineField({ name: "cities", type: "number" }),
         defineField({ name: "years", type: "number" }),
-        defineField({ name: "reach", title: "Social reach", type: "number" }),
       ],
     }),
     defineField({
@@ -58,13 +57,6 @@ export default defineType({
     defineField({ name: "vision", type: "text", rows: 3 }),
     defineField({ name: "values", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "story", title: "Our story (short)", type: "text", rows: 5 }),
-    defineField({ name: "bannerMessages", title: "Namma Banner messages (handwritten on the home page)", type: "array", of: [{ type: "string" }] }),
-    defineField({
-      name: "contests",
-      title: "Fan contests",
-      type: "array",
-      of: [{ type: "object", fields: [defineField({ name: "title", type: "string" }), defineField({ name: "description", type: "string" }), defineField({ name: "where", title: "Where / how often", type: "string" })] }],
-    }),
     defineField({ name: "heroVideo", title: "Home page video (mp4, muted, under 10 MB)", type: "file", options: { accept: "video/mp4" } }),
     defineField({ name: "trophyVideo", title: "Trophy video (mp4 on a black background)", type: "file", options: { accept: "video/mp4" } }),
     defineField({ name: "whatsappLink", title: "WhatsApp community link", type: "url" }),
@@ -95,7 +87,10 @@ export default defineType({
           fields: [
             defineField({ name: "league", type: "string", options: { list: ["IPL", "WPL"] }, validation: (r) => r.required() }),
             defineField({ name: "year", type: "number", validation: (r) => r.required() }),
+            defineField({ name: "date", title: "Date of the final (sets the order)", type: "date" }),
             defineField({ name: "title", type: "string" }),
+            defineField({ name: "result", title: "Result (e.g. Beat Delhi Capitals by 8 wickets)", type: "string" }),
+            defineField({ name: "venue", type: "string" }),
             defineField({ name: "note", type: "string" }),
           ],
           preview: { select: { title: "league", subtitle: "year" } },

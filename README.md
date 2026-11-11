@@ -50,7 +50,7 @@ Until either is set, the site shows clearly-labelled placeholder tiles that link
 
 ## 4. Forms (Resend)
 
-Membership, contact and "start a chapter" forms use server actions and send email through Resend.
+Membership and contact forms use server actions and send email through Resend.
 1. Create an API key at https://resend.com → `RESEND_API_KEY`.
 2. Verify your domain in Resend, then set `FORMS_FROM_EMAIL` (e.g. `Namma RCB HQ <noreply@yourdomain.com>`).
 3. `FORMS_TO_EMAIL` = inbox(es) that receive submissions (comma-separated).
@@ -111,10 +111,9 @@ scripts/build-seed.ts    seed.ts → NDJSON for Sanity import
 
 - **Intro loader** — the crest rises in with a gold flare, a 0→100 counter runs, then red curtains split open. Once per browser session.
 - **Page transitions** — red and gold curtains sweep away on every navigation (`src/app/(site)/template.tsx`).
-- **Scroll-driven video hero** — the fan footage is 95 frames (`public/media/hero-frames/d` desktop, `m` phones) drawn to a canvas, so it plays forward and backward with the scroll. Three beats fade over it: Namma RCB HQ → RCB fandom is family → Connect · Give back · Play together. To replace the footage, export new frames with `ffmpeg -i video.mp4 -vf "fps=12,scale=1200:-2" -c:v libwebp -quality 45 public/media/hero-frames/d/%03d.webp` (same for `m` with a portrait crop).
-- **The Namma Banner** — the club's symbol; fans' handwritten messages appear on it as you scroll (Studio → Site settings → Namma Banner messages).
-- **Three pillars, six initiatives** — the 90-day plan from Studio → Initiatives (pillar, window, key points, photo), with a roll-out line that fills on scroll and the fan contests (Site settings → Fan contests).
-- **Trophy cabinet** — one screen; the rotating trophy video (`public/media/trophy.mp4`) is blended with `mix-blend-mode: lighten` so its studio-black background disappears into the page. The highlighted title changes every few seconds; visitors can tap a year. Titles are edited in Studio → Site settings → RCB trophy cabinet.
+- **Hero** — full-screen fan video at 45% speed with a slow zoom drift, a floodlight sweep, gentle mouse parallax and a rotating "We … together" line. Separate square crop for phones.
+- **Trophy cabinet** — pins while you scroll: the cup (frames of the trophy video in `public/media/trophy-frames`) turns a little with each scroll and the titles light up one by one along a milestone line, in the order they were won (WPL 2024 → IPL 2025 → WPL 2026 → IPL 2026). Order comes from each title's final date (Studio → Site settings → RCB trophy cabinet).
+- **Chapter map** — Karnataka with Bengaluru (HQ), Hubballi, Kolar and Belagavi; tapping a city opens its Instagram page. Handles live in `src/lib/config.ts` (Belagavi uses the HQ page until its own handle is added).
 - To replace a video, overwrite the file in `public/media/` with the same name (H.264 MP4, no audio, `-movflags +faststart`).
 - **Glory moments** (About page) — horizontal pinned reel of winning photos/videos with clip-path reveals and parallax. Upload in Studio → Site settings → Glory moments.
 - Headings slide up from behind a mask as they enter the screen.

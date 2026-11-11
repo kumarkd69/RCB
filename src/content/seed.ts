@@ -35,9 +35,6 @@ const SIZES: Record<string, [number, number]> = {
   "recognition-sample": [1200, 1600], "fan-flag": [546, 649],
 };
 const photo = (name: string, alt: string): Img => ({ src: `/media/dummy/${name}.jpg`, alt, width: SIZES[name][0], height: SIZES[name][1] });
-/** Photos from the 90-day plan deck (public/media/plan) */
-const PLAN: Record<string, [number, number]> = { podcast: [771, 900], "box-cricket": [990, 717], "hygiene-drive": [1047, 672], "school-fun-day": [1074, 672], "crowd-dark": [1600, 900] };
-const planPhoto = (name: string, alt: string): Img => ({ src: `/media/plan/${name}.jpg`, alt, width: PLAN[name][0], height: PLAN[name][1] });
 
 const FAN_PHOTOS: [string, string][] = [
   ["stadium-wide", "Fans waving red flags under the floodlights"],
@@ -62,9 +59,9 @@ const FAN_PHOTOS: [string, string][] = [
 export const settings: SiteSettings = {
   tagline: "For the fans. By the fans. From Bengaluru. For RCB",
   intro:
-    "A fan club for RCB supporters across Karnataka, built on one idea: RCB fandom is family. We bring fans together on match days and give back to the towns we come from.",
+    "Namma RCB HQ Official is a fan-run community of Royal Challengers Bengaluru supporters. We bring fans together for match-day screenings, fan meets, away trips and social drives in Bengaluru, Hubballi, Kolar and Belagavi.",
   logo: null,
-  stats: { members: 5200, events: 140, cities: 4, years: 5, reach: 250000 }, // sample figures
+  stats: { members: 5200, events: 140, cities: 4, years: 5 },
   recognition: {
     title: "Officially recognised by RCB",
     note: "In 2024 Royal Challengers Bengaluru recognised Namma RCB HQ as an official fan club. That means early news on fan events, a seat at fan club meet-ups and a direct line to the team's fan engagement desk.",
@@ -95,30 +92,12 @@ export const settings: SiteSettings = {
     { image: photo("crowd-scarves", "Fans with scarves at the victory screening"), caption: "Victory night" },
     { image: photo("crowd-right", "A fan cheering at the season finale"), caption: "Season finale" },
   ],
-  bannerMessages: [
-    "Ee sala cup namde!",
-    "Namma hemme, RCB",
-    "Since 2008, always",
-    "For every last-over finish",
-    "12th Man Army, Hubballi",
-    "Belagavi bleeds red",
-    "Kolar is with you",
-    "Play bold, always",
-    "ನಮ್ಮ RCB, ನಮ್ಮ ಹೆಮ್ಮೆ",
-  ],
-  contests: [
-    { title: "Predict & win", description: "Guess the score before each match", where: "Online · every match" },
-    { title: "RCB trivia", description: "A weekly quiz on all things RCB", where: "Online · weekly" },
-    { title: "Fan art challenge", description: "Draw or design your favourite RCB moment", where: "Online" },
-    { title: "Reel challenge", description: "Film your best RCB chant", where: "Online" },
-    { title: "Best fan look", description: "Jersey and face-paint contest", where: "At screenings" },
-    { title: "Her RCB story", description: "Women fans share what RCB means to them", where: "WPL spotlight" },
-  ],
+  // RCB's titles in the order they were won (finals: WPL 17 Mar 2024, IPL 3 Jun 2025, WPL 5 Feb 2026, IPL 31 May 2026)
   trophies: [
-    { league: "WPL", year: 2024, title: "Women's Premier League Champions" },
-    { league: "IPL", year: 2025, title: "Indian Premier League Champions" },
-    { league: "IPL", year: 2026, title: "Indian Premier League Champions" },
-    { league: "WPL", year: 2026, title: "Women's Premier League Champions" },
+    { league: "WPL", year: 2024, date: "2024-03-17", title: "Women's Premier League champions", result: "Beat Delhi Capitals by 8 wickets", venue: "Arun Jaitley Stadium, Delhi", note: "The first title for the franchise, men's or women's" },
+    { league: "IPL", year: 2025, date: "2025-06-03", title: "Indian Premier League champions", result: "Beat Punjab Kings by 6 runs", venue: "Narendra Modi Stadium, Ahmedabad", note: "The men's first IPL title, 18 seasons in" },
+    { league: "WPL", year: 2026, date: "2026-02-05", title: "Women's Premier League champions", result: "Beat Delhi Capitals by 6 wickets", note: "The women win it again" },
+    { league: "IPL", year: 2026, date: "2026-05-31", title: "Indian Premier League champions", result: "Beat Gujarat Titans by 5 wickets", venue: "Narendra Modi Stadium, Ahmedabad", note: "Back-to-back IPL champions" },
   ],
   glory: [
     { title: "The first one", year: 2024, league: "WPL", image: photo("trophy-1", "Gold trophy with red Champions ribbons") },
@@ -134,7 +113,7 @@ const hub = { name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad" };
 const kol = { name: "Kolar", slug: "kolar", city: "Kolar" };
 const bel = { name: "Belagavi", slug: "belagavi", city: "Belagavi" };
 
-/** Real team, from the 90-day plan deck. Photos to come (cards show initials until uploaded). */
+/** The club team. Photos to come (cards show initials until uploaded). */
 export const team: TeamMember[] = [
   { _id: "tm-1", name: "Siddeshwaraprasad M R", role: "Founder & Chapter Head · Head of Strategy", photo: null, chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
   { _id: "tm-2", name: "Arun Aribenchi", role: "Co-founder · Event Head", photo: null, chapter: null, isCore: true, order: 2, socials: {} },
@@ -270,14 +249,11 @@ export const events: ClubEvent[] = [
 ];
 
 /* ── Initiatives, milestones, FAQ ─────────────────────────────────────── */
-/** The 90-day community plan: three pillars, six initiatives (from the plan deck). */
 export const initiatives: Initiative[] = [
-  { _id: "in-1", order: 1, pillar: "connect", title: "RCB Fans Family Podcast", window: "Days 1–20", chapter: null, summary: "Fan stories, on the mic.", points: ["Conversations with fans and fan clubs", "Fan journeys and match-day memories", "Short clips as a regular series"], impact: "A stronger RCB fan family", images: [planPhoto("podcast", "A podcast microphone and an RCB mug on a desk")] },
-  { _id: "in-2", order: 2, pillar: "connect", title: "The Namma Banner", window: "Every event", chapter: null, summary: "One banner travels to every event. Fans write a message and sign it. On match day we display it for the team.", points: ["Carry it to every event", "Invite fans to join in", "Fans write a message and sign", "Display it on match day"], images: [planPhoto("crowd-dark", "A red flag over a crowd at night")] },
-  { _id: "in-3", order: 3, pillar: "giveback", title: "Menstrual hygiene drive", window: "Days 21–45", chapter: null, summary: "Sanitary pad distribution for rural girls and women, with privacy and dignity.", points: ["Tie up with NGOs and ASHA workers", "Plan quantity, material and logistics", "Distribute in rural areas"], images: [planPhoto("hygiene-drive", "A smiling schoolgirl receiving a hygiene kit")] },
-  { _id: "in-4", order: 4, pillar: "giveback", title: "Fun days at 3 government schools", window: "Days 46–65", chapter: null, summary: "Teamwork games beyond the stadium, for every child.", points: ["Relay races and tug of war", "Team puzzles and ball games", "A drawing challenge"], images: [planPhoto("school-fun-day", "Children in school uniform in a tug of war")] },
-  { _id: "in-5", order: 5, pillar: "play", title: "Namma Match Day", window: "WPL & IPL season", chapter: null, summary: "Screenings and contests for WPL and IPL, in apartment communities.", points: ["Pitch to the residents' association", "Screen, seating, banner, photo wall", "Host-led live match, then sign the banner"], images: [photo("stadium-wide", "Fans watching a match together with flags")] },
-  { _id: "in-6", order: 6, pillar: "play", title: "Off-Season Showdown", window: "Days 66–90", chapter: null, summary: "One day. Every official fan club. One Namma Cup.", points: ["Box cricket: club vs club, 6-over matches", "Challenge games: relay, penalties, fan-IQ", "Winner takes the Namma Cup"], images: [planPhoto("box-cricket", "A batter in an RCB jersey at a box cricket game")] },
+  { _id: "in-1", title: "Blood donation drives", chapter: null, summary: "Four drives a year with partner blood banks in every chapter city.", impact: "1,100+ units collected" },
+  { _id: "in-2", title: "Tree plantation", chapter: kol, summary: "Saplings planted and watered along the Kolar lake road.", impact: "250 saplings" },
+  { _id: "in-3", title: "School kit donation", chapter: hub, summary: "Bags, books and cricket kits for government school students.", impact: "300 kits" },
+  { _id: "in-4", title: "Kids cricket clinics", chapter: kol, summary: "Free weekend coaching for under-14s with local coaches.", impact: "180 kids coached" },
 ];
 
 export const milestones: Milestone[] = [
@@ -292,7 +268,7 @@ export const milestones: Milestone[] = [
 export const faqs: Faq[] = [
   { _id: "fq-1", question: "Is membership free?", answer: "Yes. Fill in the form and your chapter lead adds you to the WhatsApp group within two days." },
   { _id: "fq-2", question: "Is this the official RCB team?", answer: "No. We are an independent fan club recognised by RCB, not operated by Royal Challengers Sports Pvt. Ltd." },
-  { _id: "fq-3", question: "There's no chapter in my city. What now?", answer: "Start one. Use the “Start a chapter” form on the Chapters page and we will help with your first screening." },
+  { _id: "fq-3", question: "Which chapter should I join?", answer: "Pick the one closest to you: Bengaluru (HQ), Hubballi, Kolar or Belagavi. Chapters are run by the core team, and members anywhere in Karnataka are welcome." },
   { _id: "fq-4", question: "Are screenings open to non-members?", answer: "Most are. Some need an RSVP because of venue size, which the event page will say." },
   { _id: "fq-5", question: "Do you sell match tickets?", answer: "No. We share official ticket links in the WhatsApp group as soon as sales open." },
   { _id: "fq-6", question: "How do I volunteer?", answer: "Tell your chapter lead or tick “volunteer” when you join. Every drive needs hands." },

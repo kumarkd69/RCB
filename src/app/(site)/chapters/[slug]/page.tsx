@@ -8,6 +8,7 @@ import TeamCard from "@/components/team/TeamCard";
 import MasonryLightbox from "@/components/gallery/MasonryLightbox";
 import InstagramGrid from "@/components/gallery/InstagramGrid";
 import MagneticButton from "@/components/ui/MagneticButton";
+import ChapterMap from "@/components/home/ChapterMap";
 import { Icon } from "@/components/ui/Icon";
 import { getAlbums, getChapter, getChapters, getEvents, splitEvents } from "@/lib/data";
 import { getInstagramFeed } from "@/lib/instagram";
@@ -28,7 +29,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const c = await getChapter(slug);
   if (!c) notFound();
-  const [events, albums, insta] = await Promise.all([getEvents(), getAlbums(), getInstagramFeed(8)]);
+  const [events, albums, insta, allChapters] = await Promise.all([getEvents(), getAlbums(), getInstagramFeed(8), getChapters()]);
   const { upcoming, past } = splitEvents(events.filter((e) => e.chapter?.slug === slug));
   const gallery = albums.filter((a) => a.chapter?.slug === slug).flatMap((a) => a.items);
   const posts = insta.posts.filter((p) => p.chapterSlug === slug);
@@ -87,6 +88,10 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
             <InstagramGrid posts={posts} connected={insta.connected} limit={8} filters={false} />
           </section>
         )}
+        <section aria-labelledby="all-ch" className="pt-20">
+          <SectionHeading eyebrow="All chapters" title={<span id="all-ch">Find us on Instagram</span>} />
+          <ChapterMap chapters={allChapters} />
+        </section>
       </div>
     </>
   );

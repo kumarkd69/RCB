@@ -7,9 +7,9 @@ const chapterRef = `chapter->{ name, "slug": slug.current, city }`;
 export const settingsQuery = groq`*[_id == "siteSettings"][0]{
   tagline, intro, ${img("logo")}, stats,
   recognition{ title, note, ${img("badge")}, ${img("proof")}, "proofFileUrl": proofFile.asset->url },
-  pillars[]{ title, description, icon, frequency, ${img("image")} }, "heroVideoUrl": heroVideo.asset->url, "trophyVideoUrl": trophyVideo.asset->url, bannerMessages, contests[]{ title, description, where }, mission, vision, values, story, whatsappLink, contactEmail, contactPhone,
+  pillars[]{ title, description, icon, frequency, ${img("image")} }, "heroVideoUrl": heroVideo.asset->url, "trophyVideoUrl": trophyVideo.asset->url, mission, vision, values, story, whatsappLink, contactEmail, contactPhone,
   highlights[]{ ${img("image")}, videoUrl, caption },
-  trophies[]{ league, year, title, note },
+  trophies[]{ league, year, date, title, result, venue, note },
   glory[]{ title, year, league, ${img("image")}, "videoUrl": coalesce(video.asset->url, videoUrl) }
 }`;
 
@@ -25,7 +25,7 @@ export const teamQuery = groq`*[_type == "teamMember"] | order(order asc){ ${mem
 const chapterFields = `_id, name, "slug": slug.current, city, lat, lng, lead->{ name, role, ${img("photo")}, socials }, instagram, linkedin, memberCount, about, screeningVenue, ${img("cover")}`;
 export const chaptersQuery = groq`*[_type == "chapter"] | order(name asc){ ${chapterFields} }`;
 
-export const initiativesQuery = groq`*[_type == "initiative"] | order(order asc, date desc){ _id, title, date, ${chapterRef}, summary, impact, pillar, window, points, order, "images": images[]{ "src": asset->url, alt, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height } }`;
+export const initiativesQuery = groq`*[_type == "initiative"] | order(date desc){ _id, title, date, ${chapterRef}, summary, impact, "images": images[]{ "src": asset->url, alt } }`;
 export const milestonesQuery = groq`*[_type == "milestone"] | order(year asc){ _id, year, title, description }`;
 export const faqsQuery = groq`*[_type == "faq"] | order(order asc){ _id, question, answer }`;
 

@@ -6,7 +6,6 @@ import ChapterMap from "@/components/home/ChapterMap";
 import TiltCard from "@/components/ui/TiltCard";
 import Media from "@/components/ui/Media";
 import Reveal from "@/components/ui/Reveal";
-import { ChapterForm } from "@/components/forms/Forms";
 import { Icon } from "@/components/ui/Icon";
 import { getChapters } from "@/lib/data";
 
@@ -40,14 +39,10 @@ export default async function ChaptersPage() {
         </ul>
 
         <section aria-labelledby="map" className="py-24">
-          <SectionHeading eyebrow="Map" title={<span id="map">Find your chapter</span>} />
+          <SectionHeading eyebrow="Map" title={<span id="map">Find us on Instagram</span>} kicker="Tap a city to open its Instagram page" />
           <ChapterMap chapters={chapters} />
         </section>
 
-        <section id="start" aria-labelledby="start-h" className="scroll-mt-28">
-          <SectionHeading eyebrow="Grow the family" title={<span id="start-h">Start a chapter in your city</span>} kicker="Got a group of RCB fans? We'll help with branding, screenings and your first event." />
-          <div className="glass rounded-[2rem] p-6 md:p-10"><ChapterForm /></div>
-        </section>
       </div>
     </>
   );

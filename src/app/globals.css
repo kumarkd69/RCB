@@ -78,6 +78,8 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes sweep { to { background-position: -200% 0; } }
 @keyframes pulse-ring { 0% { transform: scale(.6); opacity: .9 } 100% { transform: scale(2.6); opacity: 0 } }
 @keyframes float-y { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes drift { from { transform: scale(1) translate3d(0,0,0) } to { transform: scale(1.1) translate3d(-2%,-1%,0) } }
+@keyframes sweep-x { 0% { transform: translateX(-60%) rotate(12deg) } 100% { transform: translateX(380%) rotate(12deg) } }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes beam { 0%,100% { opacity: .35; transform: rotate(var(--r, -18deg)) } 50% { opacity: .7; transform: rotate(calc(var(--r, -18deg) + 4deg)) } }
 

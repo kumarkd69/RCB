@@ -78,16 +78,12 @@ Events move from "Upcoming" to "Past" by themselves after their date.
 | Trophy video | **Trophy video** — mp4 on a black background |
 | Tagline, intro, stats (members, events, cities, years) | top of the page |
 | "What we do" cards on Home | **What we do (pillars)** — the first one is shown large |
-| Trophies (IPL/WPL years) | **RCB trophy cabinet** |
+| Trophies (IPL/WPL years) | **RCB trophy cabinet** — add the date of the final; the site shows titles in date order |
+| Winning photos/videos | **Glory moments** |
 | Recognition letter and badge | **Official recognition** |
 | WhatsApp link, email, phone | near the bottom |
 
-| Handwritten messages on the Namma Banner | **Namma Banner messages** — one line each |
-| Fan contests | **Fan contests** |
-
-**The plan (home page "Three pillars. Six initiatives.")** lives in **❤️ Initiatives**: each has a Pillar (Connect / Give back / Play together), When (e.g. `Days 21–45`), Key points and a photo. Add, edit or delete them like events.
-
-Also: **❓ FAQ** and **🏆 Milestones** (the About page timeline) work the same way: Create → fill → Publish.
+Also: **❓ FAQ**, **🏆 Milestones** (the About page timeline) and **❤️ Initiatives** work the same way: Create → fill → Publish.
 
 ---
 

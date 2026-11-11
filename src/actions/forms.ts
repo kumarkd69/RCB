@@ -53,16 +53,3 @@ export async function submitContact(_: FormState, fd: FormData): Promise<FormSta
   const ok = await send(`[${d.type}] message from ${d.name}`, d, d.email);
   return ok ? { ok: true, message: "Message sent. We usually reply within 2 days." } : { ok: false, message: "Something went wrong. Please try again." };
 }
-
-export async function submitChapter(_: FormState, fd: FormData): Promise<FormState> {
-  if (fd.get("company")) return { ok: true, message: "Thanks!" };
-  const d = read(fd, ["name", "phone", "email", "city", "why"]);
-  const errors: Record<string, string> = {};
-  if (d.name.length < 2) errors.name = "Please enter your name.";
-  if (!PHONE.test(d.phone)) errors.phone = "Enter a valid phone number.";
-  if (!EMAIL.test(d.email)) errors.email = "Enter a valid email.";
-  if (!d.city) errors.city = "Which city?";
-  if (Object.keys(errors).length) return fail(errors);
-  const ok = await send(`New chapter request: ${d.city}`, d, d.email);
-  return ok ? { ok: true, message: `Love it! We'll call you about starting a ${d.city} chapter.` } : { ok: false, message: "Something went wrong. Please try again." };
-}

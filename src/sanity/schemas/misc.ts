@@ -6,18 +6,9 @@ export const initiative = defineType({
   type: "document",
   fields: [
     defineField({ name: "title", type: "string", validation: (r) => r.required() }),
-    defineField({
-      name: "pillar",
-      title: "Pillar (home page plan)",
-      type: "string",
-      options: { list: [{ title: "Connect", value: "connect" }, { title: "Give back", value: "giveback" }, { title: "Play together", value: "play" }], layout: "radio" },
-    }),
-    defineField({ name: "window", title: "When (e.g. Days 21–45, Every event)", type: "string" }),
-    defineField({ name: "order", title: "Display order", type: "number" }),
     defineField({ name: "date", type: "date" }),
     defineField({ name: "chapter", type: "reference", to: [{ type: "chapter" }] }),
     defineField({ name: "summary", type: "text", rows: 3 }),
-    defineField({ name: "points", title: "Key points (2–4 short lines)", type: "array", of: [{ type: "string" }] }),
     defineField({
       name: "images",
       type: "array",
