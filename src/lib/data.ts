@@ -11,7 +11,9 @@ async function load<T>(query: string, fallback: T, tags: string[], params = {}):
   if (!sanityEnabled) return fallback;
   try {
     const res = await sanityFetch<T>(query, params, tags);
-    return (res ?? fallback) as T;
+    // empty CMS list → keep showing the sample content
+    if (res == null || (Array.isArray(res) && res.length === 0)) return fallback;
+    return res as T;
   } catch (e) {
     console.error("[sanity] fetch failed, using sample data", e);
     return fallback;

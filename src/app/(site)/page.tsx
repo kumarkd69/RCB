@@ -4,7 +4,8 @@ import MatchDayStrip from "@/components/home/MatchDayStrip";
 import WhatWeDo from "@/components/home/WhatWeDo";
 import TrophyCabinet from "@/components/glory/TrophyCabinet";
 import EventCard from "@/components/events/EventCard";
-import InstagramGrid from "@/components/gallery/InstagramGrid";
+import SocialWall from "@/components/home/SocialWall";
+import StatsBand from "@/components/home/StatsBand";
 import JoinBanner from "@/components/home/JoinBanner";
 import ChapterMap from "@/components/home/ChapterMap";
 import { Icon } from "@/components/ui/Icon";
@@ -28,7 +29,7 @@ function Head({ eyebrow, title, id, href, link }: { eyebrow: string; title: stri
 
 /** Compact home: hero → what we do → upcoming → trophies → chapters → Instagram → join. */
 export default async function HomePage() {
-  const [settings, events, chapters, insta] = await Promise.all([getSettings(), getEvents(), getChapters(), getInstagramFeed(4)]);
+  const [settings, events, chapters, insta] = await Promise.all([getSettings(), getEvents(), getChapters(), getInstagramFeed(3)]);
   const { upcoming } = splitEvents(events);
   const nextScreening = upcoming.find((e) => e.type === "screening") ?? null;
 
@@ -48,7 +49,9 @@ export default async function HomePage() {
       <Hero nextEvent={upcoming[0] ?? null} videoUrl={settings.heroVideoUrl} />
       <MatchDayStrip screening={nextScreening} chapters={chapters} />
 
-      <WhatWeDo pillars={settings.pillars} stats={settings.stats} intro={settings.intro} />
+      <WhatWeDo pillars={settings.pillars} />
+
+      <StatsBand stats={settings.stats} />
 
       <section aria-labelledby="upcoming" className="container-x pb-16 md:pb-20">
         <Head eyebrow="Upcoming" title="Next events" id="upcoming" href="/events" link="All events" />
@@ -66,19 +69,7 @@ export default async function HomePage() {
         <ChapterMap chapters={chapters} />
       </section>
 
-      <section aria-labelledby="insta" className="container-x pb-16 md:pb-20">
-        <Head eyebrow="Social media" title="Follow the fan family" id="insta" href="/gallery#instagram" link="All posts" />
-        <ul className="mb-5 flex flex-wrap gap-2">
-          {instagramAccounts.filter((a) => a.handle).map((a) => (
-            <li key={a.key}>
-              <a href={`https://www.instagram.com/${a.handle}/`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-gold">
-                <Icon name="instagram" className="h-4 w-4 text-red" />@{a.handle}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <InstagramGrid posts={insta.posts} connected={insta.connected} limit={6} filters={false} cols={6} />
-      </section>
+      <SocialWall posts={insta.posts} />
 
       <JoinBanner whatsapp={settings.whatsappLink} />
     </>

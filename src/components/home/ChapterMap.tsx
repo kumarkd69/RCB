@@ -6,7 +6,7 @@ import type { Chapter } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Icon } from "../ui/Icon";
 
-type Pin = { key: string; name: string; sub: string; lat: number; lng: number; handle: string; members?: number };
+type Pin = { key: string; name: string; sub: string; lat: number; lng: number; handle: string; members?: number; cover?: string };
 
 /** close cities get their labels on opposite sides of the pin (Belagavi/Hubballi, Bengaluru/Kolar) */
 const BELOW = new Set(["hubballi", "kolar"]);
@@ -16,7 +16,7 @@ const MAIN = instagramAccounts.find((a) => a.key === "main")!.handle!;
 /** Bengaluru HQ + every chapter, each linked to its own Instagram page (HQ's page if a chapter has none yet). */
 function pinsFor(chapters: Chapter[]): Pin[] {
   return [
-    { key: "bengaluru", name: "Bengaluru", sub: "HQ", lat: site.hq.lat, lng: site.hq.lng, handle: MAIN },
+    { key: "bengaluru", name: "Bengaluru", sub: "HQ", lat: site.hq.lat, lng: site.hq.lng, handle: MAIN, cover: "/media/dummy/stadium-wide.jpg" },
     ...chapters.map((c) => ({
       key: c.slug,
       name: c.name,
@@ -24,6 +24,7 @@ function pinsFor(chapters: Chapter[]): Pin[] {
       lat: c.lat,
       lng: c.lng,
       members: c.memberCount,
+      cover: c.cover?.src,
       handle: c.instagram || instagramAccounts.find((a) => a.chapterSlug === c.slug)?.handle || MAIN,
     })),
   ];
@@ -106,9 +107,13 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
               rel="noopener noreferrer"
               onMouseEnter={() => setHover(p.key)}
               onMouseLeave={() => setHover(null)}
-              className={cn("flex items-center justify-between gap-4 rounded-[var(--radius)] border bg-ink px-5 py-4 transition-colors", hover === p.key ? "border-gold" : "border-line")}
+              className={cn("flex items-center gap-4 rounded-[var(--radius)] border bg-ink p-3 pr-5 transition-colors", hover === p.key ? "border-gold" : "border-line")}
             >
-              <span>
+              {p.cover && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.cover} alt="" loading="lazy" className="h-16 w-20 shrink-0 rounded-lg object-cover" />
+              )}
+              <span className="mr-auto">
                 <span className="display block text-3xl">{p.name}</span>
                 <span className="text-sm text-muted">{p.sub}{p.members ? ` · ${p.members.toLocaleString("en-IN")} members` : ""}</span>
               </span>

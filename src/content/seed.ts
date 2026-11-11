@@ -113,17 +113,17 @@ const hub = { name: "Hubballi", slug: "hubballi", city: "Hubballi–Dharwad" };
 const kol = { name: "Kolar", slug: "kolar", city: "Kolar" };
 const bel = { name: "Belagavi", slug: "belagavi", city: "Belagavi" };
 
-/** The club team. Photos to come (cards show initials until uploaded). */
+/** The club team. Photos are SAMPLES from the club videos: replace with real portraits in Studio → Team. */
 export const team: TeamMember[] = [
-  { _id: "tm-1", name: "Siddeshwaraprasad M R", role: "Founder & Chapter Head · Head of Strategy", photo: null, chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
-  { _id: "tm-2", name: "Arun Aribenchi", role: "Co-founder · Event Head", photo: null, chapter: null, isCore: true, order: 2, socials: {} },
-  { _id: "tm-3", name: "Mike Tyson Dsilva", role: "Creative Head", photo: null, chapter: null, isCore: true, order: 3, socials: {} },
-  { _id: "tm-4", name: "Manasa Vashisht", role: "Strategic Marketing Head", photo: null, chapter: null, isCore: true, order: 4, socials: {} },
-  { _id: "tm-5", name: "Kumar K D", role: "IT Head", photo: null, chapter: null, isCore: true, order: 5, socials: {} },
-  { _id: "tm-6", name: "Marilyn", role: "Host · IT Admin", photo: null, chapter: null, isCore: true, order: 6, socials: {} },
-  { _id: "tm-7", name: "Athirath", role: "Media Head", photo: null, chapter: null, isCore: true, order: 7, socials: {} },
-  { _id: "tm-8", name: "Ankush", role: "Emerging Member", photo: null, chapter: null, isCore: false, order: 8, socials: {} },
-  { _id: "tm-9", name: "Prashanth", role: "Emerging Member", photo: null, chapter: null, isCore: false, order: 9, socials: {} },
+  { _id: "tm-1", name: "Siddeshwaraprasad M R", role: "Founder & Chapter Head · Head of Strategy", photo: photo("p-1", "Siddeshwaraprasad M R (sample photo)"), chapter: null, isCore: true, order: 1, socials: { instagram: "nammarcbhqofficial" } },
+  { _id: "tm-2", name: "Arun Aribenchi", role: "Co-founder · Event Head", photo: photo("p-4", "Arun Aribenchi (sample photo)"), chapter: null, isCore: true, order: 2, socials: {} },
+  { _id: "tm-3", name: "Mike Tyson Dsilva", role: "Creative Head", photo: photo("p-3", "Mike Tyson Dsilva (sample photo)"), chapter: null, isCore: true, order: 3, socials: {} },
+  { _id: "tm-4", name: "Manasa Vashisht", role: "Strategic Marketing Head", photo: photo("p-6", "Manasa Vashisht (sample photo)"), chapter: null, isCore: true, order: 4, socials: {} },
+  { _id: "tm-5", name: "Kumar K D", role: "IT Head", photo: photo("p-5", "Kumar K D (sample photo)"), chapter: null, isCore: true, order: 5, socials: {} },
+  { _id: "tm-6", name: "Marilyn", role: "Host · IT Admin", photo: photo("p-2", "Marilyn (sample photo)"), chapter: null, isCore: true, order: 6, socials: {} },
+  { _id: "tm-7", name: "Athirath", role: "Media Head", photo: photo("crowd-right", "Athirath (sample photo)"), chapter: null, isCore: true, order: 7, socials: {} },
+  { _id: "tm-8", name: "Ankush", role: "Emerging Member", photo: photo("roar", "Ankush (sample photo)"), chapter: null, isCore: false, order: 8, socials: {} },
+  { _id: "tm-9", name: "Prashanth", role: "Emerging Member", photo: photo("fan-flag", "Prashanth (sample photo)"), chapter: null, isCore: false, order: 9, socials: {} },
 ];
 
 

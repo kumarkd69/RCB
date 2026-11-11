@@ -4,6 +4,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Timeline from "@/components/about/Timeline";
 import TeamCard from "@/components/team/TeamCard";
+import TeamRow from "@/components/team/TeamRow";
 import Recognition from "@/components/home/Recognition";
 import Pillars from "@/components/home/Pillars";
 import { getChapters, getInitiatives, getMilestones, getSettings, getTeam } from "@/lib/data";
@@ -52,15 +53,15 @@ export default async function AboutPage() {
 
       <section aria-labelledby="core" className="container-x py-16">
         <SectionHeading eyebrow="Core team" title={<span id="core">The people who run it</span>} />
-        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {core.map((m, i) => <li key={m._id}><TeamCard m={m} i={i} /></li>)}
+        <ul className="grid gap-3 md:grid-cols-2">
+          {core.map((m) => <li key={m._id}><TeamRow m={m} /></li>)}
         </ul>
       </section>
       {emerging.length > 0 && (
         <section aria-labelledby="emerging" className="container-x py-16">
           <SectionHeading eyebrow="Emerging members" title={<span id="emerging">The next generation</span>} />
-          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {emerging.map((m, i) => <li key={m._id}><TeamCard m={m} i={i + core.length} /></li>)}
+          <ul className="grid gap-3 md:grid-cols-2">
+            {emerging.map((m) => <li key={m._id}><TeamRow m={m} /></li>)}
           </ul>
         </section>
       )}

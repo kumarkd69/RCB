@@ -86,7 +86,7 @@ export default function Hero({ nextEvent, videoUrl }: { nextEvent: ClubEvent | n
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/70 to-transparent" />
       </motion.div>
 
-      <motion.div style={{ y: textY, x: fgX, opacity: fade }} className="container-x flex h-full flex-col justify-end pb-24 md:justify-center md:pb-0">
+      <motion.div style={{ y: textY, x: fgX, opacity: fade }} className="container-x flex h-full flex-col justify-end pb-28 pt-32 md:justify-center md:pb-24 md:pt-40">
         <h1 id="hero-title" className="font-[family-name:var(--font-hero)] text-[clamp(3.6rem,11vw,9.5rem)] font-black italic leading-[0.88] tracking-[-0.03em]">
           <span className="block overflow-hidden pb-[0.06em] pr-[0.1em]">
             <motion.span className="block" initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, ease, delay: 0.2 }}>Namma</motion.span>
@@ -95,10 +95,7 @@ export default function Hero({ nextEvent, videoUrl }: { nextEvent: ClubEvent | n
             <motion.span className="block text-red" initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, ease, delay: 0.32 }}>RCB HQ</motion.span>
           </span>
         </h1>
-        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="mt-6 max-w-md text-xl font-medium leading-snug text-white/90 md:text-2xl">
-          For the fans. By the fans.<br />From Bengaluru. For RCB.
-        </motion.p>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="mt-4 flex flex-wrap items-baseline gap-x-2 text-lg text-white/75 md:text-xl">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="mt-8 flex flex-wrap items-baseline gap-x-2 text-lg text-white/75 md:text-xl">
           <span className="sr-only">We watch every match, travel to away games, give back to our towns and celebrate every win together.</span>
           <span aria-hidden>We</span>
           <span aria-hidden className="relative inline-flex h-[1.4em] min-w-[13ch] overflow-hidden align-bottom">
@@ -110,10 +107,7 @@ export default function Hero({ nextEvent, videoUrl }: { nextEvent: ClubEvent | n
           </span>
           <span aria-hidden>together</span>
         </motion.p>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="mt-2 text-sm text-white/55">
-          RCB-recognised fan club · Bengaluru · Hubballi · Kolar · Belagavi
-        </motion.p>
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85 }} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85 }} className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
           <Link href="/join" className="group inline-flex items-center gap-3 rounded-full bg-red px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-[#B5121B]">
             Join the Community
             <Icon name="arrow" className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
