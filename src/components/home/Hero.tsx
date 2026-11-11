@@ -11,7 +11,7 @@ import type { ClubEvent } from "@/lib/types";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /** Full-bleed fan video hero. Poster image on reduced motion / data saver. */
-export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
+export default function Hero({ nextEvent, videoUrl }: { nextEvent: ClubEvent | null; videoUrl?: string }) {
   const { reduced } = useMotion();
   const ref = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -46,7 +46,7 @@ export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
             ref={video}
             key={mobile ? "m" : "d"}
             className="absolute inset-0 h-full w-full object-cover object-[70%_center]"
-            src={mobile ? "/media/fans-hero-mobile.mp4" : "/media/fans-hero.mp4"}
+            src={videoUrl || (mobile ? "/media/fans-hero-mobile.mp4" : "/media/fans-hero.mp4")}
             poster="/media/fans-hero.jpg"
             autoPlay={!reduced}
             muted
@@ -56,7 +56,7 @@ export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
             aria-hidden
           />
         )}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,.92)_0%,rgba(10,10,10,.65)_38%,rgba(10,10,10,.1)_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.92)_0%,rgba(0,0,0,.65)_38%,rgba(0,0,0,.1)_70%)]" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/70 to-transparent" />
       </motion.div>
@@ -73,13 +73,17 @@ export default function Hero({ nextEvent }: { nextEvent: ClubEvent | null }) {
         <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="mt-6 max-w-md text-xl font-medium leading-snug text-white/90 md:text-2xl">
           For the fans. By the fans.<br />From Bengaluru. For RCB.
         </motion.p>
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85 }} className="mt-8">
-          <Link href="/join" className="group inline-flex items-center gap-3 rounded-full bg-red px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-[#b5141a]">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="mt-3 max-w-md text-base text-white/70">
+          RCB-recognised fan club. Match-day screenings, fan meets, away trips and social drives in Bengaluru, Hubballi, Kolar and Belagavi
+        </motion.p>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85 }} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link href="/join" className="group inline-flex items-center gap-3 rounded-full bg-red px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-[#B5121B]">
             Join the Community
             <Icon name="arrow" className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
+          <Link href="/events" className="text-base font-semibold text-white/90 underline-offset-4 hover:underline">Upcoming events</Link>
         </motion.div>
-        <motion.span aria-hidden initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1, ease }} className="mt-10 block h-[3px] w-40 origin-left -skew-x-12 bg-red" />
+        <motion.span aria-hidden initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1, ease }} className="mt-8 block h-[3px] w-40 origin-left -skew-x-12 bg-gold" />
       </motion.div>
 
       {nextEvent && (

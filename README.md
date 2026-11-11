@@ -4,7 +4,7 @@ Fan club website for **Namma RCB HQ Official**, an independent, RCB-recognised f
 
 > Independent fan club, not operated by Royal Challengers Sports Pvt. Ltd. Do not add RCB's official logo, crest, kit artwork or player photos without written permission.
 
-**Stack:** Next.js 15 (App Router, TypeScript) · Tailwind CSS 4 · GSAP + ScrollTrigger · Lenis · Framer Motion · React Three Fiber · Sanity Studio (`/studio`) · Instagram Graph API / Behold.so · Resend · Vercel.
+**Stack:** Next.js 15 (App Router, TypeScript) · Tailwind CSS 4 · GSAP + ScrollTrigger · Lenis · Framer Motion · Sanity Studio (`/studio`) · Instagram Graph API / Behold.so · Resend · Vercel.
 
 The site **runs without any keys**. With no Sanity project set, it shows built-in sample data from `src/content/seed.ts`, so you can preview and design before connecting anything.
 
@@ -27,7 +27,7 @@ Open http://localhost:3000.
 3. In **API → Tokens**, create:
    - a **Viewer** token → `SANITY_API_READ_TOKEN`
    - an **Editor** token → `SANITY_API_WRITE_TOKEN` (used only by the Instagram cron)
-4. Load the sample content (3 chapters, 6 team members, 8 events, FAQ, milestones):
+4. Load the sample content into the CMS, photos included (3 chapters, 12 team members, 16 events, albums, FAQ, milestones), so members start from a filled site and just edit it:
    ```bash
    npx sanity login
    npm run seed
@@ -57,17 +57,34 @@ Membership, contact and "start a chapter" forms use server actions and send emai
 
 In development, without keys, submissions are logged to the terminal instead.
 
-## 5. Deploy to Vercel
+## 5. Go live (hosting + your own domain)
 
-1. Push this repo to GitHub and import it at https://vercel.com/new.
-2. Add every variable from `.env.example` in **Project → Settings → Environment Variables**. Set `NEXT_PUBLIC_SITE_URL` to your real domain.
-3. Deploy. Vercel Analytics and the Cron job (`vercel.json`) turn on automatically.
-4. **Sanity webhook** (instant updates on publish): sanity.io/manage → API → Webhooks → Create
-   - URL: `https://YOUR-DOMAIN/api/revalidate`
-   - Trigger on: Create, Update, Delete · Filter: leave empty
-   - Projection: `{_type, "slug": slug.current}`
-   - HTTP method: POST · Secret: same value as `SANITY_REVALIDATE_SECRET`
-5. Add your domain to Sanity CORS origins.
+**Hosting: Vercel (free).**
+1. Sign up at https://vercel.com with the GitHub account that owns this repo.
+2. **Add New → Project → Import** `kumarkd69/RCB` → **Deploy**. You get a free address like `rcb-xyz.vercel.app`.
+3. **Settings → Environment Variables**: add the values from `.env.example` (Sanity, Instagram, Resend). Redeploy after adding them.
+4. Every push to `main` redeploys automatically. The Instagram cron (`vercel.json`) and Vercel Analytics turn on by themselves.
+
+**Custom domain (e.g. `nammarcbhq.in`).**
+1. Buy the domain at any registrar (GoDaddy, Hostinger, Namecheap, Cloudflare). A `.in` domain costs roughly ₹600–900 a year.
+2. Vercel → your project → **Settings → Domains** → type the domain → **Add**. Add `www.` too.
+3. At the registrar, open **DNS settings** and add the two records Vercel shows, usually:
+   - `A` record, name `@`, value `76.76.21.21`
+   - `CNAME` record, name `www`, value `cname.vercel-dns.com`
+4. Wait 10 minutes to a few hours. Vercel issues the HTTPS certificate on its own.
+5. Set `NEXT_PUBLIC_SITE_URL` to `https://your-domain` in Vercel and redeploy. Add the domain to Sanity → API → **CORS origins** so `/studio` works on it.
+
+**Email on your domain (optional).** Zoho Mail has a free plan for `hello@your-domain`. Add the MX records it gives you at the registrar. Use that address in Resend (`FORMS_FROM_EMAIL`) after verifying the domain there.
+
+## 6. Sanity webhook (instant updates on publish)
+
+sanity.io/manage → API → Webhooks → Create
+- URL: `https://YOUR-DOMAIN/api/revalidate`
+- Trigger on: Create, Update, Delete · Filter: leave empty
+- Projection: `{_type, "slug": slug.current}`
+- HTTP method: POST · Secret: same value as `SANITY_REVALIDATE_SECRET`
+
+Without the webhook, changes still appear within an hour.
 
 ## Project structure
 
@@ -82,7 +99,7 @@ src/
   actions/forms.ts       Server actions (Resend)
   components/
     layout/              Nav, footer, smooth scroll + reduced-motion provider, cursor
-    home/                Hero (3D), match-day strip, scroll story, Karnataka map…
+    home/                Hero video, match-day strip, what we do, Karnataka map…
     events/ gallery/ team/ about/ forms/ ui/
   content/seed.ts        Sample data (fallback + seed source)
   lib/                   Data layer, Sanity client/queries, Instagram, .ics, config
@@ -95,10 +112,9 @@ scripts/build-seed.ts    seed.ts → NDJSON for Sanity import
 - **Intro loader** — the crest rises in with a gold flare, a 0→100 counter runs, then red curtains split open. Once per browser session.
 - **Page transitions** — red and gold curtains sweep away on every navigation (`src/app/(site)/template.tsx`).
 - **Hero** — full-screen fan video (`public/media/fans-hero*.mp4`, poster `fans-hero.jpg`), separate square crop for phones.
-- **Trophy cabinet** — pinned section; the rotating trophy video (`public/media/trophy.mp4`) is blended with `mix-blend-mode: lighten` so its studio-black background disappears into the page. Steps through each title with a giant outlined year, ending on an IPL/WPL summary table. Titles are edited in Studio → Site settings → RCB trophy cabinet.
+- **Trophy cabinet** — one screen; the rotating trophy video (`public/media/trophy.mp4`) is blended with `mix-blend-mode: lighten` so its studio-black background disappears into the page. The highlighted title changes every few seconds; visitors can tap a year. Titles are edited in Studio → Site settings → RCB trophy cabinet.
 - To replace a video, overwrite the file in `public/media/` with the same name (H.264 MP4, no audio, `-movflags +faststart`).
-- **Glory moments** — horizontal pinned reel of winning photos/videos with clip-path reveals and parallax. Upload in Studio → Site settings → Glory moments.
-- **3D jersey** — the club's own fan jersey turns from front (crest) to back (#12, "the 12th man") as you scroll.
+- **Glory moments** (About page) — horizontal pinned reel of winning photos/videos with clip-path reveals and parallax. Upload in Studio → Site settings → Glory moments.
 - Headings slide up from behind a mask as they enter the screen.
 
 All of these switch to static versions for reduced-motion users.
@@ -110,16 +126,16 @@ All of these switch to static versions for reduced-motion users.
 Design pass guided by [unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky ([@heydamir](https://x.com/heydamir)), CC BY 4.0.
 
 - **Character:** loud, loyal, local. **World:** a night match at Chinnaswamy.
-- Warm dark neutral ramp (`--c-black`, `--c-ink`, `--c-raised`), three text roles (`text`, `muted`, `faint`), RCB red as the one accent. Gold appears only in the trophy cabinet.
+- RCB colours only: red `#EC1C24`, gold `#CBA135`, black and white (greys are steps of black). All set in `src/app/globals.css`.
 - Rich colour lives in two moments only: the fan video hero and the trophy video.
 - Signature: the slanted red stroke from the hero, used before every section label (`.eyebrow`).
 - No glows, gradient text, glass, grain, pulsing or hover tilt. Sentence-case labels, no trailing periods in headings.
 
 ## Performance & accessibility notes
 
-- The hero shows a poster image first (fast LCP); the video fades in over it. Reduced-motion users get the still poster. The 3D jersey is code-split and skipped on low-end devices.
+- The hero shows a poster image first (fast LCP); the video fades in over it. Reduced-motion users get the still poster.
 - The Karnataka map is 2.5D (SVG + CSS 3D), so it is light and keyboard/screen-reader friendly.
-- `prefers-reduced-motion` disables Lenis smooth scroll, parallax, pinned scroll, 3D, marquee and tilt.
+- `prefers-reduced-motion` disables Lenis smooth scroll, parallax, pinned scroll, the intro and page curtains.
 - Lightbox: arrow keys, Escape, swipe; focus returns to the opened photo.
 - Alt text is required on every image field in the CMS.
 - Event pages include `Event` JSON-LD, Open Graph metadata and `.ics` + Google Calendar links. Events move from Upcoming to Past automatically (pages revalidate hourly).

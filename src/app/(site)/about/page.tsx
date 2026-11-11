@@ -5,6 +5,8 @@ import Reveal from "@/components/ui/Reveal";
 import Timeline from "@/components/about/Timeline";
 import TeamCard from "@/components/team/TeamCard";
 import Recognition from "@/components/home/Recognition";
+import Pillars from "@/components/home/Pillars";
+import GloryReel from "@/components/glory/GloryReel";
 import { getChapters, getInitiatives, getMilestones, getSettings, getTeam } from "@/lib/data";
 import { isPlaceholder } from "@/lib/utils";
 
@@ -41,7 +43,14 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      <section aria-labelledby="activities" className="container-x py-16">
+        <SectionHeading eyebrow="What we do" title={<span id="activities">Six things we do every season</span>} />
+        <Pillars pillars={settings.pillars} />
+      </section>
+
       <Recognition r={settings.recognition} />
+
+      <GloryReel items={settings.glory} />
 
       <section aria-labelledby="core" className="container-x py-16">
         <SectionHeading eyebrow="Core team" title={<span id="core">The people who run it</span>} />

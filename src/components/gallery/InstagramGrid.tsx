@@ -7,7 +7,7 @@ import Media from "../ui/Media";
 import { Icon } from "../ui/Icon";
 
 /** Merged Instagram feed from all club handles, filterable by chapter. */
-export default function InstagramGrid({ posts, connected, limit = 12, filters = true }: { posts: InstaPost[]; connected: boolean; limit?: number; filters?: boolean }) {
+export default function InstagramGrid({ posts, limit = 12, filters = true, cols = 4 }: { posts: InstaPost[]; connected: boolean; limit?: number; filters?: boolean; cols?: 4 | 6 }) {
   const [acc, setAcc] = useState("all");
   const shown = useMemo(() => (acc === "all" ? posts : posts.filter((p) => p.account === acc)).slice(0, limit), [posts, acc, limit]);
   return (
@@ -19,7 +19,7 @@ export default function InstagramGrid({ posts, connected, limit = 12, filters = 
           </button>
         ))}
       </div>}
-      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+      <ul className={cn("grid gap-2 md:gap-3", cols === 6 ? "grid-cols-3 md:grid-cols-6" : "grid-cols-2 md:grid-cols-4")}>
         {shown.map((p, i) => {
           const src = p.mediaType === "VIDEO" ? p.thumbnailUrl : p.mediaUrl;
           return (
@@ -32,7 +32,7 @@ export default function InstagramGrid({ posts, connected, limit = 12, filters = 
                 ) : (
                   <Media img={null} seed={i} label={`@${p.handle}`} />
                 )}
-                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-3 opacity-100 transition md:opacity-0 md:group-hover:opacity-100">
+                <div className={cn("absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-3 transition-opacity md:opacity-0 md:group-hover:opacity-100", cols === 6 ? "opacity-0" : "opacity-100")}>
                   <span className="flex items-center gap-1.5 text-xs font-semibold"><Icon name="instagram" className="h-4 w-4 text-red" />@{p.handle}</span>
                   <span className="mt-1 line-clamp-2 text-xs text-white/80">{p.caption}</span>
                 </div>

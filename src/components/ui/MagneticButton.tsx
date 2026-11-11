@@ -14,7 +14,7 @@ type Props = {
 };
 
 const styles = {
-  red: "bg-red text-white hover:bg-[#b5141a]",
+  red: "bg-red text-white hover:bg-[#B5121B]",
   gold: "bg-gold text-black hover:bg-gold-soft",
   ghost: "border border-white/25 text-text hover:border-white hover:bg-white/5",
 };

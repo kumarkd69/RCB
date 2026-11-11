@@ -2,21 +2,21 @@
 
 /* ─── Design tokens ─────────────────────────────────── */
 :root {
-  /* warm-tinted dark ramp (stadium at night) */
-  --c-black: #100f0e;
-  --c-ink: #1a1816;
-  --c-raised: #24211e;
-  --c-red: #d71920;
-  --c-red-deep: #8e0f14;
-  --c-gold: #c9a227;
-  --c-gold-soft: #e5c96a;
-  --c-text: #efe9de;
-  --c-muted: #aaa398;
-  --c-faint: #8a847a;
-  --c-line: rgb(239 233 222 / 0.09);
+  /* RCB palette only: red, gold, black, white (greys are steps of black) */
+  --c-black: #000000;
+  --c-ink: #121212;
+  --c-raised: #1E1E1E;
+  --c-red: #EC1C24;
+  --c-red-deep: #B5121B;
+  --c-gold: #CBA135;
+  --c-gold-soft: #CBA135;
+  --c-text: #FFFFFF;
+  --c-muted: #B3B3B3;
+  --c-faint: #8C8C8C;
+  --c-line: rgb(255 255 255 / 0.1);
   --glass: rgb(20 20 20 / 0.55);
-  --glow-red: 0 0 40px rgb(215 25 32 / 0.45);
-  --glow-gold: 0 0 30px rgb(201 162 39 / 0.35);
+  --glow-red: 0 0 40px rgb(236 28 36 / 0.45);
+  --glow-gold: 0 0 30px rgb(203 161 53 / 0.35);
   --radius: 16px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }

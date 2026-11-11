@@ -24,8 +24,8 @@ export default async function JoinPage() {
         </section>
 
         <aside className="space-y-6">
-          <div className="rounded-[2rem] bg-gradient-to-br from-[#0f3d1f] to-black p-8">
-            <Icon name="whatsapp" className="h-10 w-10 text-[#25D366]" />
+          <div className="rounded-[var(--radius)] border border-line bg-ink p-8">
+            <Icon name="whatsapp" className="h-10 w-10 text-white" />
             <h2 className="display mt-3 text-3xl">WhatsApp community</h2>
             <p className="mt-2 text-muted">Match-day plans, ticket alerts and screening venues, straight to your phone.</p>
             <div className="mt-5">

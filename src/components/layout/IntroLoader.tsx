@@ -38,8 +38,8 @@ export default function IntroLoader() {
   if (gone) return null;
   return (
     <div ref={root} className="intro-loader fixed inset-0 z-[90]" aria-hidden>
-      <div data-top className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_100%,#3a0a0c,#0a0a0a_70%)]" />
-      <div data-bot className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_0%,#3a0a0c,#0a0a0a_70%)]" />
+      <div data-top className="absolute inset-x-0 top-0 h-1/2 bg-black" />
+      <div data-bot className="absolute inset-x-0 bottom-0 h-1/2 bg-black" />
       <div data-seam className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
         <div data-crest className="relative h-[38vh] max-h-80" style={{ aspectRatio: "0.68" }}>

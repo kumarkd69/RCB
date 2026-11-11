@@ -32,7 +32,7 @@ const SIZES: Record<string, [number, number]> = {
   "match-night": [1600, 900], roar: [1020, 630], stands: [1600, 900],
   "p-1": [600, 800], "p-2": [500, 667], "p-3": [480, 639], "p-4": [480, 639], "p-5": [480, 639], "p-6": [500, 667],
   "trophy-1": [800, 720], "trophy-2": [800, 720], "trophy-3": [800, 720], "trophy-4": [800, 720],
-  "recognition-sample": [1200, 1600],
+  "recognition-sample": [1200, 1600], "fan-flag": [546, 649],
 };
 const photo = (name: string, alt: string): Img => ({ src: `/media/dummy/${name}.jpg`, alt, width: SIZES[name][0], height: SIZES[name][1] });
 
@@ -52,6 +52,7 @@ const FAN_PHOTOS: [string, string][] = [
   ["match-night", "The stands full on match night"],
   ["floodlights-flag", "A flag in front of the stadium floodlights"],
   ["stands", "The packed stands before the first ball"],
+  ["fan-flag", "A fan in an RCB jersey waving a big red flag"],
 ];
 
 /* ── Site settings ────────────────────────────────────────────────────── */
@@ -68,12 +69,12 @@ export const settings: SiteSettings = {
     proof: photo("recognition-sample", "Sample recognition certificate for Namma RCB HQ Official"),
   },
   pillars: [
-    { title: "Match-day screenings", description: "Big screens, loud chants and a full house for every RCB game, IPL and WPL.", icon: "screen" },
-    { title: "Fan meets", description: "Quizzes, jersey swaps and stories from the stands, once a month in every chapter.", icon: "users" },
-    { title: "Away trips", description: "We book the buses and the blocks of seats so fans can back the team in other cities.", icon: "bus" },
-    { title: "Blood donation", description: "Four drives a year with partner blood banks in every chapter city.", icon: "drop" },
-    { title: "Social drives", description: "Tree planting, lake clean-ups and school kit donations through the off-season.", icon: "leaf" },
-    { title: "Grassroots cricket", description: "Free weekend clinics and a tape-ball tournament for under-14s.", icon: "star" },
+    { title: "Match-day screenings", frequency: "Every RCB match, IPL and WPL", description: "Big screens, loud chants and a full house in every chapter city. Free for members, open to all fans.", icon: "screen", image: photo("stadium-wide", "Fans waving red flags at a match-day screening") },
+    { title: "Fan meets", frequency: "Once a month", description: "Quizzes, jersey swaps and stories from the stands.", icon: "users", image: photo("fans-celebrate", "Two fans laughing at a fan meet") },
+    { title: "Away trips", frequency: "2–3 a season", description: "Buses and blocks of seats to back the team in other cities.", icon: "bus", image: photo("fan-flag", "A fan waving a flag in the away stand") },
+    { title: "Social drives", frequency: "Every quarter", description: "Blood donation, tree planting, lake clean-ups and school kits.", icon: "leaf", image: photo("smoke-fans", "Volunteers at a social drive") },
+    { title: "Blood donation", frequency: "4 drives a year", description: "Drives with partner blood banks in every chapter city.", icon: "drop", image: photo("crowd-right", "A donor cheering after giving blood") },
+    { title: "Grassroots cricket", frequency: "Weekends, off-season", description: "Free clinics and a tape-ball tournament for under-14s.", icon: "star", image: photo("scarf-fans", "Kids and coaches at a cricket clinic") },
   ],
   mission: "To unite RCB fans across Karnataka into one loud, kind and organised family that shows up for the team and for our cities.",
   vision: "A Namma RCB HQ chapter in every district of Karnataka, known as much for its service as for its chants.",
@@ -120,6 +121,10 @@ export const team: TeamMember[] = [
   { _id: "tm-6", name: "Prashanth Patil", role: "Hubballi Chapter Lead", photo: photo("p-5", "Prashanth Patil"), chapter: hub, isCore: false, order: 6, socials: { instagram: "nammarcbhq_hubballi" } },
   { _id: "tm-7", name: "Deepa Reddy", role: "Kolar Chapter Lead", photo: photo("p-2", "Deepa Reddy"), chapter: kol, isCore: false, order: 7, socials: { instagram: "nammarcbhq_kolar" } },
   { _id: "tm-8", name: "Santosh Kulkarni", role: "Belagavi Chapter Lead", photo: photo("p-1", "Santosh Kulkarni"), chapter: bel, isCore: false, order: 8, socials: {} },
+  { _id: "tm-9", name: "Vinay Shetty", role: "Treasurer", photo: photo("p-4", "Vinay Shetty"), chapter: null, isCore: true, order: 9, socials: {} },
+  { _id: "tm-10", name: "Pooja Desai", role: "Hubballi Events Coordinator", photo: photo("p-6", "Pooja Desai"), chapter: hub, isCore: false, order: 10, socials: {} },
+  { _id: "tm-11", name: "Arjun Naik", role: "Kolar Volunteer Lead", photo: photo("p-3", "Arjun Naik"), chapter: kol, isCore: false, order: 11, socials: {} },
+  { _id: "tm-12", name: "Meghana Joshi", role: "Belagavi Media Lead", photo: photo("p-2", "Meghana Joshi"), chapter: bel, isCore: false, order: 12, socials: {} },
 ];
 
 const leadOf = (id: string) => {
@@ -206,7 +211,7 @@ export const events: ClubEvent[] = [
   }),
   ev({
     _id: "ev-10", title: "Away trip: Chepauk", slug: "away-trip-chennai", date: at(-200, 6, 0), venue: "Chennai",
-    type: "awaytrip", league: "ipl", opponent: "Chennai", cover: "floodlight-tall", summary: "Two buses, one dream",
+    type: "awaytrip", league: "ipl", opponent: "Chennai", cover: "fan-flag", summary: "Two buses, one dream",
     recap: "Ninety fans made the trip and sang for four hours straight in the away block.",
     impactStats: [{ label: "Fans travelled", value: "90" }, { label: "Buses", value: "2" }],
   }),

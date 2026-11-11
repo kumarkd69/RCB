@@ -100,7 +100,7 @@ export type Album = {
   items: GalleryItem[];
 };
 
-export type Pillar = { title: string; description: string; icon: string };
+export type Pillar = { title: string; description: string; icon: string; image?: Img; frequency?: string };
 
 export type SiteSettings = {
   tagline: string;
@@ -119,6 +119,9 @@ export type SiteSettings = {
   highlights: { image: Img; videoUrl?: string; caption?: string }[];
   trophies: Trophy[];
   glory: GloryMoment[];
+  /** optional CMS overrides for the two videos */
+  heroVideoUrl?: string;
+  trophyVideoUrl?: string;
 };
 
 export type Trophy = { league: "IPL" | "WPL"; year: number; title?: string; note?: string };

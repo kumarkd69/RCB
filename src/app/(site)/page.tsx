@@ -1,28 +1,34 @@
+import Link from "next/link";
 import Hero from "@/components/home/Hero";
 import MatchDayStrip from "@/components/home/MatchDayStrip";
-import Stats from "@/components/home/Stats";
-import Recognition from "@/components/home/Recognition";
-import Pillars from "@/components/home/Pillars";
-import UpcomingCarousel from "@/components/home/UpcomingCarousel";
-import ChapterMap from "@/components/home/ChapterMap";
-import Highlights from "@/components/home/Highlights";
+import WhatWeDo from "@/components/home/WhatWeDo";
+import TrophyCabinet from "@/components/glory/TrophyCabinet";
+import EventCard from "@/components/events/EventCard";
 import InstagramGrid from "@/components/gallery/InstagramGrid";
 import JoinBanner from "@/components/home/JoinBanner";
-import TrophyCabinet from "@/components/glory/TrophyCabinet";
-import GloryReel from "@/components/glory/GloryReel";
-import JerseySection from "@/components/glory/JerseySection";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Reveal from "@/components/ui/Reveal";
-import MagneticButton from "@/components/ui/MagneticButton";
+import Media from "@/components/ui/Media";
+import { Icon } from "@/components/ui/Icon";
 import { getChapters, getEvents, getSettings, splitEvents } from "@/lib/data";
 import { getInstagramFeed } from "@/lib/instagram";
-import { isPlaceholder } from "@/lib/utils";
 import { site } from "@/lib/config";
 
 export const revalidate = 3600;
 
+function Head({ eyebrow, title, id, href, link }: { eyebrow: string; title: string; id: string; href?: string; link?: string }) {
+  return (
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p className="eyebrow mb-3">{eyebrow}</p>
+        <h2 id={id} className="display text-4xl md:text-5xl">{title}</h2>
+      </div>
+      {href && <Link href={href} className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:underline">{link}<Icon name="arrow" className="h-4 w-4" /></Link>}
+    </div>
+  );
+}
+
+/** Compact home: hero → what we do → upcoming → trophies → chapters → Instagram → join. */
 export default async function HomePage() {
-  const [settings, events, chapters, insta] = await Promise.all([getSettings(), getEvents(), getChapters(), getInstagramFeed(6)]);
+  const [settings, events, chapters, insta] = await Promise.all([getSettings(), getEvents(), getChapters(), getInstagramFeed(4)]);
   const { upcoming } = splitEvents(events);
   const nextScreening = upcoming.find((e) => e.type === "screening") ?? null;
 
@@ -39,69 +45,49 @@ export default async function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
-      <Hero nextEvent={upcoming[0] ?? null} />
+      <Hero nextEvent={upcoming[0] ?? null} videoUrl={settings.heroVideoUrl} />
       <MatchDayStrip screening={nextScreening} chapters={chapters} />
 
-      {/* Who we are */}
-      <section aria-labelledby="who" className="container-x py-24">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-end">
-          <SectionHeading eyebrow="Who we are" title={<span id="who">One city<br />One heartbeat</span>} className="mb-0" />
-          <Reveal delay={0.1}>
-            <p className="text-lg text-muted">{settings.intro}</p>
-            <div className="mt-6"><MagneticButton href="/about" variant="ghost">Our story</MagneticButton></div>
-          </Reveal>
-        </div>
-        <div className="mt-12"><Stats stats={settings.stats} /></div>
+      <WhatWeDo pillars={settings.pillars} stats={settings.stats} intro={settings.intro} />
+
+      <section aria-labelledby="upcoming" className="container-x pb-16 md:pb-20">
+        <Head eyebrow="Upcoming" title="Next events" id="upcoming" href="/events" link="All events" />
+        {upcoming.length ? (
+          <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0 lg:grid-cols-3">
+            {upcoming.slice(0, 3).map((e, i) => <li key={e._id} className={`w-[82%] shrink-0 snap-start sm:w-auto ${i === 2 ? "sm:hidden lg:block" : ""}`}><EventCard e={e} seed={i} /></li>)}
+          </ul>
+        ) : <p className="text-muted">No upcoming events yet</p>}
       </section>
 
-      <TrophyCabinet trophies={settings.trophies} />
+      <TrophyCabinet trophies={settings.trophies} videoUrl={settings.trophyVideoUrl} />
 
-      <GloryReel items={settings.glory} />
-
-      <JerseySection />
-
-      <Recognition r={settings.recognition} />
-
-      <section aria-labelledby="pillars" className="container-x py-16">
-        <SectionHeading eyebrow="What we do" title={<span id="pillars">Six things we do every season</span>} />
-        <Pillars pillars={settings.pillars} />
+      <section aria-labelledby="chapters" className="container-x py-16 md:py-20">
+        <Head eyebrow="Chapters" title="Find your chapter" id="chapters" href="/chapters" link="Chapter map" />
+        <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-4 [&>li]:w-[70%] [&>li]:shrink-0 [&>li]:snap-start sm:[&>li]:w-auto">
+          {chapters.map((c) => (
+            <li key={c._id}>
+              <Link href={`/chapters/${c.slug}`} className="group relative block aspect-[4/3] overflow-hidden rounded-[var(--radius)] border border-line">
+                <Media img={c.cover} label={c.name} sizes="(max-width:768px) 100vw, 25vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="display text-3xl transition-colors group-hover:text-gold">{c.name}</p>
+                  <p className="text-sm text-white/75">{c.memberCount ? `${c.memberCount.toLocaleString("en-IN")} members` : c.city} · {c.screeningVenue}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href="/chapters#start" className="flex aspect-[4/3] flex-col justify-end rounded-[var(--radius)] border border-dashed border-white/25 p-4 transition-colors hover:border-gold">
+              <p className="display text-3xl">Your city?</p>
+              <p className="text-sm text-muted">Start a chapter with us</p>
+            </Link>
+          </li>
+        </ul>
       </section>
 
-      <section aria-labelledby="upcoming" className="container-x py-24">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Upcoming" title={<span id="upcoming">Coming up</span>} />
-          <div className="mb-10"><MagneticButton href="/events" variant="ghost" size="sm">All events</MagneticButton></div>
-        </div>
-        <UpcomingCarousel events={upcoming.slice(0, 3)} />
-      </section>
-
-      <section aria-labelledby="chapters" className="relative overflow-hidden py-24">
-        <div className="container-x">
-          <SectionHeading eyebrow="Chapters" title={<span id="chapters">Chapters across Karnataka</span>} kicker="Tap a pin to see a chapter" />
-          <ChapterMap chapters={chapters} />
-        </div>
-      </section>
-
-      <section aria-labelledby="highlights" className="py-24">
-        <div className="container-x"><SectionHeading eyebrow="Highlights" title={<span id="highlights">From our screenings and drives</span>} /></div>
-        <Highlights items={settings.highlights} />
-      </section>
-
-      <section aria-labelledby="insta" className="container-x py-24">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Live from Instagram" title={<span id="insta">Fresh from the stands</span>} />
-          <div className="mb-10"><MagneticButton href="/gallery#instagram" variant="ghost" size="sm">Full gallery</MagneticButton></div>
-        </div>
-        <InstagramGrid posts={insta.posts} connected={insta.connected} limit={8} />
-      </section>
-
-      <section aria-labelledby="vision" className="relative py-32">
-        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,162,39,.12),transparent_60%)]" />
-        <div className="container-x relative text-center">
-          <p className="eyebrow mb-4">Our vision</p>
-          <Reveal><h2 id="vision" className="display mx-auto max-w-5xl text-[clamp(2.2rem,6vw,5rem)] leading-[1.02]">&ldquo;{settings.vision}&rdquo;</h2></Reveal>
-          <Reveal delay={0.15}><p className="mx-auto mt-6 max-w-2xl text-lg text-muted">{settings.mission}</p></Reveal>
-        </div>
+      <section aria-labelledby="insta" className="container-x pb-16 md:pb-20">
+        <Head eyebrow="Instagram" title="Fresh from the stands" id="insta" href="/gallery#instagram" link="Full gallery" />
+        <InstagramGrid posts={insta.posts} connected={insta.connected} limit={6} filters={false} cols={6} />
       </section>
 
       <JoinBanner whatsapp={settings.whatsappLink} />

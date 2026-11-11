@@ -9,7 +9,7 @@ export default function Recognition({ r }: { r: SiteSettings["recognition"] }) {
     <section aria-labelledby="recognition" className="container-x py-24">
       <div className="glass relative grid items-center gap-10 overflow-hidden rounded-[2rem] p-8 md:grid-cols-[1fr_1.2fr] md:p-14">
         <Reveal className="relative mx-auto aspect-[3/4] w-full max-w-xs [perspective:1000px]">
-          <div className="relative h-full w-full rotate-[-4deg] overflow-hidden rounded-2xl border border-gold/40 bg-[#f6f0e0] shadow-[0_30px_60px_-30px_rgba(0,0,0,.9)] transition-transform duration-700 hover:rotate-0">
+          <div className="relative h-full w-full rotate-[-4deg] overflow-hidden rounded-2xl border border-gold/40 bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,.9)] transition-transform duration-700 hover:rotate-0">
             {r.proof?.src ? (
               <Image src={r.proof.src} alt={r.proof.alt} fill className="object-cover" sizes="320px" />
             ) : (

@@ -33,24 +33,24 @@ export default function ChapterMap({ chapters }: { chapters: Chapter[] }) {
           <svg viewBox={`0 0 ${KA_VIEWBOX.w} ${KA_VIEWBOX.h}`} className="absolute inset-0 h-full w-full overflow-visible" role="img" aria-label="Map of Karnataka with Namma RCB HQ chapters">
             <defs>
               <linearGradient id="ka-top" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#2a0709" />
-                <stop offset="1" stopColor="#140304" />
+                <stop offset="0" stopColor="#2B2B2B" />
+                <stop offset="1" stopColor="#141414" />
               </linearGradient>
               <pattern id="ka-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M40 0H0V40" fill="none" stroke="rgba(201,162,39,.12)" strokeWidth="1" />
+                <path d="M40 0H0V40" fill="none" stroke="rgba(203,161,53,.12)" strokeWidth="1" />
               </pattern>
             </defs>
             {/* extrusion: stacked offset copies */}
             {layers.map((o, i) => (
-              <path key={o} d={KA_PATH} transform={`translate(0 ${o})`} fill={i === 0 ? "#050101" : "#1a0405"} stroke="#3d0a0d" strokeWidth="2" />
+              <path key={o} d={KA_PATH} transform={`translate(0 ${o})`} fill={i === 0 ? "#000000" : "#141414"} stroke="#2B2B2B" strokeWidth="2" />
             ))}
-            <path d={KA_PATH} fill="url(#ka-top)" stroke="#d71920" strokeWidth="2.5" />
+            <path d={KA_PATH} fill="url(#ka-top)" stroke="#EC1C24" strokeWidth="2.5" />
             <path d={KA_PATH} fill="url(#ka-grid)" />
 
             {/* HQ pin */}
             <g transform={`translate(${hq.x} ${hq.y})`}>
-              <circle r="14" fill="#c9a227" />
-              <text x="24" y="8" fill="#e5c96a" fontSize="38" fontFamily="var(--font-anton)">HQ</text>
+              <circle r="14" fill="#CBA135" />
+              <text x="24" y="8" fill="#CBA135" fontSize="38" fontFamily="var(--font-anton)">HQ</text>
             </g>
           </svg>
 

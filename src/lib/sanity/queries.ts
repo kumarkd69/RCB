@@ -7,7 +7,7 @@ const chapterRef = `chapter->{ name, "slug": slug.current, city }`;
 export const settingsQuery = groq`*[_id == "siteSettings"][0]{
   tagline, intro, ${img("logo")}, stats,
   recognition{ title, note, ${img("badge")}, ${img("proof")}, "proofFileUrl": proofFile.asset->url },
-  pillars[]{ title, description, icon }, mission, vision, values, story, whatsappLink, contactEmail, contactPhone,
+  pillars[]{ title, description, icon, frequency, ${img("image")} }, "heroVideoUrl": heroVideo.asset->url, "trophyVideoUrl": trophyVideo.asset->url, mission, vision, values, story, whatsappLink, contactEmail, contactPhone,
   highlights[]{ ${img("image")}, videoUrl, caption },
   trophies[]{ league, year, title, note },
   glory[]{ title, year, league, ${img("image")}, "videoUrl": coalesce(video.asset->url, videoUrl) }
